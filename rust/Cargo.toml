@@ -1,0 +1,16 @@
+[package]
+name = "nostr_sdk"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+anyhow = "1.0"
+flutter_rust_bridge = "=2.6.0"
+nostr-sdk  = { version = "0.37", default-features = false, features = ["all-nips"] }
+
+[build-dependencies]
+flutter_rust_bridge_codegen = "=2.6.0"
