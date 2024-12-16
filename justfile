@@ -7,6 +7,12 @@ default:
 build:
     cd rust && cargo build
 
+precommit:
+    @bash contrib/scripts/precommit.sh
+
+check:
+    @bash contrib/scripts/check.sh
+
 clean:
     flutter clean
     cd example && flutter clean
