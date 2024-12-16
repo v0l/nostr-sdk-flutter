@@ -21,14 +21,28 @@ impl _Client {
         }
     }
 
+    /// Add relay
+    ///
+    /// Relays added with this method will have both `READ` and `WRITE` flags enabled.
+    ///
+    /// If the relay already exists, the flags will be updated and `false` returned.
+    ///
+    /// If are set pool subscriptions, the new added relay will inherit them.
+    ///
+    /// Connection is **NOT** automatically started with relay, remember to call `connect` method!
     pub async fn add_relay(&self, url: &str) -> Result<bool> {
         Ok(self.inner.add_relay(url).await?)
     }
 
+    /// Connect to all added relays
     pub async fn connect(&self) {
         self.inner.connect().await
     }
 
+    /// Send event
+    ///
+    /// Send `Event` to all relays with `WRITE` flag.
+    /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
     pub async fn send_event(&self, event: _Event) -> Result<String> {
         let output = self.inner.send_event(event.inner).await?;
         Ok(output.id().to_string())

@@ -11,6 +11,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SecretKey>>
 abstract class SecretKey implements RustOpaqueInterface {
+  /// Parse from bytes
   static SecretKey fromSlice({required List<int> secretKey}) =>
       NostrSdk.instance.api
           .crateApiProtocolKeySecretKeySecretKeyFromSlice(secretKey: secretKey);
@@ -25,7 +26,9 @@ abstract class SecretKey implements RustOpaqueInterface {
   static SecretKey parse({required String secretKey}) => NostrSdk.instance.api
       .crateApiProtocolKeySecretKeySecretKeyParse(secretKey: secretKey);
 
+  /// Serialize to bech32
   String toBech32();
 
+  /// Serialize to hex
   String toSecretHex();
 }

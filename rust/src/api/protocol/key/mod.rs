@@ -12,6 +12,7 @@ pub mod secret_key;
 use self::public_key::_PublicKey;
 use self::secret_key::_SecretKey;
 
+/// Keys
 #[frb(name = "Keys")]
 pub struct _Keys {
     inner: Keys,
@@ -19,6 +20,7 @@ pub struct _Keys {
 
 #[frb(sync)]
 impl _Keys {
+    /// Construct keys from secret key
     pub fn new(secret_key: _SecretKey) -> Self {
         Self {
             inner: Keys::new(secret_key.into()),
@@ -27,7 +29,7 @@ impl _Keys {
 
     /// Generate random keys
     ///
-    /// This constructor use a random number generator that retrieves randomness from the operating system.
+    /// This constructor uses a random number generator that retrieves randomness from the operating system.
     pub fn generate() -> Self {
         Self {
             inner: Keys::generate(),
@@ -41,10 +43,12 @@ impl _Keys {
         })
     }
 
+    /// Get public key
     pub fn public_key(&self) -> _PublicKey {
         self.inner.public_key().into()
     }
 
+    /// Get secret key
     pub fn secret_key(&self) -> _SecretKey {
         self.inner.secret_key().clone().into()
     }

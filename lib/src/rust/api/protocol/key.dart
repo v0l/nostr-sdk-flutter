@@ -12,10 +12,11 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 abstract class Keys implements RustOpaqueInterface {
   /// Generate random keys
   ///
-  /// This constructor use a random number generator that retrieves randomness from the operating system.
+  /// This constructor uses a random number generator that retrieves randomness from the operating system.
   static Keys generate() =>
       NostrSdk.instance.api.crateApiProtocolKeyKeysGenerate();
 
+  /// Construct keys from secret key
   factory Keys({required SecretKey secretKey}) =>
       NostrSdk.instance.api.crateApiProtocolKeyKeysNew(secretKey: secretKey);
 
@@ -23,7 +24,9 @@ abstract class Keys implements RustOpaqueInterface {
   static Keys parse({required String secretKey}) =>
       NostrSdk.instance.api.crateApiProtocolKeyKeysParse(secretKey: secretKey);
 
+  /// Get public key
   PublicKey publicKey();
 
+  /// Get secret key
   SecretKey secretKey();
 }

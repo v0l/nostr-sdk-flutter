@@ -2127,13 +2127,27 @@ class ClientImpl extends RustOpaque implements Client {
         NostrSdk.instance.api.rust_arc_decrement_strong_count_ClientPtr,
   );
 
+  /// Add relay
+  ///
+  /// Relays added with this method will have both `READ` and `WRITE` flags enabled.
+  ///
+  /// If the relay already exists, the flags will be updated and `false` returned.
+  ///
+  /// If are set pool subscriptions, the new added relay will inherit them.
+  ///
+  /// Connection is **NOT** automatically started with relay, remember to call `connect` method!
   Future<bool> addRelay({required String url}) =>
       NostrSdk.instance.api.crateApiClientClientAddRelay(that: this, url: url);
 
+  /// Connect to all added relays
   Future<void> connect() => NostrSdk.instance.api.crateApiClientClientConnect(
         that: this,
       );
 
+  /// Send event
+  ///
+  /// Send `Event` to all relays with `WRITE` flag.
+  /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
   Future<String> sendEvent({required Event event}) => NostrSdk.instance.api
       .crateApiClientClientSendEvent(that: this, event: event);
 }
@@ -2157,10 +2171,12 @@ class EventImpl extends RustOpaque implements Event {
         NostrSdk.instance.api.rust_arc_decrement_strong_count_EventPtr,
   );
 
+  /// Serialize as JSON
   String asJson() => NostrSdk.instance.api.crateApiProtocolEventEventAsJson(
         that: this,
       );
 
+  /// Serialize as pretty JSON
   String asPrettyJson() =>
       NostrSdk.instance.api.crateApiProtocolEventEventAsPrettyJson(
         that: this,
@@ -2171,15 +2187,18 @@ class EventImpl extends RustOpaque implements Event {
         that: this,
       );
 
+  /// Get event content
   String content() => NostrSdk.instance.api.crateApiProtocolEventEventContent(
         that: this,
       );
 
+  /// Get UNIX timestamp
   BigInt createdAt() =>
       NostrSdk.instance.api.crateApiProtocolEventEventCreatedAt(
         that: this,
       );
 
+  /// Get event ID
   String id() => NostrSdk.instance.api.crateApiProtocolEventEventId(
         that: this,
       );
@@ -2200,30 +2219,33 @@ class EventImpl extends RustOpaque implements Event {
         that: this,
       );
 
+  /// Get event kind
   int kind() => NostrSdk.instance.api.crateApiProtocolEventEventKind(
         that: this,
       );
 
+  /// Get event signature
   String signature() =>
       NostrSdk.instance.api.crateApiProtocolEventEventSignature(
         that: this,
       );
 
+  /// Get event tags
   List<Tag> tags() => NostrSdk.instance.api.crateApiProtocolEventEventTags(
         that: this,
       );
 
-  /// Verify both `EventId` and `Signature`
+  /// Verify both the event ID and the signature
   void verify() => NostrSdk.instance.api.crateApiProtocolEventEventVerify(
         that: this,
       );
 
-  /// Verify if the `EventId` it's composed correctly
+  /// Verify if the event ID it's composed correctly
   bool verifyId() => NostrSdk.instance.api.crateApiProtocolEventEventVerifyId(
         that: this,
       );
 
-  /// Verify only event `Signature`
+  /// Verify only the event signature
   bool verifySignature() =>
       NostrSdk.instance.api.crateApiProtocolEventEventVerifySignature(
         that: this,
@@ -2249,11 +2271,13 @@ class KeysImpl extends RustOpaque implements Keys {
         NostrSdk.instance.api.rust_arc_decrement_strong_count_KeysPtr,
   );
 
+  /// Get public key
   PublicKey publicKey() =>
       NostrSdk.instance.api.crateApiProtocolKeyKeysPublicKey(
         that: this,
       );
 
+  /// Get secret key
   SecretKey secretKey() =>
       NostrSdk.instance.api.crateApiProtocolKeyKeysSecretKey(
         that: this,
@@ -2279,16 +2303,19 @@ class PublicKeyImpl extends RustOpaque implements PublicKey {
         NostrSdk.instance.api.rust_arc_decrement_strong_count_PublicKeyPtr,
   );
 
+  /// Serialize to bech32
   String toBech32() =>
       NostrSdk.instance.api.crateApiProtocolKeyPublicKeyPublicKeyToBech32(
         that: this,
       );
 
+  /// Serialize to hex
   String toHex() =>
       NostrSdk.instance.api.crateApiProtocolKeyPublicKeyPublicKeyToHex(
         that: this,
       );
 
+  /// Serialize as nostr URI
   String toNostrUri() =>
       NostrSdk.instance.api.crateApiProtocolKeyPublicKeyPublicKeyToNostrUri(
         that: this,
@@ -2314,11 +2341,13 @@ class SecretKeyImpl extends RustOpaque implements SecretKey {
         NostrSdk.instance.api.rust_arc_decrement_strong_count_SecretKeyPtr,
   );
 
+  /// Serialize to bech32
   String toBech32() =>
       NostrSdk.instance.api.crateApiProtocolKeySecretKeySecretKeyToBech32(
         that: this,
       );
 
+  /// Serialize to hex
   String toSecretHex() =>
       NostrSdk.instance.api.crateApiProtocolKeySecretKeySecretKeyToSecretHex(
         that: this,

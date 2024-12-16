@@ -6,6 +6,7 @@ use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
+/// Secret key
 #[frb(name = "SecretKey")]
 pub struct _SecretKey {
     inner: SecretKey,
@@ -41,20 +42,24 @@ impl _SecretKey {
         })
     }
 
+    /// Parse from bytes
     pub fn from_slice(secret_key: &[u8]) -> Result<Self> {
         Ok(Self {
             inner: SecretKey::from_slice(secret_key)?,
         })
     }
 
+    /// Serialize to hex
     pub fn to_secret_hex(&self) -> String {
         self.inner.to_secret_hex()
     }
 
+    /// Serialize to bech32
     pub fn to_bech32(&self) -> Result<String> {
         Ok(self.inner.to_bech32()?)
     }
 
+    /// Serialize to bytes
     pub fn to_secret_bytes(&self) -> [u8; SecretKey::LEN] {
         self.inner.to_secret_bytes()
     }

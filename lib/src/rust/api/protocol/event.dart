@@ -10,20 +10,26 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Event>>
 abstract class Event implements RustOpaqueInterface {
+  /// Serialize as JSON
   String asJson();
 
+  /// Serialize as pretty JSON
   String asPrettyJson();
 
   /// Get event author (`pubkey` field)
   PublicKey author();
 
+  /// Get event content
   String content();
 
+  /// Get UNIX timestamp
   BigInt createdAt();
 
+  /// Deserialize from JSON
   static Event fromJson({required String json}) =>
       NostrSdk.instance.api.crateApiProtocolEventEventFromJson(json: json);
 
+  /// Get event ID
   String id();
 
   /// Returns `true` if the event has an expiration tag that is expired.
@@ -37,18 +43,21 @@ abstract class Event implements RustOpaqueInterface {
   /// <https://github.com/nostr-protocol/nips/blob/master/70.md>
   bool isProtected();
 
+  /// Get event kind
   int kind();
 
+  /// Get event signature
   String signature();
 
+  /// Get event tags
   List<Tag> tags();
 
-  /// Verify both `EventId` and `Signature`
+  /// Verify both the event ID and the signature
   void verify();
 
-  /// Verify if the `EventId` it's composed correctly
+  /// Verify if the event ID it's composed correctly
   bool verifyId();
 
-  /// Verify only event `Signature`
+  /// Verify only the event signature
   bool verifySignature();
 }
