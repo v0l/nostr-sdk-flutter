@@ -22,4 +22,4 @@ Look at <https://github.com/rust-nostr/nostr/tree/master/crates/nostr#supported-
 
 ## License
 
-This project is distributed under the MIT software license - see the [LICENSE](https://rust-nostr.org/license) file for details
+This project is distributed under the MIT software license - see the [LICENSE](LICENSE) file for details
