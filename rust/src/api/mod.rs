@@ -6,6 +6,7 @@ use flutter_rust_bridge::frb;
 
 pub mod client;
 pub mod protocol;
+pub mod relay;
 
 #[frb(init)]
 pub fn init_app() {

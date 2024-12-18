@@ -35,6 +35,8 @@
 
 ### Added
 
+* Expose `ConnectionMode` ([Yuki Kishimoto])
+
 ### Fixed
 
 ### Removed
