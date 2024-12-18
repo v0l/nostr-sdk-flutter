@@ -10,6 +10,8 @@ use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::{self, *};
 
+use super::event::_Event;
+use super::event::unsigned::_UnsignedEvent;
 use super::key::_Keys;
 use super::key::public_key::_PublicKey;
 
@@ -99,14 +101,10 @@ impl _NostrSigner {
         Ok(self.inner.get_public_key().await?.into())
     }
 
-    // /// Sign event
-    // pub async fn sign_event(&self, unsigned_event: &_UnsignedEvent) -> Result<Event> {
-    //     Ok(self
-    //         .inner
-    //         .sign_event(unsigned_event.deref().clone())
-    //         .await?
-    //         .into())
-    // }
+    /// Sign event
+    pub async fn sign_event(&self, unsigned_event: _UnsignedEvent) -> Result<_Event> {
+        Ok(self.inner.sign_event(unsigned_event.inner).await?.into())
+    }
 
     /// Encrypt
     pub async fn nip04_encrypt(&self, public_key: &_PublicKey, content: &str) -> Result<String> {

@@ -8,6 +8,7 @@ use crate::api::client::builder::*;
 use crate::api::client::options::*;
 use crate::api::client::*;
 use crate::api::protocol::event::tag::*;
+use crate::api::protocol::event::unsigned::*;
 use crate::api::protocol::event::*;
 use crate::api::protocol::key::public_key::*;
 use crate::api::protocol::key::secret_key::*;
@@ -165,4 +166,18 @@ pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generat
     MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Tag>>::decrement_strong_count(
         ptr as _,
     );
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnsignedEvent>>::increment_strong_count(ptr as _);
+}
+
+#[wasm_bindgen]
+pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnsignedEvent>>::decrement_strong_count(ptr as _);
 }

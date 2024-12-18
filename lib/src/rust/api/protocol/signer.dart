@@ -4,6 +4,8 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../frb_generated.dart';
+import 'event.dart';
+import 'event/unsigned.dart';
 import 'key.dart';
 import 'key/public_key.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
@@ -39,6 +41,9 @@ abstract class NostrSigner implements RustOpaqueInterface {
   /// Encrypt
   Future<String> nip44Encrypt(
       {required PublicKey publicKey, required String content});
+
+  /// Sign event
+  Future<Event> signEvent({required UnsignedEvent unsignedEvent});
 }
 
 @freezed

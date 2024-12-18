@@ -7,6 +7,7 @@ use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
 pub mod tag;
+pub mod unsigned;
 
 use self::tag::_Tag;
 use super::key::public_key::_PublicKey;
@@ -15,6 +16,12 @@ use super::key::public_key::_PublicKey;
 #[frb(name = "Event")]
 pub struct _Event {
     pub(crate) inner: Event,
+}
+
+impl From<Event> for _Event {
+    fn from(inner: Event) -> Self {
+        Self { inner }
+    }
 }
 
 #[frb(sync)]
