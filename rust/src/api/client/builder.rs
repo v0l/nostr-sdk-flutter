@@ -2,8 +2,8 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
-use nostr_sdk::prelude::*;
 use flutter_rust_bridge::frb;
+use nostr_sdk::prelude::*;
 
 use super::_Client;
 use super::options::_ClientOptions;
@@ -34,13 +34,13 @@ impl _ClientBuilder {
     //     builder.inner = builder.inner.signer(signer.deref().clone());
     //     builder
     // }
-    // 
+    //
     // pub fn zapper(&self, zapper: &NostrZapper) -> Self {
     //     let mut builder = self.clone();
     //     builder.inner = builder.inner.zapper(zapper.deref().clone());
     //     builder
     // }
-    // 
+    //
     // pub fn database(&self, database: &NostrDatabase) -> Self {
     //     let mut builder = self.clone();
     //     builder.inner = builder.inner.database(database.deref().clone());

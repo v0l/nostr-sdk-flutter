@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final keys = Keys.generate();
     final publicKeyHex = keys.publicKey().toHex();
-    print(publicKeyHex);
 
     return MaterialApp(
       home: Scaffold(

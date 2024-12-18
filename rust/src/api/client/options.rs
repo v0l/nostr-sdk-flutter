@@ -90,7 +90,7 @@ impl _ClientOptions {
     //     builder.inner = builder.inner.relay_limits(limits.deref().clone());
     //     builder
     // }
-    // 
+    //
     // /// Set max latency (default: None)
     // ///
     // /// Relays with an avg. latency greater that this value will be skipped.
@@ -99,7 +99,7 @@ impl _ClientOptions {
     //     builder.inner = builder.inner.max_avg_latency(max);
     //     builder
     // }
-    // 
+    //
     // /// Set filtering mode (default: blacklist)
     // pub fn filtering_mode(&self, mode: RelayFilteringMode) -> Self {
     //     let mut builder = self.clone();
