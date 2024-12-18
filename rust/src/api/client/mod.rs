@@ -7,12 +7,20 @@ use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
 pub mod options;
+pub mod builder;
 
+use self::builder::_ClientBuilder;
 use super::protocol::event::_Event;
 
 #[frb(name = "Client")]
 pub struct _Client {
     inner: Client,
+}
+
+impl From<Client> for _Client {
+    fn from(inner: Client) -> Self {
+        Self { inner }
+    }
 }
 
 impl _Client {
@@ -21,6 +29,12 @@ impl _Client {
         Self {
             inner: Client::default(),
         }
+    }
+
+    /// New client builder
+    #[frb(sync)]
+    pub fn builder() -> _ClientBuilder {
+        _ClientBuilder::new()
     }
 
     /// Add relay

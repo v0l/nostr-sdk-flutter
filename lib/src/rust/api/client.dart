@@ -4,8 +4,11 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../frb_generated.dart';
+import 'client/builder.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
+
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Client>>
 abstract class Client implements RustOpaqueInterface {
@@ -19,6 +22,10 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// Connection is **NOT** automatically started with relay, remember to call `connect` method!
   Future<bool> addRelay({required String url});
+
+  /// New client builder
+  static ClientBuilder builder() =>
+      NostrSdk.instance.api.crateApiClientClientBuilder();
 
   /// Connect to all added relays
   Future<void> connect();

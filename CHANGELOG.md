@@ -37,6 +37,7 @@
 
 * Expose `ConnectionMode` ([Yuki Kishimoto])
 * Expose `ClientOptions` ([Yuki Kishimoto])
+* Expose `ClientBuilder` ([Yuki Kishimoto])
 
 ### Fixed
 

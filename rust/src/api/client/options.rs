@@ -12,7 +12,7 @@ use crate::api::relay::options::_ConnectionMode;
 
 #[frb(name = "ClientOptions")]
 pub struct _ClientOptions {
-    inner: Options,
+    pub(super) inner: Options,
 }
 
 impl Deref for _ClientOptions {
