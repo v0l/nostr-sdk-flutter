@@ -9,3 +9,4 @@ export 'src/rust/api/protocol/key/public_key.dart';
 export 'src/rust/api/protocol/key/secret_key.dart';
 export 'src/rust/api/relay/options.dart';
 export 'src/rust/api/client.dart';
+export 'src/rust/api/client/options.dart';

@@ -6,6 +6,8 @@ use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
+pub mod options;
+
 use super::protocol::event::_Event;
 
 #[frb(name = "Client")]

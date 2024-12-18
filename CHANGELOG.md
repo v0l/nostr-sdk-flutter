@@ -36,6 +36,7 @@
 ### Added
 
 * Expose `ConnectionMode` ([Yuki Kishimoto])
+* Expose `ClientOptions` ([Yuki Kishimoto])
 
 ### Fixed
 
