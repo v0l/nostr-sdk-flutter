@@ -2,6 +2,8 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
+use std::ops::Deref;
+
 use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
@@ -10,6 +12,14 @@ use nostr_sdk::prelude::*;
 #[frb(name = "PublicKey")]
 pub struct _PublicKey {
     inner: PublicKey,
+}
+
+impl Deref for _PublicKey {
+    type Target = PublicKey;
+
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
 }
 
 impl From<PublicKey> for _PublicKey {

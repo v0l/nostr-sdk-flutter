@@ -14,6 +14,7 @@ import 'api/protocol/event/tag.dart';
 import 'api/protocol/key.dart';
 import 'api/protocol/key/public_key.dart';
 import 'api/protocol/key/secret_key.dart';
+import 'api/protocol/signer.dart';
 import 'api/relay/options.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -47,6 +48,10 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_KeysPtr => wire
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys;
+
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_NostrSignerPtr => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_PublicKeyPtr =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey;
@@ -88,6 +93,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Keys
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
+          dynamic raw);
+
+  @protected
+  NostrSigner
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
           dynamic raw);
 
   @protected
@@ -135,6 +145,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           dynamic raw);
 
   @protected
+  NostrSigner
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          dynamic raw);
+
+  @protected
   PublicKey
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
           dynamic raw);
@@ -176,6 +191,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Keys
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
+          dynamic raw);
+
+  @protected
+  NostrSigner
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
           dynamic raw);
 
   @protected
@@ -228,6 +248,9 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   String? dco_decode_opt_String(dynamic raw);
 
   @protected
+  SignerBackend dco_decode_signer_backend(dynamic raw);
+
+  @protected
   int dco_decode_u_16(dynamic raw);
 
   @protected
@@ -276,6 +299,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  NostrSigner
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          SseDeserializer deserializer);
+
+  @protected
   PublicKey
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
           SseDeserializer deserializer);
@@ -320,6 +348,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  NostrSigner
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          SseDeserializer deserializer);
+
+  @protected
   PublicKey
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
           SseDeserializer deserializer);
@@ -361,6 +394,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   Keys
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
+          SseDeserializer deserializer);
+
+  @protected
+  NostrSigner
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
           SseDeserializer deserializer);
 
   @protected
@@ -414,6 +452,9 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
+  SignerBackend sse_decode_signer_backend(SseDeserializer deserializer);
+
+  @protected
   int sse_decode_u_16(SseDeserializer deserializer);
 
   @protected
@@ -464,6 +505,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          NostrSigner self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
           PublicKey self, SseSerializer serializer);
 
@@ -509,6 +555,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          NostrSigner self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
           PublicKey self, SseSerializer serializer);
 
@@ -551,6 +602,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
           Keys self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          NostrSigner self, SseSerializer serializer);
 
   @protected
   void
@@ -605,6 +661,9 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_signer_backend(SignerBackend self, SseSerializer serializer);
 
   @protected
   void sse_encode_u_16(int self, SseSerializer serializer);
@@ -699,6 +758,18 @@ class NostrSdkWire implements BaseWire {
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
               ptr);
 
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          int ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          int ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+              ptr);
+
   void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
           int ptr) =>
       wasmModule
@@ -788,6 +859,14 @@ extension type NostrSdkWasmModule._(JSObject _) implements JSObject {
 
   external void
       rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
+          int ptr);
+
+  external void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+          int ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
           int ptr);
 
   external void

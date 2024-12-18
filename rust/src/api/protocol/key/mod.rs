@@ -15,7 +15,7 @@ use self::secret_key::_SecretKey;
 /// Keys
 #[frb(name = "Keys")]
 pub struct _Keys {
-    inner: Keys,
+    pub(crate) inner: Keys,
 }
 
 #[frb(sync)]

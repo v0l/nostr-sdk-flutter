@@ -7,6 +7,7 @@ use nostr_sdk::prelude::*;
 
 use super::_Client;
 use super::options::_ClientOptions;
+use crate::api::protocol::signer::_NostrSigner;
 
 #[derive(Clone)]
 #[frb(name = "ClientBuilder")]
@@ -29,12 +30,13 @@ impl _ClientBuilder {
         }
     }
 
-    // pub fn signer(&self, signer: &NostrSigner) -> Self {
-    //     let mut builder = self.clone();
-    //     builder.inner = builder.inner.signer(signer.deref().clone());
-    //     builder
-    // }
-    //
+    /// Set signer
+    pub fn signer(&self, signer: _NostrSigner) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.signer(signer.inner);
+        builder
+    }
+
     // pub fn zapper(&self, zapper: &NostrZapper) -> Self {
     //     let mut builder = self.clone();
     //     builder.inner = builder.inner.zapper(zapper.deref().clone());

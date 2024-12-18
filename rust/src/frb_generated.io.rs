@@ -12,6 +12,7 @@ use crate::api::protocol::event::*;
 use crate::api::protocol::key::public_key::*;
 use crate::api::protocol::key::secret_key::*;
 use crate::api::protocol::key::*;
+use crate::api::protocol::signer::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -102,6 +103,20 @@ pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_fl
     ptr: *const std::ffi::c_void,
 ) {
     MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Keys>>::decrement_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_NostrSigner>>::increment_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_NostrSigner>>::decrement_strong_count(ptr as _);
 }
 
 #[no_mangle]

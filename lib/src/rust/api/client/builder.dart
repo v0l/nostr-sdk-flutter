@@ -5,6 +5,7 @@
 
 import '../../frb_generated.dart';
 import '../client.dart';
+import '../protocol/signer.dart';
 import 'options.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
@@ -21,4 +22,7 @@ abstract class ClientBuilder implements RustOpaqueInterface {
 
   /// Set opts
   ClientBuilder opts({required ClientOptions opts});
+
+  /// Set signer
+  ClientBuilder signer({required NostrSigner signer});
 }
