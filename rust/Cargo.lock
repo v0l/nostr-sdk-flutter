@@ -1171,7 +1171,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72f9bc3564f74be6c35d49a7efee54380d7946ccc631323067f33fabb9246027"
 dependencies = [
  "derive-deftly-macros",
- "heck 0.4.1",
+ "heck 0.5.0",
 ]
 
 [[package]]
@@ -1180,14 +1180,14 @@ version = "0.14.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e1b84d32b18d9a256d81e4fec2e4cfd0ab6dde5e5ff49be1713ae0adbd0060c2"
 dependencies = [
- "heck 0.4.1",
- "indexmap 1.9.3",
- "itertools 0.10.5",
+ "heck 0.5.0",
+ "indexmap 2.7.0",
+ "itertools 0.13.0",
  "proc-macro-crate 3.2.0",
  "proc-macro2",
  "quote",
  "sha3",
- "strum 0.24.1",
+ "strum 0.26.3",
  "syn 2.0.90",
  "void",
 ]

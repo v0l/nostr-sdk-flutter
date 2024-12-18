@@ -11,6 +11,7 @@ import 'api/protocol/event/tag.dart';
 import 'api/protocol/key.dart';
 import 'api/protocol/key/public_key.dart';
 import 'api/protocol/key/secret_key.dart';
+import 'api/relay/options.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
@@ -66,7 +67,7 @@ class NostrSdk
   String get codegenVersion => '2.0.0';
 
   @override
-  int get rustContentHash => 1843944947;
+  int get rustContentHash => 768125574;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -98,9 +99,39 @@ abstract class NostrSdkApi extends BaseApi {
   ClientBuilder crateApiClientBuilderClientBuilderOpts(
       {required ClientBuilder that, required ClientOptions opts});
 
+  ClientOptions crateApiClientOptionsClientOptionsAutoconnect(
+      {required ClientOptions that, required bool val});
+
+  ClientOptions crateApiClientOptionsClientOptionsAutomaticAuthentication(
+      {required ClientOptions that, required bool enabled});
+
+  ClientOptions crateApiClientOptionsClientOptionsConnection(
+      {required ClientOptions that, required Connection connection});
+
+  ClientOptions crateApiClientOptionsClientOptionsGossip(
+      {required ClientOptions that, required bool enabled});
+
+  ClientOptions crateApiClientOptionsClientOptionsMinPow(
+      {required ClientOptions that, required int difficulty});
+
   ClientOptions crateApiClientOptionsClientOptionsNew();
 
+  Connection crateApiClientOptionsConnectionAddr(
+      {required Connection that, required String addr});
+
+  Connection crateApiClientOptionsConnectionEmbeddedTor(
+      {required Connection that});
+
+  Connection crateApiClientOptionsConnectionEmbeddedTorWithPath(
+      {required Connection that, required String dataPath});
+
+  Connection crateApiClientOptionsConnectionMode(
+      {required Connection that, required ConnectionMode mode});
+
   Connection crateApiClientOptionsConnectionNew();
+
+  Connection crateApiClientOptionsConnectionTarget(
+      {required Connection that, required ConnectionTarget target});
 
   String crateApiProtocolEventEventAsJson({required Event that});
 
@@ -495,11 +526,154 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
+  ClientOptions crateApiClientOptionsClientOptionsAutoconnect(
+      {required ClientOptions that, required bool val}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+            that, serializer);
+        sse_encode_bool(val, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiClientOptionsClientOptionsAutoconnectConstMeta,
+      argValues: [that, val],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsClientOptionsAutoconnectConstMeta =>
+      const TaskConstMeta(
+        debugName: "ClientOptions_autoconnect",
+        argNames: ["that", "val"],
+      );
+
+  @override
+  ClientOptions crateApiClientOptionsClientOptionsAutomaticAuthentication(
+      {required ClientOptions that, required bool enabled}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+            that, serializer);
+        sse_encode_bool(enabled, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions,
+        decodeErrorData: null,
+      ),
+      constMeta:
+          kCrateApiClientOptionsClientOptionsAutomaticAuthenticationConstMeta,
+      argValues: [that, enabled],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiClientOptionsClientOptionsAutomaticAuthenticationConstMeta =>
+          const TaskConstMeta(
+            debugName: "ClientOptions_automatic_authentication",
+            argNames: ["that", "enabled"],
+          );
+
+  @override
+  ClientOptions crateApiClientOptionsClientOptionsConnection(
+      {required ClientOptions that, required Connection connection}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+            that, serializer);
+        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+            connection, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiClientOptionsClientOptionsConnectionConstMeta,
+      argValues: [that, connection],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsClientOptionsConnectionConstMeta =>
+      const TaskConstMeta(
+        debugName: "ClientOptions_connection",
+        argNames: ["that", "connection"],
+      );
+
+  @override
+  ClientOptions crateApiClientOptionsClientOptionsGossip(
+      {required ClientOptions that, required bool enabled}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+            that, serializer);
+        sse_encode_bool(enabled, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiClientOptionsClientOptionsGossipConstMeta,
+      argValues: [that, enabled],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsClientOptionsGossipConstMeta =>
+      const TaskConstMeta(
+        debugName: "ClientOptions_gossip",
+        argNames: ["that", "enabled"],
+      );
+
+  @override
+  ClientOptions crateApiClientOptionsClientOptionsMinPow(
+      {required ClientOptions that, required int difficulty}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+            that, serializer);
+        sse_encode_u_8(difficulty, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiClientOptionsClientOptionsMinPowConstMeta,
+      argValues: [that, difficulty],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsClientOptionsMinPowConstMeta =>
+      const TaskConstMeta(
+        debugName: "ClientOptions_min_pow",
+        argNames: ["that", "difficulty"],
+      );
+
+  @override
   ClientOptions crateApiClientOptionsClientOptionsNew() {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -519,11 +693,123 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
+  Connection crateApiClientOptionsConnectionAddr(
+      {required Connection that, required String addr}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+            that, serializer);
+        sse_encode_String(addr, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiClientOptionsConnectionAddrConstMeta,
+      argValues: [that, addr],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsConnectionAddrConstMeta =>
+      const TaskConstMeta(
+        debugName: "Connection_addr",
+        argNames: ["that", "addr"],
+      );
+
+  @override
+  Connection crateApiClientOptionsConnectionEmbeddedTor(
+      {required Connection that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiClientOptionsConnectionEmbeddedTorConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsConnectionEmbeddedTorConstMeta =>
+      const TaskConstMeta(
+        debugName: "Connection_embedded_tor",
+        argNames: ["that"],
+      );
+
+  @override
+  Connection crateApiClientOptionsConnectionEmbeddedTorWithPath(
+      {required Connection that, required String dataPath}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+            that, serializer);
+        sse_encode_String(dataPath, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiClientOptionsConnectionEmbeddedTorWithPathConstMeta,
+      argValues: [that, dataPath],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiClientOptionsConnectionEmbeddedTorWithPathConstMeta =>
+          const TaskConstMeta(
+            debugName: "Connection_embedded_tor_with_path",
+            argNames: ["that", "dataPath"],
+          );
+
+  @override
+  Connection crateApiClientOptionsConnectionMode(
+      {required Connection that, required ConnectionMode mode}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+            that, serializer);
+        sse_encode_box_autoadd_connection_mode(mode, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 19)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiClientOptionsConnectionModeConstMeta,
+      argValues: [that, mode],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsConnectionModeConstMeta =>
+      const TaskConstMeta(
+        debugName: "Connection_mode",
+        argNames: ["that", "mode"],
+      );
+
+  @override
   Connection crateApiClientOptionsConnectionNew() {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 20)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -543,13 +829,41 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
+  Connection crateApiClientOptionsConnectionTarget(
+      {required Connection that, required ConnectionTarget target}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+            that, serializer);
+        sse_encode_connection_target(target, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 21)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiClientOptionsConnectionTargetConstMeta,
+      argValues: [that, target],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiClientOptionsConnectionTargetConstMeta =>
+      const TaskConstMeta(
+        debugName: "Connection_target",
+        argNames: ["that", "target"],
+      );
+
+  @override
   String crateApiProtocolEventEventAsJson({required Event that}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 22)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -574,7 +888,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 23)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -599,7 +913,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 24)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -625,7 +939,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 25)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -650,7 +964,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 26)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_u_64,
@@ -674,7 +988,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(json, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 27)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -700,7 +1014,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 28)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -725,7 +1039,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 19)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 29)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_bool,
@@ -750,7 +1064,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 20)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 30)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_bool,
@@ -775,7 +1089,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 21)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 31)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_u_16,
@@ -800,7 +1114,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 22)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 32)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -825,7 +1139,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 23)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 33)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -851,7 +1165,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 24)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 34)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -876,7 +1190,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 25)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 35)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_bool,
@@ -901,7 +1215,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 26)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 36)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_bool,
@@ -926,7 +1240,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 27)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 37)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_list_String,
@@ -951,7 +1265,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 28)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 38)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_opt_String,
@@ -976,7 +1290,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 29)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 39)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_bool,
@@ -1001,7 +1315,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 30)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 40)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_bool,
@@ -1026,7 +1340,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 31)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 41)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_bool,
@@ -1051,7 +1365,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 32)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 42)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -1075,7 +1389,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_list_String(tag, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 33)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 43)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1101,7 +1415,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 34)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 44)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_list_String,
@@ -1124,7 +1438,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 35)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 45)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1150,7 +1464,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 36)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1174,7 +1488,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 37)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 47)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1200,7 +1514,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 38)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 48)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1226,7 +1540,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 39)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 49)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1252,7 +1566,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_list_prim_u_8_loose(publicKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 40)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 50)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1278,7 +1592,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(publicKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 41)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 51)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1305,7 +1619,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 42)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 52)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -1330,7 +1644,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 43)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 53)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -1356,7 +1670,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 44)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 54)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -1381,7 +1695,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_list_prim_u_8_loose(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 45)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 55)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1405,7 +1719,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 56)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1431,7 +1745,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 47)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 57)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -1458,7 +1772,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 48)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 58)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -1484,7 +1798,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 49)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 59)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -1663,6 +1977,22 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  ClientOptions
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ClientOptionsImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  Connection
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ConnectionImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
   Event
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           dynamic raw) {
@@ -1782,6 +2112,43 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   bool dco_decode_bool(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as bool;
+  }
+
+  @protected
+  ConnectionMode dco_decode_box_autoadd_connection_mode(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_connection_mode(raw);
+  }
+
+  @protected
+  ConnectionMode dco_decode_connection_mode(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return ConnectionMode_Direct();
+      case 1:
+        return ConnectionMode_Proxy(
+          addr: dco_decode_String(raw[1]),
+        );
+      case 2:
+        return ConnectionMode_Tor(
+          customPath: dco_decode_opt_String(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  ConnectionTarget dco_decode_connection_target(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ConnectionTarget.values[raw as int];
+  }
+
+  @protected
+  int dco_decode_i_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
   }
 
   @protected
@@ -1955,6 +2322,24 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  ClientOptions
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ClientOptionsImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  Connection
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return ConnectionImpl.frbInternalSseDecode(
+        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
   Event
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           SseDeserializer deserializer) {
@@ -2092,6 +2477,45 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  ConnectionMode sse_decode_box_autoadd_connection_mode(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_connection_mode(deserializer));
+  }
+
+  @protected
+  ConnectionMode sse_decode_connection_mode(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        return ConnectionMode_Direct();
+      case 1:
+        var var_addr = sse_decode_String(deserializer);
+        return ConnectionMode_Proxy(addr: var_addr);
+      case 2:
+        var var_customPath = sse_decode_opt_String(deserializer);
+        return ConnectionMode_Tor(customPath: var_customPath);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  ConnectionTarget sse_decode_connection_target(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return ConnectionTarget.values[inner];
+  }
+
+  @protected
+  int sse_decode_i_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getInt32();
+  }
+
+  @protected
   List<Tag>
       sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
           SseDeserializer deserializer) {
@@ -2171,12 +2595,6 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   BigInt sse_decode_usize(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getBigUint64();
-  }
-
-  @protected
-  int sse_decode_i_32(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getInt32();
   }
 
   @protected
@@ -2286,6 +2704,25 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     sse_encode_usize(
         (self as ClientBuilderImpl).frbInternalSseEncode(move: false),
         serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+          ClientOptions self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as ClientOptionsImpl).frbInternalSseEncode(move: false),
+        serializer);
+  }
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          Connection self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+        (self as ConnectionImpl).frbInternalSseEncode(move: false), serializer);
   }
 
   @protected
@@ -2429,6 +2866,44 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_connection_mode(
+      ConnectionMode self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_connection_mode(self, serializer);
+  }
+
+  @protected
+  void sse_encode_connection_mode(
+      ConnectionMode self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case ConnectionMode_Direct():
+        sse_encode_i_32(0, serializer);
+      case ConnectionMode_Proxy(addr: final addr):
+        sse_encode_i_32(1, serializer);
+        sse_encode_String(addr, serializer);
+      case ConnectionMode_Tor(customPath: final customPath):
+        sse_encode_i_32(2, serializer);
+        sse_encode_opt_String(customPath, serializer);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  void sse_encode_connection_target(
+      ConnectionTarget self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_i_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putInt32(self);
+  }
+
+  @protected
   void
       sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
           List<Tag> self, SseSerializer serializer) {
@@ -2503,12 +2978,6 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   void sse_encode_usize(BigInt self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putBigUint64(self);
-  }
-
-  @protected
-  void sse_encode_i_32(int self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putInt32(self);
   }
 }
 
@@ -2604,6 +3073,34 @@ class ClientOptionsImpl extends RustOpaque implements ClientOptions {
     rustArcDecrementStrongCountPtr:
         NostrSdk.instance.api.rust_arc_decrement_strong_count_ClientOptionsPtr,
   );
+
+  /// Automatically start connection with relays (default: false)
+  ///
+  /// When set to `true`, there isn't the need of calling the connect methods.
+  ClientOptions autoconnect({required bool val}) => NostrSdk.instance.api
+      .crateApiClientOptionsClientOptionsAutoconnect(that: this, val: val);
+
+  /// Auto authenticate to relays (default: true)
+  ///
+  /// <https://github.com/nostr-protocol/nips/blob/master/42.md>
+  ClientOptions automaticAuthentication({required bool enabled}) =>
+      NostrSdk.instance.api
+          .crateApiClientOptionsClientOptionsAutomaticAuthentication(
+              that: this, enabled: enabled);
+
+  /// Connection
+  ClientOptions connection({required Connection connection}) =>
+      NostrSdk.instance.api.crateApiClientOptionsClientOptionsConnection(
+          that: this, connection: connection);
+
+  /// Enable gossip model (default: false)
+  ClientOptions gossip({required bool enabled}) => NostrSdk.instance.api
+      .crateApiClientOptionsClientOptionsGossip(that: this, enabled: enabled);
+
+  /// Minimum POW difficulty for received events
+  ClientOptions minPow({required int difficulty}) =>
+      NostrSdk.instance.api.crateApiClientOptionsClientOptionsMinPow(
+          that: this, difficulty: difficulty);
 }
 
 @sealed
@@ -2624,6 +3121,34 @@ class ConnectionImpl extends RustOpaque implements Connection {
     rustArcDecrementStrongCountPtr:
         NostrSdk.instance.api.rust_arc_decrement_strong_count_ConnectionPtr,
   );
+
+  /// Set proxy (ex. `127.0.0.1:9050`)
+  Connection addr({required String addr}) => NostrSdk.instance.api
+      .crateApiClientOptionsConnectionAddr(that: this, addr: addr);
+
+  /// Use embedded tor client
+  ///
+  /// This not work on `android` and/or `ios` targets.
+  /// Use [`Connection::embedded_tor_with_path`] instead.
+  Connection embeddedTor() =>
+      NostrSdk.instance.api.crateApiClientOptionsConnectionEmbeddedTor(
+        that: this,
+      );
+
+  /// Use embedded tor client
+  ///
+  /// Specify a path where to store data
+  Connection embeddedTorWithPath({required String dataPath}) =>
+      NostrSdk.instance.api.crateApiClientOptionsConnectionEmbeddedTorWithPath(
+          that: this, dataPath: dataPath);
+
+  /// Set connection mode (default: direct)
+  Connection mode({required ConnectionMode mode}) => NostrSdk.instance.api
+      .crateApiClientOptionsConnectionMode(that: this, mode: mode);
+
+  /// Set connection target (default: all)
+  Connection target({required ConnectionTarget target}) => NostrSdk.instance.api
+      .crateApiClientOptionsConnectionTarget(that: this, target: target);
 }
 
 @sealed

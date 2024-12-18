@@ -11,6 +11,7 @@ import 'api/protocol/event/tag.dart';
 import 'api/protocol/key.dart';
 import 'api/protocol/key/public_key.dart';
 import 'api/protocol/key/secret_key.dart';
+import 'api/relay/options.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
@@ -112,6 +113,16 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           dynamic raw);
 
   @protected
+  ClientOptions
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+          dynamic raw);
+
+  @protected
+  Connection
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          dynamic raw);
+
+  @protected
   Event
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           dynamic raw);
@@ -184,6 +195,18 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   bool dco_decode_bool(dynamic raw);
+
+  @protected
+  ConnectionMode dco_decode_box_autoadd_connection_mode(dynamic raw);
+
+  @protected
+  ConnectionMode dco_decode_connection_mode(dynamic raw);
+
+  @protected
+  ConnectionTarget dco_decode_connection_target(dynamic raw);
+
+  @protected
+  int dco_decode_i_32(dynamic raw);
 
   @protected
   List<Tag>
@@ -275,6 +298,16 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  ClientOptions
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+          SseDeserializer deserializer);
+
+  @protected
+  Connection
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          SseDeserializer deserializer);
+
+  @protected
   Event
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
           SseDeserializer deserializer);
@@ -349,6 +382,19 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   bool sse_decode_bool(SseDeserializer deserializer);
 
   @protected
+  ConnectionMode sse_decode_box_autoadd_connection_mode(
+      SseDeserializer deserializer);
+
+  @protected
+  ConnectionMode sse_decode_connection_mode(SseDeserializer deserializer);
+
+  @protected
+  ConnectionTarget sse_decode_connection_target(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_i_32(SseDeserializer deserializer);
+
+  @protected
   List<Tag>
       sse_decode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
           SseDeserializer deserializer);
@@ -379,9 +425,6 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   BigInt sse_decode_usize(SseDeserializer deserializer);
-
-  @protected
-  int sse_decode_i_32(SseDeserializer deserializer);
 
   @protected
   void sse_encode_AnyhowException(
@@ -441,6 +484,16 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void
       sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientBuilder(
           ClientBuilder self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+          ClientOptions self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+          Connection self, SseSerializer serializer);
 
   @protected
   void
@@ -519,6 +572,21 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void sse_encode_bool(bool self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_connection_mode(
+      ConnectionMode self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_connection_mode(
+      ConnectionMode self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_connection_target(
+      ConnectionTarget self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_i_32(int self, SseSerializer serializer);
+
+  @protected
   void
       sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
           List<Tag> self, SseSerializer serializer);
@@ -550,9 +618,6 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void sse_encode_usize(BigInt self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_i_32(int self, SseSerializer serializer);
 }
 
 // Section: wire_class

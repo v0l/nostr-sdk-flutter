@@ -5,11 +5,13 @@
 use std::net::SocketAddr;
 use std::ops::Deref;
 
+use anyhow::Result;
 use flutter_rust_bridge::frb;
-use nostr_sdk::prelude::*;
+use nostr_sdk::prelude::{self, *};
 
-use crate::api::relay::options::_ConnectionMode;
+use crate::api::relay::options::ConnectionMode;
 
+#[derive(Clone)]
 #[frb(name = "ClientOptions")]
 pub struct _ClientOptions {
     pub(super) inner: Options,
@@ -40,95 +42,100 @@ impl _ClientOptions {
     /// Automatically start connection with relays (default: false)
     ///
     /// When set to `true`, there isn't the need of calling the connect methods.
-    pub fn autoconnect(mut self, val: bool) -> Self {
-        self.inner = self.inner.autoconnect(val);
-        self
+    pub fn autoconnect(&self, val: bool) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.autoconnect(val);
+        builder
     }
 
     /// Minimum POW difficulty for received events
-    pub fn min_pow(mut self, difficulty: u8) -> Self {
-        self.inner = self.inner.min_pow(difficulty);
-        self
+    pub fn min_pow(&self, difficulty: u8) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.min_pow(difficulty);
+        builder
     }
-    
-    // pub fn req_filters_chunk_size(mut self, req_filters_chunk_size: u8) -> Self {
-    //     self.inner = self.inner.req_filters_chunk_size(req_filters_chunk_size);
-    //     self
+
+    // pub fn req_filters_chunk_size(&self, req_filters_chunk_size: u8) -> Self {
+    //     let mut builder = self.clone();
+    //     builder.inner = builder.inner.req_filters_chunk_size(req_filters_chunk_size);
+    //     builder
     // }
-    
+
     /// Auto authenticate to relays (default: true)
     ///
     /// <https://github.com/nostr-protocol/nips/blob/master/42.md>
-    pub fn automatic_authentication(mut self, enabled: bool) -> Self {
-        self.inner = self.inner.automatic_authentication(enabled);
-        self
+    pub fn automatic_authentication(&self, enabled: bool) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.automatic_authentication(enabled);
+        builder
     }
-    
+
     /// Enable gossip model (default: false)
-    pub fn gossip(mut self, enabled: bool) -> Self {
-        self.inner = self.inner.gossip(enabled);
-        self
+    pub fn gossip(&self, enabled: bool) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.gossip(enabled);
+        builder
     }
-    
+
     /// Connection
-    pub fn connection(mut self, connection: &Connection) -> Self {
-        self.inner = self.inner.connection(connection.deref().clone());
-        self
+    pub fn connection(&self, connection: _Connection) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.connection(connection.inner);
+        builder
     }
-    
+
     // /// Set custom relay limits
-    // pub fn relay_limits(mut self, limits: &RelayLimits) -> Self {
-    //     self.inner = self.inner.relay_limits(limits.deref().clone());
-    //     self
+    // pub fn relay_limits(&self, limits: &RelayLimits) -> Self {
+    //     let mut builder = self.clone();
+    //     builder.inner = builder.inner.relay_limits(limits.deref().clone());
+    //     builder
     // }
-    
+    // 
     // /// Set max latency (default: None)
     // ///
     // /// Relays with an avg. latency greater that this value will be skipped.
-    // pub fn max_avg_latency(mut self, max: Duration) -> Self {
-    //     self.inner = self.inner.max_avg_latency(max);
-    //     self
+    // pub fn max_avg_latency(&self, max: Duration) -> Self {
+    //     let mut builder = self.clone();
+    //     builder.inner = builder.inner.max_avg_latency(max);
+    //     builder
     // }
-    
+    // 
     // /// Set filtering mode (default: blacklist)
-    // pub fn filtering_mode(mut self, mode: RelayFilteringMode) -> Self {
-    //     self.inner = self.inner.filtering_mode(mode.into());
-    //     self
+    // pub fn filtering_mode(&self, mode: RelayFilteringMode) -> Self {
+    //     let mut builder = self.clone();
+    //     builder.inner = builder.inner.filtering_mode(mode.into());
+    //     builder
     // }
 }
 
 /// Connection target
-#[frb(name = "ConnectionTarget")]
-pub enum _ConnectionTarget {
+#[cfg(not(target_arch = "wasm32"))]
+pub enum ConnectionTarget {
     /// Use proxy for all relays
     All,
     /// Use proxy only for `.onion` relays
     Onion,
 }
 
-impl From<_ConnectionTarget> for ConnectionTarget {
-    fn from(value: _ConnectionTarget) -> Self {
+#[cfg(not(target_arch = "wasm32"))]
+impl From<ConnectionTarget> for prelude::ConnectionTarget {
+    fn from(value: ConnectionTarget) -> Self {
         match value {
-            _ConnectionTarget::All => Self::All,
-            _ConnectionTarget::Onion => Self::Onion,
+            ConnectionTarget::All => Self::All,
+            ConnectionTarget::Onion => Self::Onion,
         }
     }
 }
 
 /// Connection
+#[derive(Clone)]
+#[cfg(not(target_arch = "wasm32"))]
 #[frb(name = "Connection")]
 pub struct _Connection {
     inner: Connection,
 }
 
-impl Deref for _Connection {
-    type Target = Connection;
-
-    fn deref(&self) -> &Self::Target {
-        &self.inner
-    }
-}
-
+#[cfg(not(target_arch = "wasm32"))]
 #[frb(sync)]
 impl _Connection {
     pub fn new() -> Self {
@@ -138,42 +145,44 @@ impl _Connection {
     }
 
     /// Set connection mode (default: direct)
-    pub fn mode(mut self, mode: _ConnectionMode) -> Result<Self> {
-        let mode: ConnectionMode = mode.try_into()?;
-        self.inner = self.inner.mode(mode);
-        Ok(self)
+    pub fn mode(&self, mode: ConnectionMode) -> Result<Self> {
+        let mode: prelude::ConnectionMode = mode.try_into()?;
+        let mut builder = self.clone();
+        builder.inner = builder.inner.mode(mode);
+        Ok(builder)
     }
 
     /// Set connection target (default: all)
-    pub fn target(mut self, target: _ConnectionTarget) -> Self {
-        self.inner = self.inner.target(target.into());
-        self
+    pub fn target(&self, target: ConnectionTarget) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.target(target.into());
+        builder
     }
 
     /// Set proxy (ex. `127.0.0.1:9050`)
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn addr(mut self, addr: &str) -> Result<Self> {
+    pub fn addr(&self, addr: &str) -> Result<Self> {
+        let mut builder = self.clone();
         let addr: SocketAddr = addr.parse()?;
-        self.inner = self.inner.proxy(addr);
-        Ok(self)
+        builder.inner = builder.inner.proxy(addr);
+        Ok(builder)
     }
-    
+
     /// Use embedded tor client
     ///
     /// This not work on `android` and/or `ios` targets.
     /// Use [`Connection::embedded_tor_with_path`] instead.
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn embedded_tor(mut self) -> Self {
-        self.inner = self.inner.embedded_tor();
-        self
+    pub fn embedded_tor(&self) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.embedded_tor();
+        builder
     }
-    
+
     /// Use embedded tor client
     ///
     /// Specify a path where to store data
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn embedded_tor_with_path(mut self, data_path: String) -> Self {
-        self.inner = self.inner.embedded_tor_with_path(data_path);
-        self
+    pub fn embedded_tor_with_path(&self, data_path: String) -> Self {
+        let mut builder = self.clone();
+        builder.inner = builder.inner.embedded_tor_with_path(data_path);
+        builder
     }
 }

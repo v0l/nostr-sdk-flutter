@@ -5,12 +5,10 @@
 use std::path::PathBuf;
 
 use anyhow::Error;
-use flutter_rust_bridge::frb;
-use nostr_sdk::prelude::*;
+use nostr_sdk::prelude;
 
 /// Connection mode
-#[frb(name = "ConnectionMode")]
-pub enum _ConnectionMode {
+pub enum ConnectionMode {
     /// Direct connection
     Direct,
     /// Connect through proxy
@@ -29,32 +27,32 @@ pub enum _ConnectionMode {
     },
 }
 
-impl From<ConnectionMode> for _ConnectionMode {
-    fn from(mode: ConnectionMode) -> Self {
+impl From<prelude::ConnectionMode> for ConnectionMode {
+    fn from(mode: prelude::ConnectionMode) -> Self {
         match mode {
-            ConnectionMode::Direct => Self::Direct,
+            prelude::ConnectionMode::Direct => Self::Direct,
             #[cfg(not(target_arch = "wasm32"))]
-            ConnectionMode::Proxy(addr) => Self::Proxy {
+            prelude::ConnectionMode::Proxy(addr) => Self::Proxy {
                 addr: addr.to_string(),
             },
             #[cfg(not(target_arch = "wasm32"))]
-            ConnectionMode::Tor { custom_path } => Self::Tor {
+            prelude::ConnectionMode::Tor { custom_path } => Self::Tor {
                 custom_path: custom_path.map(|p| p.to_string_lossy().into_owned()),
             },
         }
     }
 }
 
-impl TryFrom<_ConnectionMode> for ConnectionMode {
+impl TryFrom<ConnectionMode> for prelude::ConnectionMode {
     type Error = Error;
 
-    fn try_from(mode: _ConnectionMode) -> Result<Self, Self::Error> {
+    fn try_from(mode: ConnectionMode) -> Result<Self, Self::Error> {
         match mode {
-            _ConnectionMode::Direct => Ok(Self::Direct),
+            ConnectionMode::Direct => Ok(Self::Direct),
             #[cfg(not(target_arch = "wasm32"))]
-            _ConnectionMode::Proxy { addr } => Ok(Self::Proxy(addr.parse()?)),
+            ConnectionMode::Proxy { addr } => Ok(Self::Proxy(addr.parse()?)),
             #[cfg(not(target_arch = "wasm32"))]
-            _ConnectionMode::Tor { custom_path } => Ok(Self::Tor {
+            ConnectionMode::Tor { custom_path } => Ok(Self::Tor {
                 custom_path: custom_path.map(PathBuf::from),
             }),
         }

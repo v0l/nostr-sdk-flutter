@@ -8,26 +8,26 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'options.freezed.dart';
 
-            // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `try_from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `try_from`
 
+@freezed
+sealed class ConnectionMode with _$ConnectionMode {
+  const ConnectionMode._();
 
-            
+  /// Direct connection
+  const factory ConnectionMode.direct() = ConnectionMode_Direct;
 
-            @freezed
-                sealed class _ConnectionMode with _$_ConnectionMode  {
-                    const _ConnectionMode._();
+  /// Connect through proxy
+  const factory ConnectionMode.proxy({
+    /// Socket addr (i.e. 127.0.0.1:9050)
+    required String addr,
+  }) = ConnectionMode_Proxy;
 
-                     /// Direct connection
-const factory _ConnectionMode.direct() = _ConnectionMode_Direct;
- /// Connect through proxy
-const factory _ConnectionMode.proxy({ /// Socket addr (i.e. 127.0.0.1:9050)
-  required String addr , }) = _ConnectionMode_Proxy;
- /// Connect through tor network
-const factory _ConnectionMode.tor({ /// Path where to store data
-///
-/// This is required for `android` and `ios` targets!
-  String? customPath , }) = _ConnectionMode_Tor;
-
-                    
-                }
-            
+  /// Connect through tor network
+  const factory ConnectionMode.tor({
+    /// Path where to store data
+    ///
+    /// This is required for `android` and `ios` targets!
+    String? customPath,
+  }) = ConnectionMode_Tor;
+}
