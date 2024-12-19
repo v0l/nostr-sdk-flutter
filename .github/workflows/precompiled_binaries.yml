@@ -1,0 +1,45 @@
+on:
+  push:
+    branches: [ master ] # TODO: trigger manually or on tag
+
+name: Precompile Binaries
+jobs:
+  Precompile:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-20.04
+          - macOS-latest
+          - windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Set up Android SDK
+        if: (matrix.os == 'ubuntu-20.04')
+        uses: android-actions/setup-android@v2
+
+      - name: Install specific NDK
+        if: (matrix.os == 'ubuntu-20.04')
+        run: sdkmanager --install "ndk;25.1.8937393"
+
+      - name: Precompile
+        if: (matrix.os == 'macOS-latest') || (matrix.os == 'windows-latest')
+        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=rust-nostr/nostr-sdk-flutter
+        working-directory: cargokit/build_tool
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRIVATE_KEY: ${{ secrets.CARGOKIT_PRIVATE_KEY }}
+
+      - name: Precompile (with Android)
+        if: (matrix.os == 'ubuntu-20.04')
+        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=rust-nostr/nostr-sdk-flutter --android-sdk-location=/usr/local/lib/android/sdk --android-ndk-version=25.1.8937393 --android-min-sdk-version=23
+        working-directory: cargokit/build_tool
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRIVATE_KEY: ${{ secrets.CARGOKIT_PRIVATE_KEY }}
