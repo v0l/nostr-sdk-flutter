@@ -5,6 +5,7 @@
 
 import '../frb_generated.dart';
 import 'client/builder.dart';
+import 'client/output.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
 import 'protocol/event/builder.dart';
@@ -37,12 +38,12 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// Send `Event` to all relays with `WRITE` flag.
   /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
-  Future<String> sendEvent({required Event event});
+  Future<SendEventOutput> sendEvent({required Event event});
 
   /// Send event
   ///
   /// Take an [`EventBuilder`], sign it by using the [`NostrSigner`] and broadcast to relays (check [`Client::send_event`] from more details).
   ///
   /// Return an error if the [`NostrSigner`] is not set.
-  Future<String> sendEventBuilder({required EventBuilder builder});
+  Future<SendEventOutput> sendEventBuilder({required EventBuilder builder});
 }

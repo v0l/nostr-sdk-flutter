@@ -42,6 +42,7 @@
 * Expose `UnsignedEvent` ([Yuki Kishimoto])
 * Expose `EventBuilder` ([Yuki Kishimoto])
 * Expose `Client::send_event_builder` ([Yuki Kishimoto])
+* Add `SendEventOutput` ([Yuki Kishimoto])
 
 ### Fixed
 

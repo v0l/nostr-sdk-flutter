@@ -8,8 +8,10 @@ use nostr_sdk::prelude::*;
 
 pub mod builder;
 pub mod options;
+pub mod output;
 
 use self::builder::_ClientBuilder;
+use self::output::SendEventOutput;
 use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
 
@@ -60,9 +62,9 @@ impl _Client {
     ///
     /// Send `Event` to all relays with `WRITE` flag.
     /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
-    pub async fn send_event(&self, event: _Event) -> Result<String> {
+    pub async fn send_event(&self, event: _Event) -> Result<SendEventOutput> {
         let output = self.inner.send_event(event.inner).await?;
-        Ok(output.id().to_string())
+        Ok(output.into())
     }
 
     /// Send event
@@ -70,8 +72,8 @@ impl _Client {
     /// Take an [`EventBuilder`], sign it by using the [`NostrSigner`] and broadcast to relays (check [`Client::send_event`] from more details).
     ///
     /// Return an error if the [`NostrSigner`] is not set.
-    pub async fn send_event_builder(&self, builder: _EventBuilder) -> Result<String> {
+    pub async fn send_event_builder(&self, builder: _EventBuilder) -> Result<SendEventOutput> {
         let output = self.inner.send_event_builder(builder.inner).await?;
-        Ok(output.id().to_string())
+        Ok(output.into())
     }
 }

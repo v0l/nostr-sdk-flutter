@@ -6,6 +6,7 @@
 import 'api/client.dart';
 import 'api/client/builder.dart';
 import 'api/client/options.dart';
+import 'api/client/output.dart';
 import 'api/protocol/event.dart';
 import 'api/protocol/event/builder.dart';
 import 'api/protocol/event/tag.dart';
@@ -92,10 +93,10 @@ abstract class NostrSdkApi extends BaseApi {
 
   Client crateApiClientClientNew();
 
-  Future<String> crateApiClientClientSendEvent(
+  Future<SendEventOutput> crateApiClientClientSendEvent(
       {required Client that, required Event event});
 
-  Future<String> crateApiClientClientSendEventBuilder(
+  Future<SendEventOutput> crateApiClientClientSendEventBuilder(
       {required Client that, required EventBuilder builder});
 
   Client crateApiClientBuilderClientBuilderBuild({required ClientBuilder that});
@@ -539,7 +540,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
-  Future<String> crateApiClientClientSendEvent(
+  Future<SendEventOutput> crateApiClientClientSendEvent(
       {required Client that, required Event event}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
@@ -552,7 +553,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             funcId: 6, port: port_);
       },
       codec: SseCodec(
-        decodeSuccessData: sse_decode_String,
+        decodeSuccessData: sse_decode_send_event_output,
         decodeErrorData: sse_decode_AnyhowException,
       ),
       constMeta: kCrateApiClientClientSendEventConstMeta,
@@ -568,7 +569,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
-  Future<String> crateApiClientClientSendEventBuilder(
+  Future<SendEventOutput> crateApiClientClientSendEventBuilder(
       {required Client that, required EventBuilder builder}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
@@ -581,7 +582,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             funcId: 7, port: port_);
       },
       codec: SseCodec(
-        decodeSuccessData: sse_decode_String,
+        decodeSuccessData: sse_decode_send_event_output,
         decodeErrorData: sse_decode_AnyhowException,
       ),
       constMeta: kCrateApiClientClientSendEventBuilderConstMeta,
@@ -3054,6 +3055,13 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  Map<String, String> dco_decode_Map_String_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Map.fromEntries(dco_decode_list_record_string_string(raw)
+        .map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
   Client
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Client(
           dynamic raw) {
@@ -3149,6 +3157,12 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  Set<String> dco_decode_Set_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Set.from(dco_decode_list_String(raw));
+  }
+
+  @protected
   String dco_decode_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as String;
@@ -3227,9 +3241,41 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  List<(String, String)> dco_decode_list_record_string_string(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_record_string_string).toList();
+  }
+
+  @protected
   String? dco_decode_opt_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
+  (String, String) dco_decode_record_string_string(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_String(arr[0]),
+      dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
+  SendEventOutput dco_decode_send_event_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return SendEventOutput(
+      id: dco_decode_String(arr[0]),
+      success: dco_decode_Set_String(arr[1]),
+      failed: dco_decode_Map_String_String(arr[2]),
+    );
   }
 
   @protected
@@ -3503,6 +3549,14 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  Map<String, String> sse_decode_Map_String_String(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_record_string_string(deserializer);
+    return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
+  }
+
+  @protected
   Client
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Client(
           SseDeserializer deserializer) {
@@ -3610,6 +3664,13 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  Set<String> sse_decode_Set_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_String(deserializer);
+    return Set.from(inner);
+  }
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_list_prim_u_8_strict(deserializer);
@@ -3704,6 +3765,19 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  List<(String, String)> sse_decode_list_record_string_string(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <(String, String)>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_record_string_string(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   String? sse_decode_opt_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -3712,6 +3786,25 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     } else {
       return null;
     }
+  }
+
+  @protected
+  (String, String) sse_decode_record_string_string(
+      SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_String(deserializer);
+    var var_field1 = sse_decode_String(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
+  SendEventOutput sse_decode_send_event_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_success = sse_decode_Set_String(deserializer);
+    var var_failed = sse_decode_Map_String_String(deserializer);
+    return SendEventOutput(
+        id: var_id, success: var_success, failed: var_failed);
   }
 
   @protected
@@ -3996,6 +4089,14 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  void sse_encode_Map_String_String(
+      Map<String, String> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_record_string_string(
+        self.entries.map((e) => (e.key, e.value)).toList(), serializer);
+  }
+
+  @protected
   void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Client(
           Client self, SseSerializer serializer) {
@@ -4108,6 +4209,12 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  void sse_encode_Set_String(Set<String> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_String(self.toList(), serializer);
+  }
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
@@ -4196,6 +4303,16 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   }
 
   @protected
+  void sse_encode_list_record_string_string(
+      List<(String, String)> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_record_string_string(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -4203,6 +4320,23 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     if (self != null) {
       sse_encode_String(self, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_record_string_string(
+      (String, String) self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.$1, serializer);
+    sse_encode_String(self.$2, serializer);
+  }
+
+  @protected
+  void sse_encode_send_event_output(
+      SendEventOutput self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_Set_String(self.success, serializer);
+    sse_encode_Map_String_String(self.failed, serializer);
   }
 
   @protected
@@ -4327,15 +4461,16 @@ class ClientImpl extends RustOpaque implements Client {
   ///
   /// Send `Event` to all relays with `WRITE` flag.
   /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
-  Future<String> sendEvent({required Event event}) => NostrSdk.instance.api
-      .crateApiClientClientSendEvent(that: this, event: event);
+  Future<SendEventOutput> sendEvent({required Event event}) =>
+      NostrSdk.instance.api
+          .crateApiClientClientSendEvent(that: this, event: event);
 
   /// Send event
   ///
   /// Take an [`EventBuilder`], sign it by using the [`NostrSigner`] and broadcast to relays (check [`Client::send_event`] from more details).
   ///
   /// Return an error if the [`NostrSigner`] is not set.
-  Future<String> sendEventBuilder({required EventBuilder builder}) =>
+  Future<SendEventOutput> sendEventBuilder({required EventBuilder builder}) =>
       NostrSdk.instance.api
           .crateApiClientClientSendEventBuilder(that: this, builder: builder);
 }
