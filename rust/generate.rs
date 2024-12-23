@@ -6,8 +6,6 @@ use lib_flutter_rust_bridge_codegen::codegen;
 use lib_flutter_rust_bridge_codegen::codegen::Config;
 
 fn main() {
-    println!("cargo:rerun-if-changed=src/api");
-
     // Execute code generator with auto-detected config
     codegen::generate(
         Config::from_config_file("../flutter_rust_bridge.yaml")

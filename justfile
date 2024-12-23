@@ -4,9 +4,6 @@ set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 default:
     @just --list
 
-build:
-    cd rust && cargo build
-
 precommit:
     @bash contrib/scripts/precommit.sh
 
