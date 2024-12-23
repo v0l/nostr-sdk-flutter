@@ -22,6 +22,9 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
 
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+
       - name: Set up Android SDK
         if: (matrix.os == 'ubuntu-20.04')
         uses: android-actions/setup-android@v2
