@@ -1,3 +1,9 @@
+cargo:
+  debug:
+    toolchain: 1.82.0
+  release:
+    toolchain: 1.82.0
+
 precompiled_binaries:
   # Uri prefix used when downloading precompiled binaries.
   url_prefix: https://github.com/rust-nostr/nostr-sdk-flutter/releases/download/precompiled_
