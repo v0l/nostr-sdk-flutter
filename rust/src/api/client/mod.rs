@@ -11,6 +11,7 @@ pub mod options;
 
 use self::builder::_ClientBuilder;
 use super::protocol::event::_Event;
+use super::protocol::event::builder::_EventBuilder;
 
 #[frb(name = "Client")]
 pub struct _Client {
@@ -61,6 +62,16 @@ impl _Client {
     /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
     pub async fn send_event(&self, event: _Event) -> Result<String> {
         let output = self.inner.send_event(event.inner).await?;
+        Ok(output.id().to_string())
+    }
+
+    /// Send event
+    ///
+    /// Take an [`EventBuilder`], sign it by using the [`NostrSigner`] and broadcast to relays (check [`Client::send_event`] from more details).
+    ///
+    /// Return an error if the [`NostrSigner`] is not set.
+    pub async fn send_event_builder(&self, builder: _EventBuilder) -> Result<String> {
+        let output = self.inner.send_event_builder(builder.inner).await?;
         Ok(output.id().to_string())
     }
 }
