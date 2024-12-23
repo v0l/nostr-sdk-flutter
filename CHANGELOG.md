@@ -40,6 +40,7 @@
 * Expose `ClientBuilder` ([Yuki Kishimoto])
 * Expose `NostrSigner` ([Yuki Kishimoto])
 * Expose `UnsignedEvent` ([Yuki Kishimoto])
+* Expose `EventBuilder` ([Yuki Kishimoto])
 
 ### Fixed
 

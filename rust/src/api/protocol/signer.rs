@@ -12,8 +12,7 @@ use nostr_sdk::prelude::{self, *};
 
 use super::event::_Event;
 use super::event::unsigned::_UnsignedEvent;
-use super::key::_Keys;
-use super::key::public_key::_PublicKey;
+use super::key::{_Keys, _PublicKey};
 
 /// Signer backend
 pub enum SignerBackend {

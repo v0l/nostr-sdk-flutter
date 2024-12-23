@@ -2,6 +2,8 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
+use std::ops::Deref;
+
 use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
@@ -9,13 +11,21 @@ use nostr_sdk::prelude::*;
 pub mod public_key;
 pub mod secret_key;
 
-use self::public_key::_PublicKey;
-use self::secret_key::_SecretKey;
+pub use self::public_key::_PublicKey;
+pub use self::secret_key::_SecretKey;
 
 /// Keys
 #[frb(name = "Keys")]
 pub struct _Keys {
     pub(crate) inner: Keys,
+}
+
+impl Deref for _Keys {
+    type Target = Keys;
+
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
 }
 
 #[frb(sync)]

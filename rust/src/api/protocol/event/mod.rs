@@ -6,11 +6,12 @@ use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
+pub mod builder;
 pub mod tag;
 pub mod unsigned;
 
 use self::tag::_Tag;
-use super::key::public_key::_PublicKey;
+use super::key::_PublicKey;
 
 /// Nostr event
 #[frb(name = "Event")]

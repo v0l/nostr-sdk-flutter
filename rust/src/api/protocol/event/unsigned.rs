@@ -11,7 +11,7 @@ use nostr_sdk::prelude::*;
 
 use super::_Event;
 use super::tag::_Tag;
-use crate::api::protocol::key::public_key::_PublicKey;
+use crate::api::protocol::key::_PublicKey;
 
 /// Unsigned event
 #[frb(name = "UnsignedEvent")]

@@ -11,7 +11,7 @@ use nostr_sdk::prelude::*;
 /// Tag
 #[frb(name = "Tag")]
 pub struct _Tag {
-    inner: Tag,
+    pub(crate) inner: Tag,
 }
 
 impl Deref for _Tag {

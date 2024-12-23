@@ -11,7 +11,7 @@ use nostr_sdk::prelude::*;
 /// Public key
 #[frb(name = "PublicKey")]
 pub struct _PublicKey {
-    inner: PublicKey,
+    pub(crate) inner: PublicKey,
 }
 
 impl Deref for _PublicKey {
