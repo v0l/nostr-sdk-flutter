@@ -2,8 +2,6 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
-use std::fs;
-use std::path::PathBuf;
 use std::process::{Command, Stdio};
 
 use lib_flutter_rust_bridge_codegen::codegen;
@@ -20,24 +18,14 @@ fn main() {
         panic!("Warning: flutter not installed.");
     }
 
-    // Parse config
-    let config = Config::from_config_file("../flutter_rust_bridge.yaml")
-        .unwrap()
-        .unwrap();
-
-    // Delete previously generated dart code
-    if let Some(path) = &config.dart_output {
-        let dir: PathBuf = PathBuf::from("..").join(path);
-        if dir.exists() {
-            println!("Deleting {}", dir.display());
-            fs::remove_dir_all(&dir).unwrap();
-        }
-
-        fs::create_dir_all(dir).unwrap();
-    }
-
     // Execute code generator with auto-detected config
-    codegen::generate(config, Default::default()).unwrap();
+    codegen::generate(
+        Config::from_config_file("../flutter_rust_bridge.yaml")
+            .unwrap()
+            .unwrap(),
+        Default::default(),
+    )
+    .unwrap();
 }
 
 fn is_dart_installed() -> bool {
