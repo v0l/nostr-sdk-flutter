@@ -14,3 +14,10 @@ nostr-sdk  = { git = "https://github.com/rust-nostr/nostr", rev = "3b988fb13e0ea
 
 [build-dependencies]
 flutter_rust_bridge_codegen = "=2.0.0"
+
+[profile.release]
+opt-level = 'z'     # Optimize for size.
+lto = true          # Enable Link Time Optimization
+codegen-units = 1   # Reduce the number of codegen units to increase optimizations.
+panic = "abort"     # Abort on panic
+strip = true        # Strip symbols from binary.
