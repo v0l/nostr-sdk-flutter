@@ -2,6 +2,7 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
+#[cfg(not(target_arch = "wasm32"))]
 use std::path::PathBuf;
 
 use anyhow::Error;
@@ -12,13 +13,15 @@ pub enum ConnectionMode {
     /// Direct connection
     Direct,
     /// Connect through proxy
-    #[cfg(not(target_arch = "wasm32"))]
+    ///
+    /// This doesn't work on web!
     Proxy {
         /// Socket addr (i.e. 127.0.0.1:9050)
         addr: String,
     },
     /// Connect through tor network
-    #[cfg(not(target_arch = "wasm32"))]
+    ///
+    /// This doesn't work on web!
     Tor {
         /// Path where to store data
         ///
@@ -51,10 +54,14 @@ impl TryFrom<ConnectionMode> for prelude::ConnectionMode {
             ConnectionMode::Direct => Ok(Self::Direct),
             #[cfg(not(target_arch = "wasm32"))]
             ConnectionMode::Proxy { addr } => Ok(Self::Proxy(addr.parse()?)),
+            #[cfg(target_arch = "wasm32")]
+            ConnectionMode::Proxy { .. } => unreachable!("Proxy is not supported on wasm!"),
             #[cfg(not(target_arch = "wasm32"))]
             ConnectionMode::Tor { custom_path } => Ok(Self::Tor {
                 custom_path: custom_path.map(PathBuf::from),
             }),
+            #[cfg(target_arch = "wasm32")]
+            ConnectionMode::Tor { .. } => unreachable!("Tor is not supported on wasm!"),
         }
     }
 }

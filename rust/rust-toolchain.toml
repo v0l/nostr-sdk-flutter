@@ -1,2 +1,3 @@
 [toolchain]
 channel = "1.82.0" # When changed, update it also in cargokit.yaml
+targets = ["wasm32-unknown-unknown"]

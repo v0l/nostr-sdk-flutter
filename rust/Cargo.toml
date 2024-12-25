@@ -20,7 +20,10 @@ codegen = ["dep:flutter_rust_bridge_codegen"]
 anyhow = "1.0"
 flutter_rust_bridge = "=2.0.0"
 flutter_rust_bridge_codegen = { version = "=2.0.0", optional = true }
-nostr-sdk  = { git = "https://github.com/rust-nostr/nostr", rev = "3b988fb13e0ea39c13dad116bd63333ea5d2bc36", default-features = false, features = ["all-nips", "tor"] }
+nostr-sdk  = { git = "https://github.com/rust-nostr/nostr", rev = "6dde132193324dede0882f6d3ead039ddee36097", default-features = false, features = ["all-nips", "tor"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
 
 [profile.release]
 opt-level = 'z'     # Optimize for size.

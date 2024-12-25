@@ -2,11 +2,15 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
+#[cfg(not(target_arch = "wasm32"))]
 use std::net::SocketAddr;
 use std::ops::Deref;
 
 use anyhow::Result;
 use flutter_rust_bridge::frb;
+#[cfg(target_arch = "wasm32")]
+use nostr_sdk::prelude::*;
+#[cfg(not(target_arch = "wasm32"))]
 use nostr_sdk::prelude::{self, *};
 
 use crate::api::relay::options::ConnectionMode;
@@ -79,9 +83,18 @@ impl _ClientOptions {
 
     /// Connection
     pub fn connection(&self, connection: _Connection) -> Self {
-        let mut builder = self.clone();
-        builder.inner = builder.inner.connection(connection.inner);
-        builder
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let mut builder = self.clone();
+            builder.inner = builder.inner.connection(connection.inner);
+            builder
+        }
+
+        #[cfg(target_arch = "wasm32")]
+        {
+            let _ = connection;
+            self.clone()
+        }
     }
 
     // /// Set custom relay limits
@@ -109,7 +122,6 @@ impl _ClientOptions {
 }
 
 /// Connection target
-#[cfg(not(target_arch = "wasm32"))]
 pub enum ConnectionTarget {
     /// Use proxy for all relays
     All,
@@ -129,42 +141,73 @@ impl From<ConnectionTarget> for prelude::ConnectionTarget {
 
 /// Connection
 #[derive(Clone)]
-#[cfg(not(target_arch = "wasm32"))]
 #[frb(name = "Connection")]
 pub struct _Connection {
+    #[cfg(not(target_arch = "wasm32"))]
     inner: Connection,
+    #[cfg(target_arch = "wasm32")]
+    inner: (),
 }
 
-#[cfg(not(target_arch = "wasm32"))]
 #[frb(sync)]
 impl _Connection {
     pub fn new() -> Self {
         Self {
+            #[cfg(not(target_arch = "wasm32"))]
             inner: Connection::default(),
+            #[cfg(target_arch = "wasm32")]
+            inner: (),
         }
     }
 
     /// Set connection mode (default: direct)
     pub fn mode(&self, mode: ConnectionMode) -> Result<Self> {
-        let mode: prelude::ConnectionMode = mode.try_into()?;
-        let mut builder = self.clone();
-        builder.inner = builder.inner.mode(mode);
-        Ok(builder)
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let mode: prelude::ConnectionMode = mode.try_into()?;
+            let mut builder = self.clone();
+            builder.inner = builder.inner.mode(mode);
+            Ok(builder)
+        }
+
+        #[cfg(target_arch = "wasm32")]
+        {
+            let _ = mode;
+            Ok(self.clone())
+        }
     }
 
     /// Set connection target (default: all)
     pub fn target(&self, target: ConnectionTarget) -> Self {
-        let mut builder = self.clone();
-        builder.inner = builder.inner.target(target.into());
-        builder
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let mut builder = self.clone();
+            builder.inner = builder.inner.target(target.into());
+            builder
+        }
+
+        #[cfg(target_arch = "wasm32")]
+        {
+            let _ = target;
+            self.clone()
+        }
     }
 
     /// Set proxy (ex. `127.0.0.1:9050`)
     pub fn addr(&self, addr: &str) -> Result<Self> {
-        let mut builder = self.clone();
-        let addr: SocketAddr = addr.parse()?;
-        builder.inner = builder.inner.proxy(addr);
-        Ok(builder)
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let mut builder = self.clone();
+            let addr: SocketAddr = addr.parse()?;
+            builder.inner = builder.inner.proxy(addr);
+            Ok(builder)
+        }
+
+        #[cfg(target_arch = "wasm32")]
+        {
+            let _ = addr;
+            Ok(self.clone())
+        }
     }
 
     /// Use embedded tor client
@@ -172,17 +215,32 @@ impl _Connection {
     /// This not work on `android` and/or `ios` targets.
     /// Use [`Connection::embedded_tor_with_path`] instead.
     pub fn embedded_tor(&self) -> Self {
-        let mut builder = self.clone();
-        builder.inner = builder.inner.embedded_tor();
-        builder
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let mut builder = self.clone();
+            builder.inner = builder.inner.embedded_tor();
+            builder
+        }
+
+        #[cfg(target_arch = "wasm32")]
+        self.clone()
     }
 
     /// Use embedded tor client
     ///
     /// Specify a path where to store data
     pub fn embedded_tor_with_path(&self, data_path: String) -> Self {
-        let mut builder = self.clone();
-        builder.inner = builder.inner.embedded_tor_with_path(data_path);
-        builder
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let mut builder = self.clone();
+            builder.inner = builder.inner.embedded_tor_with_path(data_path);
+            builder
+        }
+
+        #[cfg(target_arch = "wasm32")]
+        {
+            let _ = data_path;
+            self.clone()
+        }
     }
 }

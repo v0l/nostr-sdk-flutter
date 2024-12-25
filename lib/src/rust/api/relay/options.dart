@@ -18,12 +18,16 @@ sealed class ConnectionMode with _$ConnectionMode {
   const factory ConnectionMode.direct() = ConnectionMode_Direct;
 
   /// Connect through proxy
+  ///
+  /// This doesn't work on web!
   const factory ConnectionMode.proxy({
     /// Socket addr (i.e. 127.0.0.1:9050)
     required String addr,
   }) = ConnectionMode_Proxy;
 
   /// Connect through tor network
+  ///
+  /// This doesn't work on web!
   const factory ConnectionMode.tor({
     /// Path where to store data
     ///
