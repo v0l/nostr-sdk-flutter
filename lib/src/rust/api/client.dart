@@ -64,6 +64,9 @@ abstract class Client implements RustOpaqueInterface {
   /// Set nostr signer
   Future<void> setSigner({required NostrSigner signer});
 
+  /// Completely shutdown client
+  Future<void> shutdown();
+
   /// Get current nostr signer
   ///
   /// Rise error if it not set.

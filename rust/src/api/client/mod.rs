@@ -78,6 +78,12 @@ impl _Client {
         Ok(self.inner.reset().await?)
     }
 
+    /// Completely shutdown client
+    #[inline]
+    pub async fn shutdown(&self) -> Result<()> {
+        Ok(self.inner.shutdown().await?)
+    }
+
     /// Add relay
     ///
     /// Relays added with this method will have both `READ` and `WRITE` flags enabled.
