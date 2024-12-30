@@ -25,6 +25,11 @@ abstract class Client implements RustOpaqueInterface {
   /// Connection is **NOT** automatically started with relay, remember to call `connect` method!
   Future<bool> addRelay({required String url});
 
+  /// Auto authenticate to relays (default: true)
+  ///
+  /// <https://github.com/nostr-protocol/nips/blob/master/42.md>
+  void automaticAuthentication({required bool enable});
+
   /// New client builder
   static ClientBuilder builder() =>
       NostrSdk.instance.api.crateApiClientClientBuilder();

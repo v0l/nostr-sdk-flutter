@@ -40,6 +40,14 @@ impl _Client {
         _ClientBuilder::new()
     }
 
+    /// Auto authenticate to relays (default: true)
+    ///
+    /// <https://github.com/nostr-protocol/nips/blob/master/42.md>
+    #[frb(sync)]
+    pub fn automatic_authentication(&self, enable: bool) {
+        self.inner.automatic_authentication(enable);
+    }
+
     /// Add relay
     ///
     /// Relays added with this method will have both `READ` and `WRITE` flags enabled.
