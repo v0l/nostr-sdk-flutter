@@ -58,10 +58,34 @@ abstract class Client implements RustOpaqueInterface {
   /// Connect to all added relays
   Future<void> connect();
 
+  /// Disconnect and force remove all relays
+  Future<void> forceRemoveAllRelays();
+
+  /// Force remove and disconnect relay
+  ///
+  /// Note: this method will remove the relay, also if it's in use for the gossip model or other service!
+  Future<void> forceRemoveRelay({required String url});
+
   /// Check if signer is configured
   Future<bool> hasSigner();
 
   factory Client() => NostrSdk.instance.api.crateApiClientClientNew();
+
+  /// Disconnect and remove all relays
+  ///
+  /// Some relays used by some services could not be disconnected with this method
+  /// (like the ones used for gossip).
+  /// Use [`Client::force_remove_all_relays`] to remove every relay.
+  Future<void> removeAllRelays();
+
+  /// Remove and disconnect relay
+  ///
+  /// If the relay has [`RelayServiceFlags::GOSSIP`], it will not be removed from the pool and its
+  /// flags will be updated (remove [`RelayServiceFlags::READ`],
+  /// [`RelayServiceFlags::WRITE`] and [`RelayServiceFlags::DISCOVERY`] flags).
+  ///
+  /// To force remove the relay, use [`Client::force_remove_relay`].
+  Future<void> removeRelay({required String url});
 
   /// Reset client
   ///

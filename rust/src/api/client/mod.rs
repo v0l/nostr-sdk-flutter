@@ -123,6 +123,42 @@ impl _Client {
         Ok(self.inner.add_write_relay(url).await?)
     }
 
+    /// Remove and disconnect relay
+    ///
+    /// If the relay has [`RelayServiceFlags::GOSSIP`], it will not be removed from the pool and its
+    /// flags will be updated (remove [`RelayServiceFlags::READ`],
+    /// [`RelayServiceFlags::WRITE`] and [`RelayServiceFlags::DISCOVERY`] flags).
+    ///
+    /// To force remove the relay, use [`Client::force_remove_relay`].
+    #[inline]
+    pub async fn remove_relay(&self, url: &str) -> Result<()> {
+        Ok(self.inner.remove_relay(url).await?)
+    }
+
+    /// Force remove and disconnect relay
+    ///
+    /// Note: this method will remove the relay, also if it's in use for the gossip model or other service!
+    #[inline]
+    pub async fn force_remove_relay(&self, url: &str) -> Result<()> {
+        Ok(self.inner.force_remove_relay(url).await?)
+    }
+
+    /// Disconnect and remove all relays
+    ///
+    /// Some relays used by some services could not be disconnected with this method
+    /// (like the ones used for gossip).
+    /// Use [`Client::force_remove_all_relays`] to remove every relay.
+    #[inline]
+    pub async fn remove_all_relays(&self) -> Result<()> {
+        Ok(self.inner.remove_all_relays().await?)
+    }
+
+    /// Disconnect and force remove all relays
+    #[inline]
+    pub async fn force_remove_all_relays(&self) -> Result<()> {
+        Ok(self.inner.force_remove_all_relays().await?)
+    }
+
     /// Connect to all added relays
     pub async fn connect(&self) {
         self.inner.connect().await
