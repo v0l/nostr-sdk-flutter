@@ -14,6 +14,7 @@ use self::builder::_ClientBuilder;
 use self::output::SendEventOutput;
 use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
+use super::protocol::signer::_NostrSigner;
 
 #[frb(name = "Client")]
 pub struct _Client {
@@ -46,6 +47,28 @@ impl _Client {
     #[frb(sync)]
     pub fn automatic_authentication(&self, enable: bool) {
         self.inner.automatic_authentication(enable);
+    }
+
+    /// Check if signer is configured
+    pub async fn has_signer(&self) -> bool {
+        self.inner.has_signer().await
+    }
+
+    /// Get current nostr signer
+    ///
+    /// Rise error if it not set.
+    pub async fn signer(&self) -> Result<_NostrSigner, Error> {
+        Ok(self.inner.signer().await?.into())
+    }
+
+    /// Set nostr signer
+    pub async fn set_signer(&self, signer: _NostrSigner) {
+        self.inner.set_signer(signer.inner).await;
+    }
+
+    /// Unset nostr signer
+    pub async fn unset_signer(&self) {
+        self.inner.unset_signer().await;
     }
 
     /// Add relay

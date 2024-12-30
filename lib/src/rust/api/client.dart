@@ -9,6 +9,7 @@ import 'client/output.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
 import 'protocol/event/builder.dart';
+import 'protocol/signer.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
@@ -37,6 +38,9 @@ abstract class Client implements RustOpaqueInterface {
   /// Connect to all added relays
   Future<void> connect();
 
+  /// Check if signer is configured
+  Future<bool> hasSigner();
+
   factory Client() => NostrSdk.instance.api.crateApiClientClientNew();
 
   /// Send event
@@ -51,4 +55,15 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// Return an error if the [`NostrSigner`] is not set.
   Future<SendEventOutput> sendEventBuilder({required EventBuilder builder});
+
+  /// Set nostr signer
+  Future<void> setSigner({required NostrSigner signer});
+
+  /// Get current nostr signer
+  ///
+  /// Rise error if it not set.
+  Future<NostrSigner> signer();
+
+  /// Unset nostr signer
+  Future<void> unsetSigner();
 }
