@@ -97,6 +97,32 @@ impl _Client {
         Ok(self.inner.add_relay(url).await?)
     }
 
+    /// Add discovery relay
+    ///
+    /// If relay already exists, this method automatically add the [`RelayServiceFlags::DISCOVERY`] flag to it and return `false`.
+    ///
+    /// <https://github.com/nostr-protocol/nips/blob/master/65.md>
+    pub async fn add_discovery_relay(&self, url: &str) -> Result<bool> {
+        Ok(self.inner.add_discovery_relay(url).await?)
+    }
+
+    /// Add read relay
+    ///
+    /// If relay already exists, this method add the [`RelayServiceFlags::READ`] flag to it and return `false`.
+    ///
+    /// If are set pool subscriptions, the new added relay will inherit them. Use `subscribe_to` method instead of `subscribe`,
+    /// to avoid to set pool subscriptions.
+    pub async fn add_read_relay(&self, url: &str) -> Result<bool> {
+        Ok(self.inner.add_read_relay(url).await?)
+    }
+
+    /// Add write relay
+    ///
+    /// If relay already exists, this method add the [`RelayServiceFlags::WRITE`] flag to it and return `false`.
+    pub async fn add_write_relay(&self, url: &str) -> Result<bool> {
+        Ok(self.inner.add_write_relay(url).await?)
+    }
+
     /// Connect to all added relays
     pub async fn connect(&self) {
         self.inner.connect().await

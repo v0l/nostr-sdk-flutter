@@ -15,6 +15,21 @@ import 'protocol/signer.dart';
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Client>>
 abstract class Client implements RustOpaqueInterface {
+  /// Add discovery relay
+  ///
+  /// If relay already exists, this method automatically add the [`RelayServiceFlags::DISCOVERY`] flag to it and return `false`.
+  ///
+  /// <https://github.com/nostr-protocol/nips/blob/master/65.md>
+  Future<bool> addDiscoveryRelay({required String url});
+
+  /// Add read relay
+  ///
+  /// If relay already exists, this method add the [`RelayServiceFlags::READ`] flag to it and return `false`.
+  ///
+  /// If are set pool subscriptions, the new added relay will inherit them. Use `subscribe_to` method instead of `subscribe`,
+  /// to avoid to set pool subscriptions.
+  Future<bool> addReadRelay({required String url});
+
   /// Add relay
   ///
   /// Relays added with this method will have both `READ` and `WRITE` flags enabled.
@@ -25,6 +40,11 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// Connection is **NOT** automatically started with relay, remember to call `connect` method!
   Future<bool> addRelay({required String url});
+
+  /// Add write relay
+  ///
+  /// If relay already exists, this method add the [`RelayServiceFlags::WRITE`] flag to it and return `false`.
+  Future<bool> addWriteRelay({required String url});
 
   /// Auto authenticate to relays (default: true)
   ///

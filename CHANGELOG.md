@@ -41,6 +41,7 @@
 * Expose `NostrSigner` ([Yuki Kishimoto])
 * Expose `UnsignedEvent` ([Yuki Kishimoto])
 * Expose `EventBuilder` ([Yuki Kishimoto])
+* Expose add relay method for `Client` ([Yuki Kishimoto])
 * Expose `Client::send_event_builder` ([Yuki Kishimoto])
 * Expose `Client::automatic_authentication` ([Yuki Kishimoto])
 * Expose `Client::reset` ([Yuki Kishimoto])
