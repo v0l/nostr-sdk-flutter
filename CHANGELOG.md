@@ -43,6 +43,7 @@
 * Expose `EventBuilder` ([Yuki Kishimoto])
 * Expose add relay method for `Client` ([Yuki Kishimoto])
 * Expose remove relay methods for `Client` ([Yuki Kishimoto])
+* Expose connect and disconnect methods for `Client` ([Yuki Kishimoto])
 * Expose `Client::send_event_builder` ([Yuki Kishimoto])
 * Expose `Client::automatic_authentication` ([Yuki Kishimoto])
 * Expose `Client::reset` ([Yuki Kishimoto])

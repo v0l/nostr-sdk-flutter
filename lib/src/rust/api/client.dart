@@ -58,6 +58,15 @@ abstract class Client implements RustOpaqueInterface {
   /// Connect to all added relays
   Future<void> connect();
 
+  /// Connect to a previously added relay
+  Future<void> connectRelay({required String url});
+
+  /// Disconnect from all relays
+  Future<void> disconnect();
+
+  /// Disconnect relay
+  Future<void> disconnectRelay({required String url});
+
   /// Disconnect and force remove all relays
   Future<void> forceRemoveAllRelays();
 

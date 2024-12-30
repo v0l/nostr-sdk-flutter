@@ -159,9 +159,27 @@ impl _Client {
         Ok(self.inner.force_remove_all_relays().await?)
     }
 
+    /// Connect to a previously added relay
+    #[inline]
+    pub async fn connect_relay(&self, url: &str) -> Result<()> {
+        Ok(self.inner.connect_relay(url).await?)
+    }
+
+    /// Disconnect relay
+    #[inline]
+    pub async fn disconnect_relay(&self, url: &str) -> Result<()> {
+        Ok(self.inner.disconnect_relay(url).await?)
+    }
+
     /// Connect to all added relays
     pub async fn connect(&self) {
         self.inner.connect().await
+    }
+
+    /// Disconnect from all relays
+    #[inline]
+    pub async fn disconnect(&self) -> Result<()> {
+        Ok(self.inner.disconnect().await?)
     }
 
     /// Send event
