@@ -57,7 +57,7 @@ impl _Client {
     /// Get current nostr signer
     ///
     /// Rise error if it not set.
-    pub async fn signer(&self) -> Result<_NostrSigner, Error> {
+    pub async fn signer(&self) -> Result<_NostrSigner> {
         Ok(self.inner.signer().await?.into())
     }
 
@@ -69,6 +69,13 @@ impl _Client {
     /// Unset nostr signer
     pub async fn unset_signer(&self) {
         self.inner.unset_signer().await;
+    }
+
+    /// Reset client
+    ///
+    /// This method reset the client to simplify the switch to another account.
+    pub async fn reset(&self) -> Result<()> {
+        Ok(self.inner.reset().await?)
     }
 
     /// Add relay

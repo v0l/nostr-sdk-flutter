@@ -43,6 +43,11 @@ abstract class Client implements RustOpaqueInterface {
 
   factory Client() => NostrSdk.instance.api.crateApiClientClientNew();
 
+  /// Reset client
+  ///
+  /// This method reset the client to simplify the switch to another account.
+  Future<void> reset();
+
   /// Send event
   ///
   /// Send `Event` to all relays with `WRITE` flag.
