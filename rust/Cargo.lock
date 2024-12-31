@@ -2652,8 +2652,8 @@ checksum = "43a88da9dd148bbcdce323dd6ac47d369b4769d4a3b78c6c52389b9269f77932"
 
 [[package]]
 name = "nostr"
-version = "0.37.0"
-source = "git+https://github.com/rust-nostr/nostr?rev=e11d0aff3fbccbb1004f7abad3b914d429341736#e11d0aff3fbccbb1004f7abad3b914d429341736"
+version = "0.38.0"
+source = "git+https://github.com/rust-nostr/nostr?rev=c54427849014e8451af54a56664e633e4dc0fac1#c54427849014e8451af54a56664e633e4dc0fac1"
 dependencies = [
  "aes",
  "async-trait",
@@ -2683,8 +2683,8 @@ dependencies = [
 
 [[package]]
 name = "nostr-database"
-version = "0.37.0"
-source = "git+https://github.com/rust-nostr/nostr?rev=e11d0aff3fbccbb1004f7abad3b914d429341736#e11d0aff3fbccbb1004f7abad3b914d429341736"
+version = "0.38.0"
+source = "git+https://github.com/rust-nostr/nostr?rev=c54427849014e8451af54a56664e633e4dc0fac1#c54427849014e8451af54a56664e633e4dc0fac1"
 dependencies = [
  "async-trait",
  "nostr",
@@ -2693,8 +2693,8 @@ dependencies = [
 
 [[package]]
 name = "nostr-relay-pool"
-version = "0.37.0"
-source = "git+https://github.com/rust-nostr/nostr?rev=e11d0aff3fbccbb1004f7abad3b914d429341736#e11d0aff3fbccbb1004f7abad3b914d429341736"
+version = "0.38.0"
+source = "git+https://github.com/rust-nostr/nostr?rev=c54427849014e8451af54a56664e633e4dc0fac1#c54427849014e8451af54a56664e633e4dc0fac1"
 dependencies = [
  "async-utility",
  "async-wsocket",
@@ -2709,8 +2709,8 @@ dependencies = [
 
 [[package]]
 name = "nostr-sdk"
-version = "0.37.0"
-source = "git+https://github.com/rust-nostr/nostr?rev=e11d0aff3fbccbb1004f7abad3b914d429341736#e11d0aff3fbccbb1004f7abad3b914d429341736"
+version = "0.38.0"
+source = "git+https://github.com/rust-nostr/nostr?rev=c54427849014e8451af54a56664e633e4dc0fac1#c54427849014e8451af54a56664e633e4dc0fac1"
 dependencies = [
  "async-utility",
  "lnurl-pay",
@@ -2724,8 +2724,8 @@ dependencies = [
 
 [[package]]
 name = "nostr-zapper"
-version = "0.37.0"
-source = "git+https://github.com/rust-nostr/nostr?rev=e11d0aff3fbccbb1004f7abad3b914d429341736#e11d0aff3fbccbb1004f7abad3b914d429341736"
+version = "0.38.0"
+source = "git+https://github.com/rust-nostr/nostr?rev=c54427849014e8451af54a56664e633e4dc0fac1#c54427849014e8451af54a56664e633e4dc0fac1"
 dependencies = [
  "async-trait",
  "nostr",
