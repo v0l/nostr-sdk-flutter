@@ -9,8 +9,6 @@
 
 ## [Unreleased]
 
-### Summary
-
 ### Breaking changes
 
 ### Changed
@@ -25,13 +23,7 @@
 
 -->
 
-## [Unreleased]
-
-### Summary
-
-### Breaking changes
-
-### Changed
+## [v0.38.0]
 
 ### Added
 
@@ -51,15 +43,10 @@
 * Expose signer methods for `Client` ([Yuki Kishimoto])
 * Add `SendEventOutput` ([Yuki Kishimoto])
 
-### Fixed
-
-### Removed
-
-### Deprecated
-
 <!-- Contributors -->
 [Yuki Kishimoto]: https://yukikishimoto.com
 [J. Azad EMERY]: https://github.com/ethicnology
 
 <!-- Tags -->
-[Unreleased]: https://github.com/rust-nostr/nostr-sdk-flutter/compare/v0.37.0...HEAD
+[Unreleased]: https://github.com/rust-nostr/nostr-sdk-flutter/compare/v0.38.0...HEAD
+[v0.38.0]: https://github.com/rust-nostr/nostr-sdk-flutter/compare/5030349e7e13a96c00416f40d9aacd318a8dd978...v0.38.0
