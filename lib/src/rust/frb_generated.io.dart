@@ -9,6 +9,7 @@ import 'api/client/options.dart';
 import 'api/client/output.dart';
 import 'api/protocol/event.dart';
 import 'api/protocol/event/builder.dart';
+import 'api/protocol/event/id.dart';
 import 'api/protocol/event/tag.dart';
 import 'api/protocol/event/unsigned.dart';
 import 'api/protocol/key.dart';
@@ -50,6 +51,9 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   CrossPlatformFinalizerArg
       get rust_arc_decrement_strong_count_EventBuilderPtr => wire
           ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilderPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_EventIdPtr => wire
+      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventIdPtr;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_KeysPtr => wire
       ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_KeysPtr;
@@ -102,6 +106,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   EventBuilder
       dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
+          dynamic raw);
+
+  @protected
+  EventId
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
           dynamic raw);
 
   @protected
@@ -161,6 +170,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   EventBuilder
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
+          dynamic raw);
+
+  @protected
+  EventId
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
           dynamic raw);
 
   @protected
@@ -226,6 +240,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           dynamic raw);
 
   @protected
+  EventId
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          dynamic raw);
+
+  @protected
   Keys
       dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
           dynamic raw);
@@ -264,6 +283,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   bool dco_decode_bool(dynamic raw);
 
   @protected
+  EventId
+      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          dynamic raw);
+
+  @protected
   ConnectionMode dco_decode_box_autoadd_connection_mode(dynamic raw);
 
   @protected
@@ -294,6 +318,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   String? dco_decode_opt_String(dynamic raw);
+
+  @protected
+  EventId?
+      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          dynamic raw);
 
   @protected
   (String, String) dco_decode_record_string_string(dynamic raw);
@@ -353,6 +382,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  EventId
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          SseDeserializer deserializer);
+
+  @protected
   Keys
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
           SseDeserializer deserializer);
@@ -409,6 +443,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   EventBuilder
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
+          SseDeserializer deserializer);
+
+  @protected
+  EventId
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
           SseDeserializer deserializer);
 
   @protected
@@ -475,6 +514,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  EventId
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          SseDeserializer deserializer);
+
+  @protected
   Keys
       sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
           SseDeserializer deserializer);
@@ -513,6 +557,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   bool sse_decode_bool(SseDeserializer deserializer);
 
   @protected
+  EventId
+      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          SseDeserializer deserializer);
+
+  @protected
   ConnectionMode sse_decode_box_autoadd_connection_mode(
       SseDeserializer deserializer);
 
@@ -545,6 +594,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   String? sse_decode_opt_String(SseDeserializer deserializer);
+
+  @protected
+  EventId?
+      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          SseDeserializer deserializer);
 
   @protected
   (String, String) sse_decode_record_string_string(
@@ -607,6 +661,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          EventId self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
           Keys self, SseSerializer serializer);
 
@@ -664,6 +723,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void
       sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
           EventBuilder self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          EventId self, SseSerializer serializer);
 
   @protected
   void
@@ -731,6 +795,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          EventId self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
           Keys self, SseSerializer serializer);
 
@@ -769,6 +838,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void sse_encode_bool(bool self, SseSerializer serializer);
 
   @protected
+  void
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          EventId self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_connection_mode(
       ConnectionMode self, SseSerializer serializer);
 
@@ -804,6 +878,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+          EventId? self, SseSerializer serializer);
 
   @protected
   void sse_encode_record_string_string(
@@ -1036,6 +1115,38 @@ class NostrSdkWire implements BaseWire {
           'frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder');
   late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder =
       _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilderPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventIdPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_nostr_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId');
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventIdPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventIdPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId');
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventIdPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void

@@ -10,6 +10,7 @@ use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
 use super::_Event;
+use super::id::_EventId;
 use super::tag::_Tag;
 use crate::api::protocol::key::_PublicKey;
 
@@ -36,8 +37,8 @@ impl From<UnsignedEvent> for _UnsignedEvent {
 #[frb(sync)]
 impl _UnsignedEvent {
     /// Get event ID
-    pub fn id(&self) -> Option<String> {
-        self.inner.id.map(|id| id.to_string())
+    pub fn id(&self) -> Option<_EventId> {
+        self.inner.id.map(|id| id.into())
     }
 
     /// Get author

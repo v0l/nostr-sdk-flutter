@@ -8,6 +8,7 @@ use crate::api::client::builder::*;
 use crate::api::client::options::*;
 use crate::api::client::*;
 use crate::api::protocol::event::builder::*;
+use crate::api::protocol::event::id::*;
 use crate::api::protocol::event::tag::*;
 use crate::api::protocol::event::unsigned::*;
 use crate::api::protocol::event::*;
@@ -105,6 +106,20 @@ pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_fl
     ptr: *const std::ffi::c_void,
 ) {
     MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EventBuilder>>::decrement_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EventId>>::increment_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_EventId>>::decrement_strong_count(ptr as _);
 }
 
 #[no_mangle]

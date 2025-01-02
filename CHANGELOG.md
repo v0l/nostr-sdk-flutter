@@ -23,6 +23,22 @@
 
 -->
 
+## [Unreleased]
+
+### Breaking changes
+
+### Changed
+
+### Added
+
+* Expose `EventId` ([Yuki Kishimoto])
+
+### Fixed
+
+### Removed
+
+### Deprecated
+
 ## [v0.38.0]
 
 ### Added

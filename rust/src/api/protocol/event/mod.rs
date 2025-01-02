@@ -7,9 +7,11 @@ use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
 pub mod builder;
+pub mod id;
 pub mod tag;
 pub mod unsigned;
 
+use self::id::_EventId;
 use self::tag::_Tag;
 use super::key::_PublicKey;
 
@@ -28,8 +30,8 @@ impl From<Event> for _Event {
 #[frb(sync)]
 impl _Event {
     /// Get event ID
-    pub fn id(&self) -> String {
-        self.inner.id.to_hex()
+    pub fn id(&self) -> _EventId {
+        self.inner.id.into()
     }
 
     /// Get event author (`pubkey` field)

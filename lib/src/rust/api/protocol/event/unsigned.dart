@@ -6,6 +6,7 @@
 import '../../../frb_generated.dart';
 import '../event.dart';
 import '../key/public_key.dart';
+import 'id.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'tag.dart';
 
@@ -38,7 +39,7 @@ abstract class UnsignedEvent implements RustOpaqueInterface {
       .crateApiProtocolEventUnsignedUnsignedEventFromJson(json: json);
 
   /// Get event ID
-  String? id();
+  EventId? id();
 
   /// Get kind
   int kind();
