@@ -32,6 +32,7 @@
 ### Added
 
 * Expose `EventId` ([Yuki Kishimoto])
+* Expose `Alphabet`, `SingleLetterTag` and `Filter` ([Yuki Kishimoto])
 
 ### Fixed
 

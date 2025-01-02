@@ -2,7 +2,4 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
-pub mod event;
-pub mod key;
-pub mod signer;
-pub mod types;
+pub mod filter;

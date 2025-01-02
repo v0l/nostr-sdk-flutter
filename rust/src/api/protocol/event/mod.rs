@@ -2,6 +2,8 @@
 // Copyright (c) 2023-2024 Rust Nostr Developers
 // Distributed under the MIT software license
 
+use std::ops::Deref;
+
 use anyhow::Result;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
@@ -19,6 +21,14 @@ use super::key::_PublicKey;
 #[frb(name = "Event")]
 pub struct _Event {
     pub(crate) inner: Event,
+}
+
+impl Deref for _Event {
+    type Target = Event;
+
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
 }
 
 impl From<Event> for _Event {
