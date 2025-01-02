@@ -10,6 +10,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
 import 'protocol/event/builder.dart';
 import 'protocol/signer.dart';
+import 'protocol/types/filter.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
@@ -66,6 +67,13 @@ abstract class Client implements RustOpaqueInterface {
 
   /// Disconnect relay
   Future<void> disconnectRelay({required String url});
+
+  /// Fetch events from relays
+  ///
+  /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
+  /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
+  Future<List<Event>> fetchEvents(
+      {required List<Filter> filters, required Duration timeout});
 
   /// Disconnect and force remove all relays
   Future<void> forceRemoveAllRelays();

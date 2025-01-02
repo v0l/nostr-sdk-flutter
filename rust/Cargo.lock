@@ -75,6 +75,7 @@ dependencies = [
  "anyhow",
  "atomic 0.5.3",
  "backtrace",
+ "chrono",
 ]
 
 [[package]]
@@ -1564,6 +1565,7 @@ dependencies = [
  "build-target",
  "bytemuck",
  "byteorder",
+ "chrono",
  "console_error_panic_hook",
  "dart-sys-fork",
  "delegate-attr",
@@ -2736,6 +2738,7 @@ name = "nostr_sdk"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "chrono",
  "flutter_rust_bridge",
  "flutter_rust_bridge_codegen",
  "nostr-sdk",

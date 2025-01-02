@@ -3,6 +3,7 @@
 // Distributed under the MIT software license
 
 use anyhow::Result;
+use chrono::Duration;
 use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
@@ -15,6 +16,7 @@ use self::output::SendEventOutput;
 use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
 use super::protocol::signer::_NostrSigner;
+use super::protocol::types::filter::_Filter;
 
 #[frb(name = "Client")]
 pub struct _Client {
@@ -180,6 +182,21 @@ impl _Client {
     #[inline]
     pub async fn disconnect(&self) -> Result<()> {
         Ok(self.inner.disconnect().await?)
+    }
+
+    /// Fetch events from relays
+    ///
+    /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
+    /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
+    // TODO: return `Events` struct
+    pub async fn fetch_events(
+        &self,
+        filters: Vec<_Filter>,
+        timeout: Duration,
+    ) -> Result<Vec<_Event>> {
+        let filters = filters.into_iter().map(|f| f.inner).collect();
+        let events = self.inner.fetch_events(filters, timeout.to_std()?).await?;
+        Ok(events.into_iter().map(|e| e.into()).collect())
     }
 
     /// Send event

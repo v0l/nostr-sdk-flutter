@@ -18,7 +18,8 @@ codegen = ["dep:flutter_rust_bridge_codegen"]
 
 [dependencies]
 anyhow = "1.0"
-flutter_rust_bridge = "=2.0.0"
+chrono = "0.4"
+flutter_rust_bridge = { version = "=2.0.0", features = ["anyhow", "chrono"] }
 flutter_rust_bridge_codegen = { version = "=2.0.0", optional = true }
 nostr-sdk  = { git = "https://github.com/rust-nostr/nostr", rev = "c54427849014e8451af54a56664e633e4dc0fac1", default-features = false, features = ["all-nips", "tor"] }
 
