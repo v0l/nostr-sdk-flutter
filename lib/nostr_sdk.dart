@@ -14,5 +14,6 @@ export 'src/rust/api/protocol/types/filter.dart';
 export 'src/rust/api/protocol/signer.dart';
 export 'src/rust/api/relay/options.dart';
 export 'src/rust/api/client.dart';
+export 'src/rust/api/client/builder.dart';
 export 'src/rust/api/client/options.dart';
 export 'src/rust/api/client/output.dart';
