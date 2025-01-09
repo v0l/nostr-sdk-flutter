@@ -8,15 +8,18 @@ use flutter_rust_bridge::frb;
 use nostr_sdk::prelude::*;
 
 pub mod builder;
+pub mod notification;
 pub mod options;
 pub mod output;
 
 use self::builder::_ClientBuilder;
+use self::notification::RelayPoolNotification;
 use self::output::SendEventOutput;
 use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
 use super::protocol::signer::_NostrSigner;
 use super::protocol::types::filter::_Filter;
+use crate::frb_generated::StreamSink;
 
 #[frb(name = "Client")]
 pub struct _Client {
@@ -216,5 +219,19 @@ impl _Client {
     pub async fn send_event_builder(&self, builder: _EventBuilder) -> Result<SendEventOutput> {
         let output = self.inner.send_event_builder(builder.inner).await?;
         Ok(output.into())
+    }
+
+    pub async fn handle_notifications(
+        &self,
+        stream: StreamSink<RelayPoolNotification>,
+    ) -> Result<()> {
+        self.inner
+            .handle_notifications(|notification| async {
+                let notification: RelayPoolNotification = notification.into();
+                stream.add(notification).map_err(|e| anyhow::anyhow!(e))?;
+                Ok(false)
+            })
+            .await?;
+        Ok(())
     }
 }

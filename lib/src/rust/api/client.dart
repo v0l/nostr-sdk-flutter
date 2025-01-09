@@ -5,6 +5,7 @@
 
 import '../frb_generated.dart';
 import 'client/builder.dart';
+import 'client/notification.dart';
 import 'client/output.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
@@ -82,6 +83,8 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// Note: this method will remove the relay, also if it's in use for the gossip model or other service!
   Future<void> forceRemoveRelay({required String url});
+
+  Stream<RelayPoolNotification> handleNotifications();
 
   /// Check if signer is configured
   Future<bool> hasSigner();

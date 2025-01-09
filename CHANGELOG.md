@@ -39,6 +39,7 @@
 * Expose `EventBuilder::gift_wrap` ([Yuki Kishimoto])
 * Expose `EventBuilder::private_msg` ([Yuki Kishimoto])
 * Expose `UnwrappedGift` ([Yuki Kishimoto])
+* Expose `Client::handle_notifications` ([Yuki Kishimoto])
 
 ### Fixed
 

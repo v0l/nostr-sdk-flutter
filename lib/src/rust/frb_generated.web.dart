@@ -8,6 +8,7 @@
 
 import 'api/client.dart';
 import 'api/client/builder.dart';
+import 'api/client/notification.dart';
 import 'api/client/options.dart';
 import 'api/client/output.dart';
 import 'api/protocol/event.dart';
@@ -92,6 +93,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw);
+
+  @protected
+  Event
+      dco_decode_AutoExplicit_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
+          dynamic raw);
 
   @protected
   Client
@@ -340,6 +346,10 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   Set<String> dco_decode_Set_String(dynamic raw);
 
   @protected
+  RustStreamSink<RelayPoolNotification>
+      dco_decode_StreamSink_relay_pool_notification_Sse(dynamic raw);
+
+  @protected
   String dco_decode_String(dynamic raw);
 
   @protected
@@ -423,6 +433,9 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   (String, String) dco_decode_record_string_string(dynamic raw);
 
   @protected
+  RelayPoolNotification dco_decode_relay_pool_notification(dynamic raw);
+
+  @protected
   SendEventOutput dco_decode_send_event_output(dynamic raw);
 
   @protected
@@ -445,6 +458,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
+
+  @protected
+  Event
+      sse_decode_AutoExplicit_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
+          SseDeserializer deserializer);
 
   @protected
   Client
@@ -694,6 +712,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   Set<String> sse_decode_Set_String(SseDeserializer deserializer);
 
   @protected
+  RustStreamSink<RelayPoolNotification>
+      sse_decode_StreamSink_relay_pool_notification_Sse(
+          SseDeserializer deserializer);
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer);
 
   @protected
@@ -780,6 +803,10 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
       SseDeserializer deserializer);
 
   @protected
+  RelayPoolNotification sse_decode_relay_pool_notification(
+      SseDeserializer deserializer);
+
+  @protected
   SendEventOutput sse_decode_send_event_output(SseDeserializer deserializer);
 
   @protected
@@ -803,6 +830,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   void sse_encode_AnyhowException(
       AnyhowException self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_AutoExplicit_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
+          Event self, SseSerializer serializer);
 
   @protected
   void
@@ -1055,6 +1087,10 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void sse_encode_Set_String(Set<String> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_StreamSink_relay_pool_notification_Sse(
+      RustStreamSink<RelayPoolNotification> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer);
 
   @protected
@@ -1144,6 +1180,10 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   void sse_encode_record_string_string(
       (String, String) self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_relay_pool_notification(
+      RelayPoolNotification self, SseSerializer serializer);
 
   @protected
   void sse_encode_send_event_output(
