@@ -36,6 +36,7 @@ use crate::api::protocol::event::*;
 use crate::api::protocol::key::public_key::*;
 use crate::api::protocol::key::secret_key::*;
 use crate::api::protocol::key::*;
+use crate::api::protocol::nips::nip59::*;
 use crate::api::protocol::signer::*;
 use crate::api::protocol::types::filter::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
@@ -50,7 +51,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.0.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -324046802;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1770317176;
 
 // Section: executor
 
@@ -5363,6 +5364,180 @@ fn wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
         },
     )
 }
+fn wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "UnwrappedGift_from_gift_wrap",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_signer = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_NostrSigner>,
+            >>::sse_decode(&mut deserializer);
+            let api_gift_wrap = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Event>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_signer_guard = None;
+                        let mut api_gift_wrap_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![
+                                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                        &api_signer,
+                                        0,
+                                        false,
+                                    ),
+                                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                        &api_gift_wrap,
+                                        1,
+                                        false,
+                                    ),
+                                ],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_signer_guard =
+                                        Some(api_signer.lockable_decode_async_ref().await)
+                                }
+                                1 => {
+                                    api_gift_wrap_guard =
+                                        Some(api_gift_wrap.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_signer_guard = api_signer_guard.unwrap();
+                        let api_gift_wrap_guard = api_gift_wrap_guard.unwrap();
+                        let output_ok =
+                            crate::api::protocol::nips::nip59::_UnwrappedGift::from_gift_wrap(
+                                &*api_signer_guard,
+                                &*api_gift_wrap_guard,
+                            )
+                            .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "UnwrappedGift_rumor",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnwrappedGift>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::protocol::nips::nip59::_UnwrappedGift::rumor(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "UnwrappedGift_sender",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnwrappedGift>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::protocol::nips::nip59::_UnwrappedGift::sender(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__crate__api__protocol__signer__NostrSigner_backend_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -8060,6 +8235,9 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnsignedEvent>
 );
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnwrappedGift>
+);
 
 // Section: dart2rust
 
@@ -8221,6 +8399,16 @@ impl SseDecode for _UnsignedEvent {
     }
 }
 
+impl SseDecode for _UnwrappedGift {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnwrappedGift>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
 impl SseDecode for chrono::Duration {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -8369,6 +8557,16 @@ impl SseDecode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpa
 
 impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnsignedEvent>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnwrappedGift>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -8787,37 +8985,43 @@ fn pde_ffi_dispatcher_primary_impl(
             rust_vec_len,
             data_len,
         ),
-        111 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
+        110 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        113 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
+        114 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        114 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
+        116 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        115 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
+        117 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        116 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
+        118 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        117 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
+        119 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        120 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
             port,
             ptr,
             rust_vec_len,
@@ -9116,217 +9320,227 @@ fn pde_ffi_dispatcher_sync_impl(
             rust_vec_len,
             data_len,
         ),
-        110 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
+        111 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        112 => {
+        112 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        113 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        115 => {
             wire__crate__api__protocol__signer__NostrSigner_keys_impl(ptr, rust_vec_len, data_len)
         }
-        118 => wire__crate__api__protocol__types__filter__Filter_as_json_impl(
+        121 => wire__crate__api__protocol__types__filter__Filter_as_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        119 => wire__crate__api__protocol__types__filter__Filter_author_impl(
+        122 => wire__crate__api__protocol__types__filter__Filter_author_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        120 => wire__crate__api__protocol__types__filter__Filter_authors_impl(
+        123 => wire__crate__api__protocol__types__filter__Filter_authors_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        121 => wire__crate__api__protocol__types__filter__Filter_custom_tag_impl(
+        124 => wire__crate__api__protocol__types__filter__Filter_custom_tag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        122 => wire__crate__api__protocol__types__filter__Filter_event_impl(
+        125 => wire__crate__api__protocol__types__filter__Filter_event_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        123 => wire__crate__api__protocol__types__filter__Filter_events_impl(
+        126 => wire__crate__api__protocol__types__filter__Filter_events_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        124 => wire__crate__api__protocol__types__filter__Filter_from_json_impl(
+        127 => wire__crate__api__protocol__types__filter__Filter_from_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        125 => wire__crate__api__protocol__types__filter__Filter_hashtag_impl(
+        128 => wire__crate__api__protocol__types__filter__Filter_hashtag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        126 => wire__crate__api__protocol__types__filter__Filter_hashtags_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        127 => {
-            wire__crate__api__protocol__types__filter__Filter_id_impl(ptr, rust_vec_len, data_len)
-        }
-        128 => wire__crate__api__protocol__types__filter__Filter_identifier_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        129 => wire__crate__api__protocol__types__filter__Filter_identifiers_impl(
+        129 => wire__crate__api__protocol__types__filter__Filter_hashtags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
         130 => {
+            wire__crate__api__protocol__types__filter__Filter_id_impl(ptr, rust_vec_len, data_len)
+        }
+        131 => wire__crate__api__protocol__types__filter__Filter_identifier_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        132 => wire__crate__api__protocol__types__filter__Filter_identifiers_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        133 => {
             wire__crate__api__protocol__types__filter__Filter_ids_impl(ptr, rust_vec_len, data_len)
         }
-        131 => wire__crate__api__protocol__types__filter__Filter_is_empty_impl(
+        134 => wire__crate__api__protocol__types__filter__Filter_is_empty_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        132 => {
+        135 => {
             wire__crate__api__protocol__types__filter__Filter_kind_impl(ptr, rust_vec_len, data_len)
         }
-        133 => wire__crate__api__protocol__types__filter__Filter_kinds_impl(
+        136 => wire__crate__api__protocol__types__filter__Filter_kinds_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        134 => wire__crate__api__protocol__types__filter__Filter_limit_impl(
+        137 => wire__crate__api__protocol__types__filter__Filter_limit_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        135 => wire__crate__api__protocol__types__filter__Filter_match_event_impl(
+        138 => wire__crate__api__protocol__types__filter__Filter_match_event_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        136 => {
+        139 => {
             wire__crate__api__protocol__types__filter__Filter_new_impl(ptr, rust_vec_len, data_len)
         }
-        137 => wire__crate__api__protocol__types__filter__Filter_pubkey_impl(
+        140 => wire__crate__api__protocol__types__filter__Filter_pubkey_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        138 => wire__crate__api__protocol__types__filter__Filter_pubkeys_impl(
+        141 => wire__crate__api__protocol__types__filter__Filter_pubkeys_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        139 => wire__crate__api__protocol__types__filter__Filter_reference_impl(
+        142 => wire__crate__api__protocol__types__filter__Filter_reference_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        140 => wire__crate__api__protocol__types__filter__Filter_references_impl(
+        143 => wire__crate__api__protocol__types__filter__Filter_references_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        141 => wire__crate__api__protocol__types__filter__Filter_remove_authors_impl(
+        144 => wire__crate__api__protocol__types__filter__Filter_remove_authors_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        142 => wire__crate__api__protocol__types__filter__Filter_remove_custom_tag_impl(
+        145 => wire__crate__api__protocol__types__filter__Filter_remove_custom_tag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        143 => wire__crate__api__protocol__types__filter__Filter_remove_events_impl(
+        146 => wire__crate__api__protocol__types__filter__Filter_remove_events_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        144 => wire__crate__api__protocol__types__filter__Filter_remove_hashtags_impl(
+        147 => wire__crate__api__protocol__types__filter__Filter_remove_hashtags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        145 => wire__crate__api__protocol__types__filter__Filter_remove_identifiers_impl(
+        148 => wire__crate__api__protocol__types__filter__Filter_remove_identifiers_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        146 => wire__crate__api__protocol__types__filter__Filter_remove_ids_impl(
+        149 => wire__crate__api__protocol__types__filter__Filter_remove_ids_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        147 => wire__crate__api__protocol__types__filter__Filter_remove_kinds_impl(
+        150 => wire__crate__api__protocol__types__filter__Filter_remove_kinds_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        148 => wire__crate__api__protocol__types__filter__Filter_remove_limit_impl(
+        151 => wire__crate__api__protocol__types__filter__Filter_remove_limit_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        149 => wire__crate__api__protocol__types__filter__Filter_remove_pubkeys_impl(
+        152 => wire__crate__api__protocol__types__filter__Filter_remove_pubkeys_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        150 => wire__crate__api__protocol__types__filter__Filter_remove_references_impl(
+        153 => wire__crate__api__protocol__types__filter__Filter_remove_references_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        151 => wire__crate__api__protocol__types__filter__Filter_remove_search_impl(
+        154 => wire__crate__api__protocol__types__filter__Filter_remove_search_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        152 => wire__crate__api__protocol__types__filter__Filter_remove_since_impl(
+        155 => wire__crate__api__protocol__types__filter__Filter_remove_since_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        153 => wire__crate__api__protocol__types__filter__Filter_remove_until_impl(
+        156 => wire__crate__api__protocol__types__filter__Filter_remove_until_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        154 => wire__crate__api__protocol__types__filter__Filter_search_impl(
+        157 => wire__crate__api__protocol__types__filter__Filter_search_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        155 => wire__crate__api__protocol__types__filter__Filter_since_impl(
+        158 => wire__crate__api__protocol__types__filter__Filter_since_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        156 => wire__crate__api__protocol__types__filter__Filter_until_impl(
+        159 => wire__crate__api__protocol__types__filter__Filter_until_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        157 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_lowercase_impl(
+        160 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_lowercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        158 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_uppercase_impl(
+        161 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_uppercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        159 => wire__crate__api__protocol__types__filter__SingleLetterTag_lowercase_impl(
+        162 => wire__crate__api__protocol__types__filter__SingleLetterTag_lowercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        160 => wire__crate__api__protocol__types__filter__SingleLetterTag_uppercase_impl(
+        163 => wire__crate__api__protocol__types__filter__SingleLetterTag_uppercase_impl(
             ptr,
             rust_vec_len,
             data_len,
@@ -9558,6 +9772,21 @@ impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<
 
 impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<_UnsignedEvent>> for _UnsignedEvent {
     fn into_into_dart(self) -> FrbWrapper<_UnsignedEvent> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<_UnwrappedGift> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<_UnwrappedGift> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<_UnwrappedGift>> for _UnwrappedGift {
+    fn into_into_dart(self) -> FrbWrapper<_UnwrappedGift> {
         self.into()
     }
 }
@@ -9828,6 +10057,13 @@ impl SseEncode for _UnsignedEvent {
     }
 }
 
+impl SseEncode for _UnwrappedGift {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnwrappedGift>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
 impl SseEncode for chrono::Duration {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -9992,6 +10228,17 @@ impl SseEncode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpa
 
 impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnsignedEvent>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_UnwrappedGift>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
