@@ -85,6 +85,22 @@ impl _EventBuilder {
             inner: EventBuilder::text_note(content),
         }
     }
+
+    /// Gift Wrap from seal
+    ///
+    /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
+    pub fn gift_wrap_from_seal(
+        receiver: &_PublicKey,
+        seal: &_Event,
+        extra_tags: Vec<_Tag>,
+    ) -> Result<_Event> {
+        Ok(EventBuilder::gift_wrap_from_seal(
+            receiver.deref(),
+            seal.deref(),
+            extra_tags.into_iter().map(|t| t.inner),
+        )?
+        .into())
+    }
 }
 
 // Async methods

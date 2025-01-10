@@ -20,6 +20,17 @@ abstract class EventBuilder implements RustOpaqueInterface {
   /// Set a custom `created_at` UNIX timestamp
   EventBuilder customCreatedAt({required BigInt createdAt});
 
+  /// Gift Wrap from seal
+  ///
+  /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
+  static Event giftWrapFromSeal(
+          {required PublicKey receiver,
+          required Event seal,
+          required List<Tag> extraTags}) =>
+      NostrSdk.instance.api
+          .crateApiProtocolEventBuilderEventBuilderGiftWrapFromSeal(
+              receiver: receiver, seal: seal, extraTags: extraTags);
+
   /// New event builder
   factory EventBuilder({required int kind, required String content}) =>
       NostrSdk.instance.api.crateApiProtocolEventBuilderEventBuilderNew(
