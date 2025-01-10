@@ -143,4 +143,23 @@ impl _EventBuilder {
         .await?
         .into())
     }
+
+    /// Private Direct message
+    ///
+    /// <https://github.com/nostr-protocol/nips/blob/master/17.md>
+    pub async fn private_msg(
+        signer: &_NostrSigner,
+        receiver: _PublicKey,
+        message: String,
+        rumor_extra_tags: Vec<_Tag>,
+    ) -> Result<_Event> {
+        Ok(EventBuilder::private_msg(
+            signer.deref(),
+            receiver.inner,
+            message,
+            rumor_extra_tags.into_iter().map(|t| t.inner),
+        )
+        .await?
+        .into())
+    }
 }

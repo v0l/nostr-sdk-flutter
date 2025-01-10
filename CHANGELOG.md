@@ -37,6 +37,7 @@
 * Expose `EventBuilder::seal` ([Yuki Kishimoto])
 * Expose `EventBuilder::gift_wrap_from_seal` ([Yuki Kishimoto])
 * Expose `EventBuilder::gift_wrap` ([Yuki Kishimoto])
+* Expose `EventBuilder::private_msg` ([Yuki Kishimoto])
 
 ### Fixed
 

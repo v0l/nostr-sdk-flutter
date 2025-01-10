@@ -55,6 +55,20 @@ abstract class EventBuilder implements RustOpaqueInterface {
   /// Only values `> 0` are accepted!
   EventBuilder pow({required int difficulty});
 
+  /// Private Direct message
+  ///
+  /// <https://github.com/nostr-protocol/nips/blob/master/17.md>
+  static Future<Event> privateMsg(
+          {required NostrSigner signer,
+          required PublicKey receiver,
+          required String message,
+          required List<Tag> rumorExtraTags}) =>
+      NostrSdk.instance.api.crateApiProtocolEventBuilderEventBuilderPrivateMsg(
+          signer: signer,
+          receiver: receiver,
+          message: message,
+          rumorExtraTags: rumorExtraTags);
+
   /// Seal
   ///
   /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
