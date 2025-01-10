@@ -94,4 +94,18 @@ impl _EventBuilder {
         let event = self.inner.clone().sign(signer.deref()).await?;
         Ok(event.into())
     }
+
+    /// Seal
+    ///
+    /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
+    #[inline]
+    pub async fn seal(
+        signer: &_NostrSigner,
+        receiver_pubkey: &_PublicKey,
+        rumor: _UnsignedEvent,
+    ) -> Result<Self> {
+        Ok(Self {
+            inner: EventBuilder::seal(signer.deref(), receiver_pubkey.deref(), rumor.inner).await?,
+        })
+    }
 }

@@ -34,6 +34,7 @@
 * Expose `EventId` ([Yuki Kishimoto])
 * Expose `Alphabet`, `SingleLetterTag` and `Filter` ([Yuki Kishimoto])
 * Expose `Client::fetch_events` ([Yuki Kishimoto])
+* Expose `EventBuilder::seal` ([Yuki Kishimoto])
 
 ### Fixed
 
