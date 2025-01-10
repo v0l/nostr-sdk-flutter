@@ -20,6 +20,20 @@ abstract class EventBuilder implements RustOpaqueInterface {
   /// Set a custom `created_at` UNIX timestamp
   EventBuilder customCreatedAt({required BigInt createdAt});
 
+  /// Gift Wrap
+  ///
+  /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
+  static Future<Event> giftWrap(
+          {required NostrSigner signer,
+          required PublicKey receiver,
+          required UnsignedEvent rumor,
+          required List<Tag> extraTags}) =>
+      NostrSdk.instance.api.crateApiProtocolEventBuilderEventBuilderGiftWrap(
+          signer: signer,
+          receiver: receiver,
+          rumor: rumor,
+          extraTags: extraTags);
+
   /// Gift Wrap from seal
   ///
   /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
@@ -46,10 +60,10 @@ abstract class EventBuilder implements RustOpaqueInterface {
   /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
   static Future<EventBuilder> seal(
           {required NostrSigner signer,
-          required PublicKey receiverPubkey,
+          required PublicKey receiver,
           required UnsignedEvent rumor}) =>
       NostrSdk.instance.api.crateApiProtocolEventBuilderEventBuilderSeal(
-          signer: signer, receiverPubkey: receiverPubkey, rumor: rumor);
+          signer: signer, receiver: receiver, rumor: rumor);
 
   /// Build, sign and return event
   Future<Event> sign({required NostrSigner signer});

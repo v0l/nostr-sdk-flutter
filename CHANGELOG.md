@@ -36,6 +36,7 @@
 * Expose `Client::fetch_events` ([Yuki Kishimoto])
 * Expose `EventBuilder::seal` ([Yuki Kishimoto])
 * Expose `EventBuilder::gift_wrap_from_seal` ([Yuki Kishimoto])
+* Expose `EventBuilder::gift_wrap` ([Yuki Kishimoto])
 
 ### Fixed
 

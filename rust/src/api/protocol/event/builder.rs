@@ -117,11 +117,30 @@ impl _EventBuilder {
     #[inline]
     pub async fn seal(
         signer: &_NostrSigner,
-        receiver_pubkey: &_PublicKey,
+        receiver: &_PublicKey,
         rumor: _UnsignedEvent,
     ) -> Result<Self> {
         Ok(Self {
-            inner: EventBuilder::seal(signer.deref(), receiver_pubkey.deref(), rumor.inner).await?,
+            inner: EventBuilder::seal(signer.deref(), receiver.deref(), rumor.inner).await?,
         })
+    }
+
+    /// Gift Wrap
+    ///
+    /// <https://github.com/nostr-protocol/nips/blob/master/59.md>
+    pub async fn gift_wrap(
+        signer: &_NostrSigner,
+        receiver: &_PublicKey,
+        rumor: _UnsignedEvent,
+        extra_tags: Vec<_Tag>,
+    ) -> Result<_Event> {
+        Ok(EventBuilder::gift_wrap(
+            signer.deref(),
+            receiver.deref(),
+            rumor.inner,
+            extra_tags.into_iter().map(|t| t.inner),
+        )
+        .await?
+        .into())
     }
 }
