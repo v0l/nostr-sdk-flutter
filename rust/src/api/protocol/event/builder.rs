@@ -25,7 +25,7 @@ pub struct _EventBuilder {
 #[frb(sync)]
 impl _EventBuilder {
     /// New event builder
-    pub fn new(kind: u16, content: String) -> Self {
+    pub fn new(kind: u16, content: &str) -> Self {
         let kind = Kind::from_u16(kind);
         Self {
             inner: EventBuilder::new(kind, content),
@@ -33,9 +33,9 @@ impl _EventBuilder {
     }
 
     /// Add tag
-    pub fn tag(&self, tag: _Tag) -> Self {
+    pub fn tag(&self, tag: &_Tag) -> Self {
         let mut builder = self.clone();
-        builder.inner = builder.inner.tag(tag.inner);
+        builder.inner = builder.inner.tag(tag.inner.clone());
         builder
     }
 
@@ -73,14 +73,14 @@ impl _EventBuilder {
     }
 
     /// Build unsigned event
-    pub fn build(&self, public_key: _PublicKey) -> _UnsignedEvent {
+    pub fn build(&self, public_key: &_PublicKey) -> _UnsignedEvent {
         self.inner.clone().build(public_key.inner).into()
     }
 
     /// Text note
     ///
     /// <https://github.com/nostr-protocol/nips/blob/master/01.md>
-    pub fn text_note(content: String) -> Self {
+    pub fn text_note(content: &str) -> Self {
         Self {
             inner: EventBuilder::text_note(content),
         }
@@ -118,10 +118,11 @@ impl _EventBuilder {
     pub async fn seal(
         signer: &_NostrSigner,
         receiver: &_PublicKey,
-        rumor: _UnsignedEvent,
+        rumor: &_UnsignedEvent,
     ) -> Result<Self> {
         Ok(Self {
-            inner: EventBuilder::seal(signer.deref(), receiver.deref(), rumor.inner).await?,
+            inner: EventBuilder::seal(signer.deref(), receiver.deref(), rumor.inner.clone())
+                .await?,
         })
     }
 
@@ -131,13 +132,13 @@ impl _EventBuilder {
     pub async fn gift_wrap(
         signer: &_NostrSigner,
         receiver: &_PublicKey,
-        rumor: _UnsignedEvent,
+        rumor: &_UnsignedEvent,
         extra_tags: Vec<_Tag>,
     ) -> Result<_Event> {
         Ok(EventBuilder::gift_wrap(
             signer.deref(),
             receiver.deref(),
-            rumor.inner,
+            rumor.inner.clone(),
             extra_tags.into_iter().map(|t| t.inner),
         )
         .await?
@@ -149,8 +150,8 @@ impl _EventBuilder {
     /// <https://github.com/nostr-protocol/nips/blob/master/17.md>
     pub async fn private_msg(
         signer: &_NostrSigner,
-        receiver: _PublicKey,
-        message: String,
+        receiver: &_PublicKey,
+        message: &str,
         rumor_extra_tags: Vec<_Tag>,
     ) -> Result<_Event> {
         Ok(EventBuilder::private_msg(

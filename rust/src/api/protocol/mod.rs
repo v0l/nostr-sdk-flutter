@@ -3,7 +3,7 @@
 // Distributed under the MIT software license
 
 pub mod event;
+pub mod filter;
 pub mod key;
 pub mod nips;
 pub mod signer;
-pub mod types;

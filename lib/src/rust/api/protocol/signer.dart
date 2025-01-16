@@ -36,7 +36,7 @@ abstract class NostrSigner implements RustOpaqueInterface {
 
   /// Decrypt
   Future<String> nip44Decrypt(
-      {required PublicKey publicKey, required String payload});
+      {required PublicKey publicKey, required String content});
 
   /// Encrypt
   Future<String> nip44Encrypt(

@@ -7,7 +7,6 @@ import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `deref`, `from`
-// These functions have error during generation (see debug logs or enable `stop_on_error: true` for more details): `to_bytes`
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_PublicKey>>
 abstract class PublicKey implements RustOpaqueInterface {
@@ -22,6 +21,9 @@ abstract class PublicKey implements RustOpaqueInterface {
 
   /// Serialize to bech32
   String toBech32();
+
+  /// Serialize to bytes
+  Uint8List toBytes();
 
   /// Serialize to hex
   String toHex();

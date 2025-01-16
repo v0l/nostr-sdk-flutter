@@ -60,7 +60,7 @@ impl _PublicKey {
     }
 
     /// Serialize to bytes
-    pub fn to_bytes(&self) -> [u8; PublicKey::LEN] {
-        self.inner.to_bytes()
+    pub fn to_bytes(&self) -> Vec<u8> {
+        self.inner.as_bytes().to_vec()
     }
 }

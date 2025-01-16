@@ -31,9 +31,9 @@ impl Deref for _Keys {
 #[frb(sync)]
 impl _Keys {
     /// Construct keys from secret key
-    pub fn new(secret_key: _SecretKey) -> Self {
+    pub fn new(secret_key: &_SecretKey) -> Self {
         Self {
-            inner: Keys::new(secret_key.into()),
+            inner: Keys::new(secret_key.inner.clone()),
         }
     }
 

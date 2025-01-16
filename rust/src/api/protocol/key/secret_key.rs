@@ -9,18 +9,12 @@ use nostr_sdk::prelude::*;
 /// Secret key
 #[frb(name = "SecretKey")]
 pub struct _SecretKey {
-    inner: SecretKey,
+    pub(crate) inner: SecretKey,
 }
 
 impl From<SecretKey> for _SecretKey {
     fn from(inner: SecretKey) -> Self {
         Self { inner }
-    }
-}
-
-impl From<_SecretKey> for SecretKey {
-    fn from(value: _SecretKey) -> Self {
-        value.inner
     }
 }
 

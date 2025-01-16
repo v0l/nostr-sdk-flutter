@@ -13,12 +13,12 @@ import 'api/protocol/event/builder.dart';
 import 'api/protocol/event/id.dart';
 import 'api/protocol/event/tag.dart';
 import 'api/protocol/event/unsigned.dart';
+import 'api/protocol/filter.dart';
 import 'api/protocol/key.dart';
 import 'api/protocol/key/public_key.dart';
 import 'api/protocol/key/secret_key.dart';
 import 'api/protocol/nips/nip59.dart';
 import 'api/protocol/signer.dart';
-import 'api/protocol/types/filter.dart';
 import 'api/relay/options.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -75,7 +75,7 @@ class NostrSdk
   String get codegenVersion => '2.0.0';
 
   @override
-  int get rustContentHash => -2132613419;
+  int get rustContentHash => -1838075724;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -366,6 +366,131 @@ abstract class NostrSdkApi extends BaseApi {
   List<Tag> crateApiProtocolEventUnsignedUnsignedEventTags(
       {required UnsignedEvent that});
 
+  String crateApiProtocolFilterFilterAsJson({required Filter that});
+
+  Filter crateApiProtocolFilterFilterAuthor(
+      {required Filter that, required PublicKey author});
+
+  Filter crateApiProtocolFilterFilterAuthors(
+      {required Filter that, required List<PublicKey> authors});
+
+  Filter crateApiProtocolFilterFilterCustomTag(
+      {required Filter that,
+      required SingleLetterTag tag,
+      required List<String> content});
+
+  Filter crateApiProtocolFilterFilterEvent(
+      {required Filter that, required EventId id});
+
+  Filter crateApiProtocolFilterFilterEvents(
+      {required Filter that, required List<EventId> ids});
+
+  Filter crateApiProtocolFilterFilterFromJson({required String json});
+
+  Filter crateApiProtocolFilterFilterHashtag(
+      {required Filter that, required String hashtag});
+
+  Filter crateApiProtocolFilterFilterHashtags(
+      {required Filter that, required List<String> hashtags});
+
+  Filter crateApiProtocolFilterFilterId(
+      {required Filter that, required EventId id});
+
+  Filter crateApiProtocolFilterFilterIdentifier(
+      {required Filter that, required String identifier});
+
+  Filter crateApiProtocolFilterFilterIdentifiers(
+      {required Filter that, required List<String> identifiers});
+
+  Filter crateApiProtocolFilterFilterIds(
+      {required Filter that, required List<EventId> ids});
+
+  bool crateApiProtocolFilterFilterIsEmpty({required Filter that});
+
+  Filter crateApiProtocolFilterFilterKind(
+      {required Filter that, required int kind});
+
+  Filter crateApiProtocolFilterFilterKinds(
+      {required Filter that, required List<int> kinds});
+
+  Filter crateApiProtocolFilterFilterLimit(
+      {required Filter that, required BigInt limit});
+
+  bool crateApiProtocolFilterFilterMatchEvent(
+      {required Filter that, required Event event});
+
+  Filter crateApiProtocolFilterFilterNew();
+
+  Filter crateApiProtocolFilterFilterPubkey(
+      {required Filter that, required PublicKey pubkey});
+
+  Filter crateApiProtocolFilterFilterPubkeys(
+      {required Filter that, required List<PublicKey> pubkeys});
+
+  Filter crateApiProtocolFilterFilterReference(
+      {required Filter that, required String reference});
+
+  Filter crateApiProtocolFilterFilterReferences(
+      {required Filter that, required List<String> references});
+
+  Filter crateApiProtocolFilterFilterRemoveAuthors(
+      {required Filter that, required List<PublicKey> authors});
+
+  Filter crateApiProtocolFilterFilterRemoveCustomTag(
+      {required Filter that,
+      required SingleLetterTag tag,
+      required List<String> content});
+
+  Filter crateApiProtocolFilterFilterRemoveEvents(
+      {required Filter that, required List<EventId> ids});
+
+  Filter crateApiProtocolFilterFilterRemoveHashtags(
+      {required Filter that, required List<String> hashtags});
+
+  Filter crateApiProtocolFilterFilterRemoveIdentifiers(
+      {required Filter that, required List<String> identifiers});
+
+  Filter crateApiProtocolFilterFilterRemoveIds(
+      {required Filter that, required List<EventId> ids});
+
+  Filter crateApiProtocolFilterFilterRemoveKinds(
+      {required Filter that, required List<int> kinds});
+
+  Filter crateApiProtocolFilterFilterRemoveLimit({required Filter that});
+
+  Filter crateApiProtocolFilterFilterRemovePubkeys(
+      {required Filter that, required List<PublicKey> pubkeys});
+
+  Filter crateApiProtocolFilterFilterRemoveReferences(
+      {required Filter that, required List<String> references});
+
+  Filter crateApiProtocolFilterFilterRemoveSearch({required Filter that});
+
+  Filter crateApiProtocolFilterFilterRemoveSince({required Filter that});
+
+  Filter crateApiProtocolFilterFilterRemoveUntil({required Filter that});
+
+  Filter crateApiProtocolFilterFilterSearch(
+      {required Filter that, required String text});
+
+  Filter crateApiProtocolFilterFilterSince(
+      {required Filter that, required BigInt timestamp});
+
+  Filter crateApiProtocolFilterFilterUntil(
+      {required Filter that, required BigInt timestamp});
+
+  bool crateApiProtocolFilterSingleLetterTagIsLowercase(
+      {required SingleLetterTag that});
+
+  bool crateApiProtocolFilterSingleLetterTagIsUppercase(
+      {required SingleLetterTag that});
+
+  SingleLetterTag crateApiProtocolFilterSingleLetterTagLowercase(
+      {required Alphabet character});
+
+  SingleLetterTag crateApiProtocolFilterSingleLetterTagUppercase(
+      {required Alphabet character});
+
   Keys crateApiProtocolKeyKeysGenerate();
 
   Keys crateApiProtocolKeyKeysNew({required SecretKey secretKey});
@@ -383,6 +508,9 @@ abstract class NostrSdkApi extends BaseApi {
       {required String publicKey});
 
   String crateApiProtocolKeyPublicKeyPublicKeyToBech32(
+      {required PublicKey that});
+
+  Uint8List crateApiProtocolKeyPublicKeyPublicKeyToBytes(
       {required PublicKey that});
 
   String crateApiProtocolKeyPublicKeyPublicKeyToHex({required PublicKey that});
@@ -434,7 +562,7 @@ abstract class NostrSdkApi extends BaseApi {
   Future<String> crateApiProtocolSignerNostrSignerNip44Decrypt(
       {required NostrSigner that,
       required PublicKey publicKey,
-      required String payload});
+      required String content});
 
   Future<String> crateApiProtocolSignerNostrSignerNip44Encrypt(
       {required NostrSigner that,
@@ -443,131 +571,6 @@ abstract class NostrSdkApi extends BaseApi {
 
   Future<Event> crateApiProtocolSignerNostrSignerSignEvent(
       {required NostrSigner that, required UnsignedEvent unsignedEvent});
-
-  String crateApiProtocolTypesFilterFilterAsJson({required Filter that});
-
-  Filter crateApiProtocolTypesFilterFilterAuthor(
-      {required Filter that, required PublicKey author});
-
-  Filter crateApiProtocolTypesFilterFilterAuthors(
-      {required Filter that, required List<PublicKey> authors});
-
-  Filter crateApiProtocolTypesFilterFilterCustomTag(
-      {required Filter that,
-      required SingleLetterTag tag,
-      required List<String> content});
-
-  Filter crateApiProtocolTypesFilterFilterEvent(
-      {required Filter that, required EventId id});
-
-  Filter crateApiProtocolTypesFilterFilterEvents(
-      {required Filter that, required List<EventId> ids});
-
-  Filter crateApiProtocolTypesFilterFilterFromJson({required String json});
-
-  Filter crateApiProtocolTypesFilterFilterHashtag(
-      {required Filter that, required String hashtag});
-
-  Filter crateApiProtocolTypesFilterFilterHashtags(
-      {required Filter that, required List<String> hashtags});
-
-  Filter crateApiProtocolTypesFilterFilterId(
-      {required Filter that, required EventId id});
-
-  Filter crateApiProtocolTypesFilterFilterIdentifier(
-      {required Filter that, required String identifier});
-
-  Filter crateApiProtocolTypesFilterFilterIdentifiers(
-      {required Filter that, required List<String> identifiers});
-
-  Filter crateApiProtocolTypesFilterFilterIds(
-      {required Filter that, required List<EventId> ids});
-
-  bool crateApiProtocolTypesFilterFilterIsEmpty({required Filter that});
-
-  Filter crateApiProtocolTypesFilterFilterKind(
-      {required Filter that, required int kind});
-
-  Filter crateApiProtocolTypesFilterFilterKinds(
-      {required Filter that, required List<int> kinds});
-
-  Filter crateApiProtocolTypesFilterFilterLimit(
-      {required Filter that, required BigInt limit});
-
-  bool crateApiProtocolTypesFilterFilterMatchEvent(
-      {required Filter that, required Event event});
-
-  Filter crateApiProtocolTypesFilterFilterNew();
-
-  Filter crateApiProtocolTypesFilterFilterPubkey(
-      {required Filter that, required PublicKey pubkey});
-
-  Filter crateApiProtocolTypesFilterFilterPubkeys(
-      {required Filter that, required List<PublicKey> pubkeys});
-
-  Filter crateApiProtocolTypesFilterFilterReference(
-      {required Filter that, required String reference});
-
-  Filter crateApiProtocolTypesFilterFilterReferences(
-      {required Filter that, required List<String> references});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveAuthors(
-      {required Filter that, required List<PublicKey> authors});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveCustomTag(
-      {required Filter that,
-      required SingleLetterTag tag,
-      required List<String> content});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveEvents(
-      {required Filter that, required List<EventId> ids});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveHashtags(
-      {required Filter that, required List<String> hashtags});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveIdentifiers(
-      {required Filter that, required List<String> identifiers});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveIds(
-      {required Filter that, required List<EventId> ids});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveKinds(
-      {required Filter that, required List<int> kinds});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveLimit({required Filter that});
-
-  Filter crateApiProtocolTypesFilterFilterRemovePubkeys(
-      {required Filter that, required List<PublicKey> pubkeys});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveReferences(
-      {required Filter that, required List<String> references});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveSearch({required Filter that});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveSince({required Filter that});
-
-  Filter crateApiProtocolTypesFilterFilterRemoveUntil({required Filter that});
-
-  Filter crateApiProtocolTypesFilterFilterSearch(
-      {required Filter that, required String text});
-
-  Filter crateApiProtocolTypesFilterFilterSince(
-      {required Filter that, required BigInt timestamp});
-
-  Filter crateApiProtocolTypesFilterFilterUntil(
-      {required Filter that, required BigInt timestamp});
-
-  bool crateApiProtocolTypesFilterSingleLetterTagIsLowercase(
-      {required SingleLetterTag that});
-
-  bool crateApiProtocolTypesFilterSingleLetterTagIsUppercase(
-      {required SingleLetterTag that});
-
-  SingleLetterTag crateApiProtocolTypesFilterSingleLetterTagLowercase(
-      {required Alphabet character});
-
-  SingleLetterTag crateApiProtocolTypesFilterSingleLetterTagUppercase(
-      {required Alphabet character});
 
   SubscribeAutoCloseOptions
       crateApiRelayOptionsSubscribeAutoCloseOptionsExitPolicy(
@@ -1271,7 +1274,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Client(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             event, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
             funcId: 21, port: port_);
@@ -1300,7 +1303,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Client(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
             builder, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
             funcId: 22, port: port_);
@@ -1329,7 +1332,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Client(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             signer, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
             funcId: 23, port: port_);
@@ -1627,7 +1630,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientBuilder(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
             opts, serializer);
         return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 33)!;
       },
@@ -1656,7 +1659,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientBuilder(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             signer, serializer);
         return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 34)!;
       },
@@ -1743,7 +1746,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_ClientOptions(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Connection(
             connection, serializer);
         return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 37)!;
       },
@@ -2394,7 +2397,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             publicKey, serializer);
         return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 62)!;
       },
@@ -2458,7 +2461,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             signer, serializer);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             receiver, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
             rumor, serializer);
         sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             extraTags, serializer);
@@ -2584,7 +2587,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             signer, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             receiver, serializer);
         sse_encode_String(message, serializer);
         sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
@@ -2622,7 +2625,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             signer, serializer);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             receiver, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
             rumor, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
             funcId: 69, port: port_);
@@ -2712,7 +2715,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventBuilder(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
             tag, serializer);
         return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 72)!;
       },
@@ -3450,11 +3453,1208 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
+  String crateApiProtocolFilterFilterAsJson({required Filter that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 100)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_String,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterAsJsonConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterAsJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_as_json",
+        argNames: ["that"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterAuthor(
+      {required Filter that, required PublicKey author}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+            author, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 101)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterAuthorConstMeta,
+      argValues: [that, author],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterAuthorConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_author",
+        argNames: ["that", "author"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterAuthors(
+      {required Filter that, required List<PublicKey> authors}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+            authors, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 102)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterAuthorsConstMeta,
+      argValues: [that, authors],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterAuthorsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_authors",
+        argNames: ["that", "authors"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterCustomTag(
+      {required Filter that,
+      required SingleLetterTag tag,
+      required List<String> content}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
+            tag, serializer);
+        sse_encode_list_String(content, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 103)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterCustomTagConstMeta,
+      argValues: [that, tag, content],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterCustomTagConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_custom_tag",
+        argNames: ["that", "tag", "content"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterEvent(
+      {required Filter that, required EventId id}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+            id, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 104)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterEventConstMeta,
+      argValues: [that, id],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterEventConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_event",
+        argNames: ["that", "id"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterEvents(
+      {required Filter that, required List<EventId> ids}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+            ids, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 105)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterEventsConstMeta,
+      argValues: [that, ids],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterEventsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_events",
+        argNames: ["that", "ids"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterFromJson({required String json}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_String(json, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 106)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterFromJsonConstMeta,
+      argValues: [json],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterFromJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_from_json",
+        argNames: ["json"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterHashtag(
+      {required Filter that, required String hashtag}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_String(hashtag, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 107)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterHashtagConstMeta,
+      argValues: [that, hashtag],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterHashtagConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_hashtag",
+        argNames: ["that", "hashtag"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterHashtags(
+      {required Filter that, required List<String> hashtags}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_String(hashtags, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 108)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterHashtagsConstMeta,
+      argValues: [that, hashtags],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterHashtagsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_hashtags",
+        argNames: ["that", "hashtags"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterId(
+      {required Filter that, required EventId id}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+            id, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 109)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterIdConstMeta,
+      argValues: [that, id],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterIdConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_id",
+        argNames: ["that", "id"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterIdentifier(
+      {required Filter that, required String identifier}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_String(identifier, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 110)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterIdentifierConstMeta,
+      argValues: [that, identifier],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterIdentifierConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_identifier",
+        argNames: ["that", "identifier"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterIdentifiers(
+      {required Filter that, required List<String> identifiers}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_String(identifiers, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 111)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterIdentifiersConstMeta,
+      argValues: [that, identifiers],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterIdentifiersConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_identifiers",
+        argNames: ["that", "identifiers"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterIds(
+      {required Filter that, required List<EventId> ids}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+            ids, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 112)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterIdsConstMeta,
+      argValues: [that, ids],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterIdsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_ids",
+        argNames: ["that", "ids"],
+      );
+
+  @override
+  bool crateApiProtocolFilterFilterIsEmpty({required Filter that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 113)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_bool,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterIsEmptyConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterIsEmptyConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_is_empty",
+        argNames: ["that"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterKind(
+      {required Filter that, required int kind}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_u_16(kind, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 114)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterKindConstMeta,
+      argValues: [that, kind],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterKindConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_kind",
+        argNames: ["that", "kind"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterKinds(
+      {required Filter that, required List<int> kinds}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_prim_u_16_loose(kinds, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 115)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterKindsConstMeta,
+      argValues: [that, kinds],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterKindsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_kinds",
+        argNames: ["that", "kinds"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterLimit(
+      {required Filter that, required BigInt limit}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_u_64(limit, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 116)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterLimitConstMeta,
+      argValues: [that, limit],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterLimitConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_limit",
+        argNames: ["that", "limit"],
+      );
+
+  @override
+  bool crateApiProtocolFilterFilterMatchEvent(
+      {required Filter that, required Event event}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
+            event, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 117)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_bool,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterMatchEventConstMeta,
+      argValues: [that, event],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterMatchEventConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_match_event",
+        argNames: ["that", "event"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterNew() {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 118)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterNewConstMeta,
+      argValues: [],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_new",
+        argNames: [],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterPubkey(
+      {required Filter that, required PublicKey pubkey}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+            pubkey, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 119)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterPubkeyConstMeta,
+      argValues: [that, pubkey],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterPubkeyConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_pubkey",
+        argNames: ["that", "pubkey"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterPubkeys(
+      {required Filter that, required List<PublicKey> pubkeys}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+            pubkeys, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 120)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterPubkeysConstMeta,
+      argValues: [that, pubkeys],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterPubkeysConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_pubkeys",
+        argNames: ["that", "pubkeys"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterReference(
+      {required Filter that, required String reference}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_String(reference, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 121)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterReferenceConstMeta,
+      argValues: [that, reference],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterReferenceConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_reference",
+        argNames: ["that", "reference"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterReferences(
+      {required Filter that, required List<String> references}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_String(references, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 122)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterReferencesConstMeta,
+      argValues: [that, references],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterReferencesConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_references",
+        argNames: ["that", "references"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveAuthors(
+      {required Filter that, required List<PublicKey> authors}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+            authors, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 123)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveAuthorsConstMeta,
+      argValues: [that, authors],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveAuthorsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_authors",
+        argNames: ["that", "authors"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveCustomTag(
+      {required Filter that,
+      required SingleLetterTag tag,
+      required List<String> content}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
+            tag, serializer);
+        sse_encode_list_String(content, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 124)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveCustomTagConstMeta,
+      argValues: [that, tag, content],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveCustomTagConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_custom_tag",
+        argNames: ["that", "tag", "content"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveEvents(
+      {required Filter that, required List<EventId> ids}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+            ids, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 125)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveEventsConstMeta,
+      argValues: [that, ids],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveEventsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_events",
+        argNames: ["that", "ids"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveHashtags(
+      {required Filter that, required List<String> hashtags}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_String(hashtags, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 126)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveHashtagsConstMeta,
+      argValues: [that, hashtags],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveHashtagsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_hashtags",
+        argNames: ["that", "hashtags"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveIdentifiers(
+      {required Filter that, required List<String> identifiers}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_String(identifiers, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 127)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveIdentifiersConstMeta,
+      argValues: [that, identifiers],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveIdentifiersConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_identifiers",
+        argNames: ["that", "identifiers"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveIds(
+      {required Filter that, required List<EventId> ids}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
+            ids, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 128)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveIdsConstMeta,
+      argValues: [that, ids],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveIdsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_ids",
+        argNames: ["that", "ids"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveKinds(
+      {required Filter that, required List<int> kinds}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_prim_u_16_loose(kinds, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 129)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveKindsConstMeta,
+      argValues: [that, kinds],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveKindsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_kinds",
+        argNames: ["that", "kinds"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveLimit({required Filter that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 130)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveLimitConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveLimitConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_limit",
+        argNames: ["that"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemovePubkeys(
+      {required Filter that, required List<PublicKey> pubkeys}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+            pubkeys, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 131)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemovePubkeysConstMeta,
+      argValues: [that, pubkeys],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemovePubkeysConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_pubkeys",
+        argNames: ["that", "pubkeys"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveReferences(
+      {required Filter that, required List<String> references}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_list_String(references, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 132)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveReferencesConstMeta,
+      argValues: [that, references],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveReferencesConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_references",
+        argNames: ["that", "references"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveSearch({required Filter that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 133)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveSearchConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveSearchConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_search",
+        argNames: ["that"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveSince({required Filter that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 134)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveSinceConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveSinceConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_since",
+        argNames: ["that"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterRemoveUntil({required Filter that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 135)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterRemoveUntilConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterRemoveUntilConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_remove_until",
+        argNames: ["that"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterSearch(
+      {required Filter that, required String text}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_String(text, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 136)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterSearchConstMeta,
+      argValues: [that, text],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterSearchConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_search",
+        argNames: ["that", "text"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterSince(
+      {required Filter that, required BigInt timestamp}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_u_64(timestamp, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 137)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterSinceConstMeta,
+      argValues: [that, timestamp],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterSinceConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_since",
+        argNames: ["that", "timestamp"],
+      );
+
+  @override
+  Filter crateApiProtocolFilterFilterUntil(
+      {required Filter that, required BigInt timestamp}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
+            that, serializer);
+        sse_encode_u_64(timestamp, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 138)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterFilterUntilConstMeta,
+      argValues: [that, timestamp],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterFilterUntilConstMeta =>
+      const TaskConstMeta(
+        debugName: "Filter_until",
+        argNames: ["that", "timestamp"],
+      );
+
+  @override
+  bool crateApiProtocolFilterSingleLetterTagIsLowercase(
+      {required SingleLetterTag that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 139)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_bool,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterSingleLetterTagIsLowercaseConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiProtocolFilterSingleLetterTagIsLowercaseConstMeta =>
+          const TaskConstMeta(
+            debugName: "SingleLetterTag_is_lowercase",
+            argNames: ["that"],
+          );
+
+  @override
+  bool crateApiProtocolFilterSingleLetterTagIsUppercase(
+      {required SingleLetterTag that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 140)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_bool,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterSingleLetterTagIsUppercaseConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiProtocolFilterSingleLetterTagIsUppercaseConstMeta =>
+          const TaskConstMeta(
+            debugName: "SingleLetterTag_is_uppercase",
+            argNames: ["that"],
+          );
+
+  @override
+  SingleLetterTag crateApiProtocolFilterSingleLetterTagLowercase(
+      {required Alphabet character}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_alphabet(character, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 141)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterSingleLetterTagLowercaseConstMeta,
+      argValues: [character],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterSingleLetterTagLowercaseConstMeta =>
+      const TaskConstMeta(
+        debugName: "SingleLetterTag_lowercase",
+        argNames: ["character"],
+      );
+
+  @override
+  SingleLetterTag crateApiProtocolFilterSingleLetterTagUppercase(
+      {required Alphabet character}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_alphabet(character, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 142)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData:
+            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolFilterSingleLetterTagUppercaseConstMeta,
+      argValues: [character],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolFilterSingleLetterTagUppercaseConstMeta =>
+      const TaskConstMeta(
+        debugName: "SingleLetterTag_uppercase",
+        argNames: ["character"],
+      );
+
+  @override
   Keys crateApiProtocolKeyKeysGenerate() {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 100)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 143)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3478,9 +4678,9 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 101)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 144)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3504,7 +4704,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 102)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 145)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3530,7 +4730,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 103)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 146)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3556,7 +4756,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 104)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 147)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3582,7 +4782,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_list_prim_u_8_loose(publicKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 105)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 148)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3608,7 +4808,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(publicKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 106)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 149)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3635,7 +4835,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 107)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 150)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -3654,13 +4854,39 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
+  Uint8List crateApiProtocolKeyPublicKeyPublicKeyToBytes(
+      {required PublicKey that}) {
+    return handler.executeSync(SyncTask(
+      callFfi: () {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
+            that, serializer);
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 151)!;
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_prim_u_8_strict,
+        decodeErrorData: null,
+      ),
+      constMeta: kCrateApiProtocolKeyPublicKeyPublicKeyToBytesConstMeta,
+      argValues: [that],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiProtocolKeyPublicKeyPublicKeyToBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "PublicKey_to_bytes",
+        argNames: ["that"],
+      );
+
+  @override
   String crateApiProtocolKeyPublicKeyPublicKeyToHex({required PublicKey that}) {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 108)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 152)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -3686,7 +4912,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 109)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 153)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -3711,7 +4937,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_list_prim_u_8_loose(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 110)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 154)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3735,7 +4961,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 111)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 155)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3761,7 +4987,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(secretKey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 112)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 156)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3788,7 +5014,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 113)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 157)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -3814,7 +5040,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SecretKey(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 114)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 158)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -3844,7 +5070,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
             giftWrap, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 115, port: port_);
+            funcId: 159, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3872,7 +5098,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnwrappedGift(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 116)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 160)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3899,7 +5125,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnwrappedGift(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 117)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 161)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3926,7 +5152,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 118)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 162)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_signer_backend,
@@ -3953,7 +5179,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             that, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 119, port: port_);
+            funcId: 163, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -3977,9 +5203,9 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Keys(
             keys, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 120)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 164)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -4012,7 +5238,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             publicKey, serializer);
         sse_encode_String(encryptedContent, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 121, port: port_);
+            funcId: 165, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -4044,7 +5270,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             publicKey, serializer);
         sse_encode_String(content, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 122, port: port_);
+            funcId: 166, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -4066,7 +5292,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   Future<String> crateApiProtocolSignerNostrSignerNip44Decrypt(
       {required NostrSigner that,
       required PublicKey publicKey,
-      required String payload}) {
+      required String content}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
@@ -4074,16 +5300,16 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             that, serializer);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
             publicKey, serializer);
-        sse_encode_String(payload, serializer);
+        sse_encode_String(content, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 123, port: port_);
+            funcId: 167, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
         decodeErrorData: sse_decode_AnyhowException,
       ),
       constMeta: kCrateApiProtocolSignerNostrSignerNip44DecryptConstMeta,
-      argValues: [that, publicKey, payload],
+      argValues: [that, publicKey, content],
       apiImpl: this,
     ));
   }
@@ -4091,7 +5317,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
   TaskConstMeta get kCrateApiProtocolSignerNostrSignerNip44DecryptConstMeta =>
       const TaskConstMeta(
         debugName: "NostrSigner_nip44_decrypt",
-        argNames: ["that", "publicKey", "payload"],
+        argNames: ["that", "publicKey", "content"],
       );
 
   @override
@@ -4108,7 +5334,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
             publicKey, serializer);
         sse_encode_String(content, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 124, port: port_);
+            funcId: 168, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -4134,10 +5360,10 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_NostrSigner(
             that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
+        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_UnsignedEvent(
             unsignedEvent, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 125, port: port_);
+            funcId: 169, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -4157,1210 +5383,6 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
       );
 
   @override
-  String crateApiProtocolTypesFilterFilterAsJson({required Filter that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 126)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_String,
-        decodeErrorData: sse_decode_AnyhowException,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterAsJsonConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterAsJsonConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_as_json",
-        argNames: ["that"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterAuthor(
-      {required Filter that, required PublicKey author}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
-            author, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 127)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterAuthorConstMeta,
-      argValues: [that, author],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterAuthorConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_author",
-        argNames: ["that", "author"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterAuthors(
-      {required Filter that, required List<PublicKey> authors}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
-            authors, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 128)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterAuthorsConstMeta,
-      argValues: [that, authors],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterAuthorsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_authors",
-        argNames: ["that", "authors"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterCustomTag(
-      {required Filter that,
-      required SingleLetterTag tag,
-      required List<String> content}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
-            tag, serializer);
-        sse_encode_list_String(content, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 129)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterCustomTagConstMeta,
-      argValues: [that, tag, content],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterCustomTagConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_custom_tag",
-        argNames: ["that", "tag", "content"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterEvent(
-      {required Filter that, required EventId id}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
-            id, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 130)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterEventConstMeta,
-      argValues: [that, id],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterEventConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_event",
-        argNames: ["that", "id"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterEvents(
-      {required Filter that, required List<EventId> ids}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
-            ids, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 131)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterEventsConstMeta,
-      argValues: [that, ids],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterEventsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_events",
-        argNames: ["that", "ids"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterFromJson({required String json}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(json, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 132)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: sse_decode_AnyhowException,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterFromJsonConstMeta,
-      argValues: [json],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterFromJsonConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_from_json",
-        argNames: ["json"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterHashtag(
-      {required Filter that, required String hashtag}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_String(hashtag, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 133)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterHashtagConstMeta,
-      argValues: [that, hashtag],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterHashtagConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_hashtag",
-        argNames: ["that", "hashtag"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterHashtags(
-      {required Filter that, required List<String> hashtags}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_String(hashtags, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 134)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterHashtagsConstMeta,
-      argValues: [that, hashtags],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterHashtagsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_hashtags",
-        argNames: ["that", "hashtags"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterId(
-      {required Filter that, required EventId id}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
-            id, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 135)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterIdConstMeta,
-      argValues: [that, id],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterIdConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_id",
-        argNames: ["that", "id"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterIdentifier(
-      {required Filter that, required String identifier}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_String(identifier, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 136)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterIdentifierConstMeta,
-      argValues: [that, identifier],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterIdentifierConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_identifier",
-        argNames: ["that", "identifier"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterIdentifiers(
-      {required Filter that, required List<String> identifiers}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_String(identifiers, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 137)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterIdentifiersConstMeta,
-      argValues: [that, identifiers],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterIdentifiersConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_identifiers",
-        argNames: ["that", "identifiers"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterIds(
-      {required Filter that, required List<EventId> ids}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
-            ids, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 138)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterIdsConstMeta,
-      argValues: [that, ids],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterIdsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_ids",
-        argNames: ["that", "ids"],
-      );
-
-  @override
-  bool crateApiProtocolTypesFilterFilterIsEmpty({required Filter that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 139)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_bool,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterIsEmptyConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterIsEmptyConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_is_empty",
-        argNames: ["that"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterKind(
-      {required Filter that, required int kind}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_u_16(kind, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 140)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterKindConstMeta,
-      argValues: [that, kind],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterKindConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_kind",
-        argNames: ["that", "kind"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterKinds(
-      {required Filter that, required List<int> kinds}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_prim_u_16_loose(kinds, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 141)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterKindsConstMeta,
-      argValues: [that, kinds],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterKindsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_kinds",
-        argNames: ["that", "kinds"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterLimit(
-      {required Filter that, required BigInt limit}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_u_64(limit, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 142)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterLimitConstMeta,
-      argValues: [that, limit],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterLimitConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_limit",
-        argNames: ["that", "limit"],
-      );
-
-  @override
-  bool crateApiProtocolTypesFilterFilterMatchEvent(
-      {required Filter that, required Event event}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Event(
-            event, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 143)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_bool,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterMatchEventConstMeta,
-      argValues: [that, event],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterMatchEventConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_match_event",
-        argNames: ["that", "event"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterNew() {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 144)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterNewConstMeta,
-      argValues: [],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterNewConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_new",
-        argNames: [],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterPubkey(
-      {required Filter that, required PublicKey pubkey}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
-            pubkey, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 145)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterPubkeyConstMeta,
-      argValues: [that, pubkey],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterPubkeyConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_pubkey",
-        argNames: ["that", "pubkey"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterPubkeys(
-      {required Filter that, required List<PublicKey> pubkeys}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
-            pubkeys, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 146)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterPubkeysConstMeta,
-      argValues: [that, pubkeys],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterPubkeysConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_pubkeys",
-        argNames: ["that", "pubkeys"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterReference(
-      {required Filter that, required String reference}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_String(reference, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 147)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterReferenceConstMeta,
-      argValues: [that, reference],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterReferenceConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_reference",
-        argNames: ["that", "reference"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterReferences(
-      {required Filter that, required List<String> references}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_String(references, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 148)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterReferencesConstMeta,
-      argValues: [that, references],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterReferencesConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_references",
-        argNames: ["that", "references"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveAuthors(
-      {required Filter that, required List<PublicKey> authors}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
-            authors, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 149)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveAuthorsConstMeta,
-      argValues: [that, authors],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveAuthorsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_authors",
-        argNames: ["that", "authors"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveCustomTag(
-      {required Filter that,
-      required SingleLetterTag tag,
-      required List<String> content}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
-            tag, serializer);
-        sse_encode_list_String(content, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 150)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveCustomTagConstMeta,
-      argValues: [that, tag, content],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kCrateApiProtocolTypesFilterFilterRemoveCustomTagConstMeta =>
-          const TaskConstMeta(
-            debugName: "Filter_remove_custom_tag",
-            argNames: ["that", "tag", "content"],
-          );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveEvents(
-      {required Filter that, required List<EventId> ids}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
-            ids, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 151)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveEventsConstMeta,
-      argValues: [that, ids],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveEventsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_events",
-        argNames: ["that", "ids"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveHashtags(
-      {required Filter that, required List<String> hashtags}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_String(hashtags, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 152)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveHashtagsConstMeta,
-      argValues: [that, hashtags],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveHashtagsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_hashtags",
-        argNames: ["that", "hashtags"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveIdentifiers(
-      {required Filter that, required List<String> identifiers}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_String(identifiers, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 153)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveIdentifiersConstMeta,
-      argValues: [that, identifiers],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kCrateApiProtocolTypesFilterFilterRemoveIdentifiersConstMeta =>
-          const TaskConstMeta(
-            debugName: "Filter_remove_identifiers",
-            argNames: ["that", "identifiers"],
-          );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveIds(
-      {required Filter that, required List<EventId> ids}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_EventId(
-            ids, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 154)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveIdsConstMeta,
-      argValues: [that, ids],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveIdsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_ids",
-        argNames: ["that", "ids"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveKinds(
-      {required Filter that, required List<int> kinds}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_prim_u_16_loose(kinds, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 155)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveKindsConstMeta,
-      argValues: [that, kinds],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveKindsConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_kinds",
-        argNames: ["that", "kinds"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveLimit({required Filter that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 156)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveLimitConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveLimitConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_limit",
-        argNames: ["that"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemovePubkeys(
-      {required Filter that, required List<PublicKey> pubkeys}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_PublicKey(
-            pubkeys, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 157)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemovePubkeysConstMeta,
-      argValues: [that, pubkeys],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemovePubkeysConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_pubkeys",
-        argNames: ["that", "pubkeys"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveReferences(
-      {required Filter that, required List<String> references}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_list_String(references, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 158)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveReferencesConstMeta,
-      argValues: [that, references],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kCrateApiProtocolTypesFilterFilterRemoveReferencesConstMeta =>
-          const TaskConstMeta(
-            debugName: "Filter_remove_references",
-            argNames: ["that", "references"],
-          );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveSearch({required Filter that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 159)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveSearchConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveSearchConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_search",
-        argNames: ["that"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveSince({required Filter that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 160)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveSinceConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveSinceConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_since",
-        argNames: ["that"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterRemoveUntil({required Filter that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 161)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterRemoveUntilConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterRemoveUntilConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_remove_until",
-        argNames: ["that"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterSearch(
-      {required Filter that, required String text}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_String(text, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 162)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterSearchConstMeta,
-      argValues: [that, text],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterSearchConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_search",
-        argNames: ["that", "text"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterSince(
-      {required Filter that, required BigInt timestamp}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_u_64(timestamp, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 163)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterSinceConstMeta,
-      argValues: [that, timestamp],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterSinceConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_since",
-        argNames: ["that", "timestamp"],
-      );
-
-  @override
-  Filter crateApiProtocolTypesFilterFilterUntil(
-      {required Filter that, required BigInt timestamp}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter(
-            that, serializer);
-        sse_encode_u_64(timestamp, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 164)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Filter,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterFilterUntilConstMeta,
-      argValues: [that, timestamp],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta get kCrateApiProtocolTypesFilterFilterUntilConstMeta =>
-      const TaskConstMeta(
-        debugName: "Filter_until",
-        argNames: ["that", "timestamp"],
-      );
-
-  @override
-  bool crateApiProtocolTypesFilterSingleLetterTagIsLowercase(
-      {required SingleLetterTag that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 165)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_bool,
-        decodeErrorData: null,
-      ),
-      constMeta:
-          kCrateApiProtocolTypesFilterSingleLetterTagIsLowercaseConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kCrateApiProtocolTypesFilterSingleLetterTagIsLowercaseConstMeta =>
-          const TaskConstMeta(
-            debugName: "SingleLetterTag_is_lowercase",
-            argNames: ["that"],
-          );
-
-  @override
-  bool crateApiProtocolTypesFilterSingleLetterTagIsUppercase(
-      {required SingleLetterTag that}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
-            that, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 166)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_bool,
-        decodeErrorData: null,
-      ),
-      constMeta:
-          kCrateApiProtocolTypesFilterSingleLetterTagIsUppercaseConstMeta,
-      argValues: [that],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kCrateApiProtocolTypesFilterSingleLetterTagIsUppercaseConstMeta =>
-          const TaskConstMeta(
-            debugName: "SingleLetterTag_is_uppercase",
-            argNames: ["that"],
-          );
-
-  @override
-  SingleLetterTag crateApiProtocolTypesFilterSingleLetterTagLowercase(
-      {required Alphabet character}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_alphabet(character, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 167)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterSingleLetterTagLowercaseConstMeta,
-      argValues: [character],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kCrateApiProtocolTypesFilterSingleLetterTagLowercaseConstMeta =>
-          const TaskConstMeta(
-            debugName: "SingleLetterTag_lowercase",
-            argNames: ["character"],
-          );
-
-  @override
-  SingleLetterTag crateApiProtocolTypesFilterSingleLetterTagUppercase(
-      {required Alphabet character}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_alphabet(character, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 168)!;
-      },
-      codec: SseCodec(
-        decodeSuccessData:
-            sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag,
-        decodeErrorData: null,
-      ),
-      constMeta: kCrateApiProtocolTypesFilterSingleLetterTagUppercaseConstMeta,
-      argValues: [character],
-      apiImpl: this,
-    ));
-  }
-
-  TaskConstMeta
-      get kCrateApiProtocolTypesFilterSingleLetterTagUppercaseConstMeta =>
-          const TaskConstMeta(
-            debugName: "SingleLetterTag_uppercase",
-            argNames: ["character"],
-          );
-
-  @override
   SubscribeAutoCloseOptions
       crateApiRelayOptionsSubscribeAutoCloseOptionsExitPolicy(
           {required SubscribeAutoCloseOptions that,
@@ -5371,7 +5393,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
             that, serializer);
         sse_encode_box_autoadd_req_exit_policy(policy, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 169)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 170)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5402,7 +5424,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
             that, serializer);
         sse_encode_opt_box_autoadd_Chrono_Duration(timeout, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 170)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 171)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5428,7 +5450,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
     return handler.executeSync(SyncTask(
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 171)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 172)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -5458,7 +5480,7 @@ class NostrSdkApiImpl extends NostrSdkApiImplPlatform implements NostrSdkApi {
         sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
             that, serializer);
         sse_encode_opt_box_autoadd_Chrono_Duration(timeout, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 172)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 173)!;
       },
       codec: SseCodec(
         decodeSuccessData:
@@ -8782,148 +8804,144 @@ class FilterImpl extends RustOpaque implements Filter {
         NostrSdk.instance.api.rust_arc_decrement_strong_count_FilterPtr,
   );
 
-  String asJson() =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterAsJson(
+  String asJson() => NostrSdk.instance.api.crateApiProtocolFilterFilterAsJson(
         that: this,
       );
 
   /// Add event author Public Key
   Filter author({required PublicKey author}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterAuthor(that: this, author: author);
+      .crateApiProtocolFilterFilterAuthor(that: this, author: author);
 
   Filter authors({required List<PublicKey> authors}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterAuthors(that: this, authors: authors);
+      .crateApiProtocolFilterFilterAuthors(that: this, authors: authors);
 
   Filter customTag(
           {required SingleLetterTag tag, required List<String> content}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterCustomTag(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterCustomTag(
           that: this, tag: tag, content: content);
 
   /// Add event ID (`e` tag)
   Filter event({required EventId id}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterEvent(that: this, id: id);
+      .crateApiProtocolFilterFilterEvent(that: this, id: id);
 
   /// Add event IDs (`e` tag)
   Filter events({required List<EventId> ids}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterEvents(that: this, ids: ids);
+      .crateApiProtocolFilterFilterEvents(that: this, ids: ids);
 
   Filter hashtag({required String hashtag}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterHashtag(that: this, hashtag: hashtag);
+      .crateApiProtocolFilterFilterHashtag(that: this, hashtag: hashtag);
 
-  Filter hashtags({required List<String> hashtags}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterHashtags(
-          that: this, hashtags: hashtags);
+  Filter hashtags({required List<String> hashtags}) => NostrSdk.instance.api
+      .crateApiProtocolFilterFilterHashtags(that: this, hashtags: hashtags);
 
-  Filter id({required EventId id}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterId(that: this, id: id);
+  Filter id({required EventId id}) =>
+      NostrSdk.instance.api.crateApiProtocolFilterFilterId(that: this, id: id);
 
   Filter identifier({required String identifier}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterIdentifier(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterIdentifier(
           that: this, identifier: identifier);
 
   Filter identifiers({required List<String> identifiers}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterIdentifiers(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterIdentifiers(
           that: this, identifiers: identifiers);
 
   Filter ids({required List<EventId> ids}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterIds(that: this, ids: ids);
+      .crateApiProtocolFilterFilterIds(that: this, ids: ids);
 
-  bool isEmpty() =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterIsEmpty(
+  bool isEmpty() => NostrSdk.instance.api.crateApiProtocolFilterFilterIsEmpty(
         that: this,
       );
 
   Filter kind({required int kind}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterKind(that: this, kind: kind);
+      .crateApiProtocolFilterFilterKind(that: this, kind: kind);
 
   Filter kinds({required List<int> kinds}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterKinds(that: this, kinds: kinds);
+      .crateApiProtocolFilterFilterKinds(that: this, kinds: kinds);
 
   Filter limit({required BigInt limit}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterLimit(that: this, limit: limit);
+      .crateApiProtocolFilterFilterLimit(that: this, limit: limit);
 
   /// Determine if `Filter` match given `Event`.
   bool matchEvent({required Event event}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterMatchEvent(that: this, event: event);
+      .crateApiProtocolFilterFilterMatchEvent(that: this, event: event);
 
   /// Add Public Key (`p` tag)
   Filter pubkey({required PublicKey pubkey}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterPubkey(that: this, pubkey: pubkey);
+      .crateApiProtocolFilterFilterPubkey(that: this, pubkey: pubkey);
 
   /// Add Public Keys (`p` tag)
   Filter pubkeys({required List<PublicKey> pubkeys}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterPubkeys(that: this, pubkeys: pubkeys);
+      .crateApiProtocolFilterFilterPubkeys(that: this, pubkeys: pubkeys);
 
-  Filter reference({required String reference}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterReference(
-          that: this, reference: reference);
+  Filter reference({required String reference}) => NostrSdk.instance.api
+      .crateApiProtocolFilterFilterReference(that: this, reference: reference);
 
   Filter references({required List<String> references}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterReferences(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterReferences(
           that: this, references: references);
 
-  Filter removeAuthors({required List<PublicKey> authors}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveAuthors(
-          that: this, authors: authors);
+  Filter removeAuthors({required List<PublicKey> authors}) => NostrSdk
+      .instance.api
+      .crateApiProtocolFilterFilterRemoveAuthors(that: this, authors: authors);
 
   Filter removeCustomTag(
           {required SingleLetterTag tag, required List<String> content}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveCustomTag(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveCustomTag(
           that: this, tag: tag, content: content);
 
   Filter removeEvents({required List<EventId> ids}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterRemoveEvents(that: this, ids: ids);
+      .crateApiProtocolFilterFilterRemoveEvents(that: this, ids: ids);
 
   Filter removeHashtags({required List<String> hashtags}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveHashtags(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveHashtags(
           that: this, hashtags: hashtags);
 
   Filter removeIdentifiers({required List<String> identifiers}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveIdentifiers(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveIdentifiers(
           that: this, identifiers: identifiers);
 
   Filter removeIds({required List<EventId> ids}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterRemoveIds(that: this, ids: ids);
+      .crateApiProtocolFilterFilterRemoveIds(that: this, ids: ids);
 
   Filter removeKinds({required List<int> kinds}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterRemoveKinds(that: this, kinds: kinds);
+      .crateApiProtocolFilterFilterRemoveKinds(that: this, kinds: kinds);
 
   Filter removeLimit() =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveLimit(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveLimit(
         that: this,
       );
 
-  Filter removePubkeys({required List<PublicKey> pubkeys}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemovePubkeys(
-          that: this, pubkeys: pubkeys);
+  Filter removePubkeys({required List<PublicKey> pubkeys}) => NostrSdk
+      .instance.api
+      .crateApiProtocolFilterFilterRemovePubkeys(that: this, pubkeys: pubkeys);
 
   Filter removeReferences({required List<String> references}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveReferences(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveReferences(
           that: this, references: references);
 
   Filter removeSearch() =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveSearch(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveSearch(
         that: this,
       );
 
   Filter removeSince() =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveSince(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveSince(
         that: this,
       );
 
   Filter removeUntil() =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterRemoveUntil(
+      NostrSdk.instance.api.crateApiProtocolFilterFilterRemoveUntil(
         that: this,
       );
 
   Filter search({required String text}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterSearch(that: this, text: text);
+      .crateApiProtocolFilterFilterSearch(that: this, text: text);
 
   Filter since({required BigInt timestamp}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterSince(that: this, timestamp: timestamp);
+      .crateApiProtocolFilterFilterSince(that: this, timestamp: timestamp);
 
   Filter until({required BigInt timestamp}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterUntil(that: this, timestamp: timestamp);
+      .crateApiProtocolFilterFilterUntil(that: this, timestamp: timestamp);
 }
 
 @sealed
@@ -9003,9 +9021,9 @@ class NostrSignerImpl extends RustOpaque implements NostrSigner {
 
   /// Decrypt
   Future<String> nip44Decrypt(
-          {required PublicKey publicKey, required String payload}) =>
+          {required PublicKey publicKey, required String content}) =>
       NostrSdk.instance.api.crateApiProtocolSignerNostrSignerNip44Decrypt(
-          that: this, publicKey: publicKey, payload: payload);
+          that: this, publicKey: publicKey, content: content);
 
   /// Encrypt
   Future<String> nip44Encrypt(
@@ -9041,6 +9059,12 @@ class PublicKeyImpl extends RustOpaque implements PublicKey {
   /// Serialize to bech32
   String toBech32() =>
       NostrSdk.instance.api.crateApiProtocolKeyPublicKeyPublicKeyToBech32(
+        that: this,
+      );
+
+  /// Serialize to bytes
+  Uint8List toBytes() =>
+      NostrSdk.instance.api.crateApiProtocolKeyPublicKeyPublicKeyToBytes(
         that: this,
       );
 
@@ -9109,14 +9133,14 @@ class SingleLetterTagImpl extends RustOpaque implements SingleLetterTag {
   );
 
   /// Check if it's lowercase
-  bool isLowercase() => NostrSdk.instance.api
-          .crateApiProtocolTypesFilterSingleLetterTagIsLowercase(
+  bool isLowercase() =>
+      NostrSdk.instance.api.crateApiProtocolFilterSingleLetterTagIsLowercase(
         that: this,
       );
 
   /// Check if it's uppercase
-  bool isUppercase() => NostrSdk.instance.api
-          .crateApiProtocolTypesFilterSingleLetterTagIsUppercase(
+  bool isUppercase() =>
+      NostrSdk.instance.api.crateApiProtocolFilterSingleLetterTagIsUppercase(
         that: this,
       );
 }

@@ -82,11 +82,11 @@ impl _ClientOptions {
     }
 
     /// Connection
-    pub fn connection(&self, connection: _Connection) -> Self {
+    pub fn connection(&self, connection: &_Connection) -> Self {
         #[cfg(not(target_arch = "wasm32"))]
         {
             let mut builder = self.clone();
-            builder.inner = builder.inner.connection(connection.inner);
+            builder.inner = builder.inner.connection(connection.inner.clone());
             builder
         }
 
@@ -167,7 +167,7 @@ impl _Connection {
             let mode: prelude::ConnectionMode = mode.try_into()?;
             let mut builder = self.clone();
             builder.inner = builder.inner.mode(mode);
-            Ok(builder)
+            return Ok(builder);
         }
 
         #[cfg(target_arch = "wasm32")]
@@ -200,7 +200,7 @@ impl _Connection {
             let mut builder = self.clone();
             let addr: SocketAddr = addr.parse()?;
             builder.inner = builder.inner.proxy(addr);
-            Ok(builder)
+            return Ok(builder);
         }
 
         #[cfg(target_arch = "wasm32")]

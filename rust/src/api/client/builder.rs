@@ -31,9 +31,9 @@ impl _ClientBuilder {
     }
 
     /// Set signer
-    pub fn signer(&self, signer: _NostrSigner) -> Self {
+    pub fn signer(&self, signer: &_NostrSigner) -> Self {
         let mut builder = self.clone();
-        builder.inner = builder.inner.signer(signer.inner);
+        builder.inner = builder.inner.signer(signer.inner.clone());
         builder
     }
 
@@ -50,9 +50,9 @@ impl _ClientBuilder {
     // }
 
     /// Set opts
-    pub fn opts(&self, opts: _ClientOptions) -> Self {
+    pub fn opts(&self, opts: &_ClientOptions) -> Self {
         let mut builder = self.clone();
-        builder.inner = builder.inner.opts(opts.inner);
+        builder.inner = builder.inner.opts(opts.inner.clone());
         builder
     }
 

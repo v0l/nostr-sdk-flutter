@@ -75,9 +75,9 @@ impl From<Arc<dyn NostrSigner>> for _NostrSigner {
 impl _NostrSigner {
     /// Keys signer
     #[frb(sync)]
-    pub fn keys(keys: _Keys) -> Self {
+    pub fn keys(keys: &_Keys) -> Self {
         Self {
-            inner: keys.inner.into_nostr_signer(),
+            inner: keys.inner.clone().into_nostr_signer(),
         }
     }
 
@@ -101,8 +101,12 @@ impl _NostrSigner {
     }
 
     /// Sign event
-    pub async fn sign_event(&self, unsigned_event: _UnsignedEvent) -> Result<_Event> {
-        Ok(self.inner.sign_event(unsigned_event.inner).await?.into())
+    pub async fn sign_event(&self, unsigned_event: &_UnsignedEvent) -> Result<_Event> {
+        Ok(self
+            .inner
+            .sign_event(unsigned_event.inner.clone())
+            .await?
+            .into())
     }
 
     /// Encrypt
@@ -134,10 +138,10 @@ impl _NostrSigner {
     }
 
     /// Decrypt
-    pub async fn nip44_decrypt(&self, public_key: &_PublicKey, payload: &str) -> Result<String> {
+    pub async fn nip44_decrypt(&self, public_key: &_PublicKey, content: &str) -> Result<String> {
         Ok(self
             .inner
-            .nip44_decrypt(public_key.deref(), payload)
+            .nip44_decrypt(public_key.deref(), content)
             .await?)
     }
 }

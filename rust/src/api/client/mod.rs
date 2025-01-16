@@ -17,8 +17,8 @@ use self::notification::RelayPoolNotification;
 use self::output::SendEventOutput;
 use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
+use super::protocol::filter::_Filter;
 use super::protocol::signer::_NostrSigner;
-use super::protocol::types::filter::_Filter;
 use crate::api::relay::options::_SubscribeAutoCloseOptions;
 use crate::frb_generated::StreamSink;
 
@@ -68,8 +68,8 @@ impl _Client {
     }
 
     /// Set nostr signer
-    pub async fn set_signer(&self, signer: _NostrSigner) {
-        self.inner.set_signer(signer.inner).await;
+    pub async fn set_signer(&self, signer: &_NostrSigner) {
+        self.inner.set_signer(signer.inner.clone()).await;
     }
 
     /// Unset nostr signer
@@ -299,8 +299,8 @@ impl _Client {
     ///
     /// Send `Event` to all relays with `WRITE` flag.
     /// If `gossip` option is enabled, the event will be sent also to NIP65 relays (automatically discovered).
-    pub async fn send_event(&self, event: _Event) -> Result<SendEventOutput> {
-        let output = self.inner.send_event(event.inner).await?;
+    pub async fn send_event(&self, event: &_Event) -> Result<SendEventOutput> {
+        let output = self.inner.send_event(event.inner.clone()).await?;
         Ok(output.into())
     }
 
@@ -309,8 +309,8 @@ impl _Client {
     /// Take an [`EventBuilder`], sign it by using the [`NostrSigner`] and broadcast to relays (check [`Client::send_event`] from more details).
     ///
     /// Return an error if the [`NostrSigner`] is not set.
-    pub async fn send_event_builder(&self, builder: _EventBuilder) -> Result<SendEventOutput> {
-        let output = self.inner.send_event_builder(builder.inner).await?;
+    pub async fn send_event_builder(&self, builder: &_EventBuilder) -> Result<SendEventOutput> {
+        let output = self.inner.send_event_builder(builder.inner.clone()).await?;
         Ok(output.into())
     }
 

@@ -10,8 +10,8 @@ import 'client/output.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
 import 'protocol/event/builder.dart';
+import 'protocol/filter.dart';
 import 'protocol/signer.dart';
-import 'protocol/types/filter.dart';
 import 'relay/options.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`

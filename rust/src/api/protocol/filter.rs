@@ -75,6 +75,7 @@ impl From<Alphabet> for filter::Alphabet {
     }
 }
 
+#[derive(Clone, Copy)]
 #[frb(name = "SingleLetterTag")]
 pub struct _SingleLetterTag {
     pub(crate) inner: SingleLetterTag,
@@ -373,13 +374,13 @@ impl _Filter {
         builder
     }
 
-    pub fn custom_tag(&self, tag: _SingleLetterTag, content: Vec<String>) -> Self {
+    pub fn custom_tag(&self, tag: &_SingleLetterTag, content: Vec<String>) -> Self {
         let mut builder = self.clone();
         builder.inner = builder.inner.custom_tag(tag.inner, content);
         builder
     }
 
-    pub fn remove_custom_tag(&self, tag: _SingleLetterTag, content: Vec<String>) -> Self {
+    pub fn remove_custom_tag(&self, tag: &_SingleLetterTag, content: Vec<String>) -> Self {
         let mut builder = self.clone();
         builder.inner = builder.inner.remove_custom_tag(tag.inner, content);
         builder

@@ -3,10 +3,10 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
-import '../../../frb_generated.dart';
-import '../event.dart';
-import '../event/id.dart';
-import '../key/public_key.dart';
+import '../../frb_generated.dart';
+import 'event.dart';
+import 'event/id.dart';
+import 'key/public_key.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `from`, `from`
@@ -29,8 +29,8 @@ abstract class Filter implements RustOpaqueInterface {
   /// Add event IDs (`e` tag)
   Filter events({required List<EventId> ids});
 
-  static Filter fromJson({required String json}) => NostrSdk.instance.api
-      .crateApiProtocolTypesFilterFilterFromJson(json: json);
+  static Filter fromJson({required String json}) =>
+      NostrSdk.instance.api.crateApiProtocolFilterFilterFromJson(json: json);
 
   Filter hashtag({required String hashtag});
 
@@ -55,8 +55,7 @@ abstract class Filter implements RustOpaqueInterface {
   /// Determine if `Filter` match given `Event`.
   bool matchEvent({required Event event});
 
-  factory Filter() =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterFilterNew();
+  factory Filter() => NostrSdk.instance.api.crateApiProtocolFilterFilterNew();
 
   /// Add Public Key (`p` tag)
   Filter pubkey({required PublicKey pubkey});
@@ -112,13 +111,13 @@ abstract class SingleLetterTag implements RustOpaqueInterface {
 
   /// New lowercase single-letter tag
   static SingleLetterTag lowercase({required Alphabet character}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterSingleLetterTagLowercase(
-          character: character);
+      NostrSdk.instance.api
+          .crateApiProtocolFilterSingleLetterTagLowercase(character: character);
 
   /// New uppercase single-letter tag
   static SingleLetterTag uppercase({required Alphabet character}) =>
-      NostrSdk.instance.api.crateApiProtocolTypesFilterSingleLetterTagUppercase(
-          character: character);
+      NostrSdk.instance.api
+          .crateApiProtocolFilterSingleLetterTagUppercase(character: character);
 }
 
 enum Alphabet {

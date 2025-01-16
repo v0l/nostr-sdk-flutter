@@ -81,7 +81,7 @@ impl _UnsignedEvent {
     }
 
     /// Deserialize from JSON
-    pub fn from_json(json: String) -> Result<Self> {
+    pub fn from_json(json: &str) -> Result<Self> {
         Ok(Self {
             inner: UnsignedEvent::from_json(json)?,
         })
