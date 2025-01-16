@@ -39,6 +39,7 @@ use crate::api::protocol::key::*;
 use crate::api::protocol::nips::nip59::*;
 use crate::api::protocol::signer::*;
 use crate::api::protocol::types::filter::*;
+use crate::api::relay::options::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -51,7 +52,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.0.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -781178950;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -2132613419;
 
 // Section: executor
 
@@ -1421,6 +1422,262 @@ fn wire__crate__api__client__Client_signer_impl(
                         let api_that_guard = api_that_guard.unwrap();
                         let output_ok =
                             crate::api::client::_Client::signer(&*api_that_guard).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__client__Client_subscribe_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Client_subscribe",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Client>,
+            >>::sse_decode(&mut deserializer);
+            let api_filters = <Vec<_Filter>>::sse_decode(&mut deserializer);
+            let api_opts = <Option<_SubscribeAutoCloseOptions>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::client::_Client::subscribe(
+                            &*api_that_guard,
+                            api_filters,
+                            api_opts,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__client__Client_subscribe_to_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Client_subscribe_to",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Client>,
+            >>::sse_decode(&mut deserializer);
+            let api_urls = <Vec<String>>::sse_decode(&mut deserializer);
+            let api_filters = <Vec<_Filter>>::sse_decode(&mut deserializer);
+            let api_opts = <Option<_SubscribeAutoCloseOptions>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::client::_Client::subscribe_to(
+                            &*api_that_guard,
+                            api_urls,
+                            api_filters,
+                            api_opts,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__client__Client_subscribe_with_id_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Client_subscribe_with_id",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Client>,
+            >>::sse_decode(&mut deserializer);
+            let api_id = <String>::sse_decode(&mut deserializer);
+            let api_filters = <Vec<_Filter>>::sse_decode(&mut deserializer);
+            let api_opts = <Option<_SubscribeAutoCloseOptions>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::client::_Client::subscribe_with_id(
+                            &*api_that_guard,
+                            &api_id,
+                            api_filters,
+                            api_opts,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__client__Client_subscribe_with_id_to_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Client_subscribe_with_id_to",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Client>,
+            >>::sse_decode(&mut deserializer);
+            let api_urls = <Vec<String>>::sse_decode(&mut deserializer);
+            let api_id = <String>::sse_decode(&mut deserializer);
+            let api_filters = <Vec<_Filter>>::sse_decode(&mut deserializer);
+            let api_opts = <Option<_SubscribeAutoCloseOptions>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_that_guard =
+                                        Some(api_that.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = crate::api::client::_Client::subscribe_with_id_to(
+                            &*api_that_guard,
+                            api_urls,
+                            &api_id,
+                            api_filters,
+                            api_opts,
+                        )
+                        .await?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -8250,6 +8507,197 @@ fn wire__crate__api__protocol__types__filter__SingleLetterTag_uppercase_impl(
         },
     )
 }
+fn wire__crate__api__relay__options__SubscribeAutoCloseOptions_exit_policy_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SubscribeAutoCloseOptions_exit_policy",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>,
+            >>::sse_decode(&mut deserializer);
+            let api_policy =
+                <crate::api::relay::options::ReqExitPolicy>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        crate::api::relay::options::_SubscribeAutoCloseOptions::exit_policy(
+                            &*api_that_guard,
+                            api_policy,
+                        )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__relay__options__SubscribeAutoCloseOptions_idle_timeout_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SubscribeAutoCloseOptions_idle_timeout",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>,
+            >>::sse_decode(&mut deserializer);
+            let api_timeout = <Option<chrono::Duration>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        crate::api::relay::options::_SubscribeAutoCloseOptions::idle_timeout(
+                            &*api_that_guard,
+                            api_timeout,
+                        )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__relay__options__SubscribeAutoCloseOptions_new_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SubscribeAutoCloseOptions_new",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    crate::api::relay::options::_SubscribeAutoCloseOptions::new(),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__relay__options__SubscribeAutoCloseOptions_timeout_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SubscribeAutoCloseOptions_timeout",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>,
+            >>::sse_decode(&mut deserializer);
+            let api_timeout = <Option<chrono::Duration>>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        crate::api::relay::options::_SubscribeAutoCloseOptions::timeout(
+                            &*api_that_guard,
+                            api_timeout,
+                        )?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
 
 // Section: related_funcs
 
@@ -8291,6 +8739,9 @@ flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SingleLetterTag>
+);
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_Tag>
@@ -8447,6 +8898,16 @@ impl SseDecode for _SingleLetterTag {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <RustOpaqueMoi<
             flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SingleLetterTag>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for _SubscribeAutoCloseOptions {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>,
         >>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
@@ -8612,6 +9073,18 @@ impl SseDecode
 
 impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SingleLetterTag>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<
+        flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>,
+    >
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -8901,6 +9374,28 @@ impl SseDecode for Option<_EventId> {
     }
 }
 
+impl SseDecode for Option<_SubscribeAutoCloseOptions> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<_SubscribeAutoCloseOptions>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<chrono::Duration> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<chrono::Duration>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for (String, String) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -8935,6 +9430,33 @@ impl SseDecode for crate::api::client::notification::RelayPoolNotification {
             }
             2 => {
                 return crate::api::client::notification::RelayPoolNotification::Shutdown;
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseDecode for crate::api::relay::options::ReqExitPolicy {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                return crate::api::relay::options::ReqExitPolicy::ExitOnEOSE;
+            }
+            1 => {
+                let mut var_field0 = <u16>::sse_decode(deserializer);
+                return crate::api::relay::options::ReqExitPolicy::WaitForEventsAfterEOSE(
+                    var_field0,
+                );
+            }
+            2 => {
+                let mut var_field0 = <chrono::Duration>::sse_decode(deserializer);
+                return crate::api::relay::options::ReqExitPolicy::WaitDurationAfterEOSE(
+                    var_field0,
+                );
             }
             _ => {
                 unimplemented!("");
@@ -9085,68 +9607,82 @@ fn pde_ffi_dispatcher_primary_impl(
         23 => wire__crate__api__client__Client_set_signer_impl(port, ptr, rust_vec_len, data_len),
         24 => wire__crate__api__client__Client_shutdown_impl(port, ptr, rust_vec_len, data_len),
         25 => wire__crate__api__client__Client_signer_impl(port, ptr, rust_vec_len, data_len),
-        26 => wire__crate__api__client__Client_unset_signer_impl(port, ptr, rust_vec_len, data_len),
-        60 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_impl(
+        26 => wire__crate__api__client__Client_subscribe_impl(port, ptr, rust_vec_len, data_len),
+        27 => wire__crate__api__client__Client_subscribe_to_impl(port, ptr, rust_vec_len, data_len),
+        28 => wire__crate__api__client__Client_subscribe_with_id_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        64 => wire__crate__api__protocol__event__builder__EventBuilder_private_msg_impl(
+        29 => wire__crate__api__client__Client_subscribe_with_id_to_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        65 => wire__crate__api__protocol__event__builder__EventBuilder_seal_impl(
+        30 => wire__crate__api__client__Client_unset_signer_impl(port, ptr, rust_vec_len, data_len),
+        64 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        66 => wire__crate__api__protocol__event__builder__EventBuilder_sign_impl(
+        68 => wire__crate__api__protocol__event__builder__EventBuilder_private_msg_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        111 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
+        69 => wire__crate__api__protocol__event__builder__EventBuilder_seal_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        115 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
+        70 => wire__crate__api__protocol__event__builder__EventBuilder_sign_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        117 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
+        115 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_from_gift_wrap_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        118 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
+        119 => wire__crate__api__protocol__signer__NostrSigner_get_public_key_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        119 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
+        121 => wire__crate__api__protocol__signer__NostrSigner_nip04_decrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        120 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
+        122 => wire__crate__api__protocol__signer__NostrSigner_nip04_encrypt_impl(
             port,
             ptr,
             rust_vec_len,
             data_len,
         ),
-        121 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
+        123 => wire__crate__api__protocol__signer__NostrSigner_nip44_decrypt_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        124 => wire__crate__api__protocol__signer__NostrSigner_nip44_encrypt_impl(
+            port,
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        125 => wire__crate__api__protocol__signer__NostrSigner_sign_event_impl(
             port,
             ptr,
             rust_vec_len,
@@ -9171,501 +9707,521 @@ fn pde_ffi_dispatcher_sync_impl(
         ),
         7 => wire__crate__api__client__Client_builder_impl(ptr, rust_vec_len, data_len),
         17 => wire__crate__api__client__Client_new_impl(ptr, rust_vec_len, data_len),
-        27 => {
+        31 => {
             wire__crate__api__client__builder__ClientBuilder_build_impl(ptr, rust_vec_len, data_len)
         }
-        28 => {
+        32 => {
             wire__crate__api__client__builder__ClientBuilder_new_impl(ptr, rust_vec_len, data_len)
         }
-        29 => {
+        33 => {
             wire__crate__api__client__builder__ClientBuilder_opts_impl(ptr, rust_vec_len, data_len)
         }
-        30 => wire__crate__api__client__builder__ClientBuilder_signer_impl(
+        34 => wire__crate__api__client__builder__ClientBuilder_signer_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        31 => wire__crate__api__client__options__ClientOptions_autoconnect_impl(
+        35 => wire__crate__api__client__options__ClientOptions_autoconnect_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        32 => wire__crate__api__client__options__ClientOptions_automatic_authentication_impl(
+        36 => wire__crate__api__client__options__ClientOptions_automatic_authentication_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        33 => wire__crate__api__client__options__ClientOptions_connection_impl(
+        37 => wire__crate__api__client__options__ClientOptions_connection_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        34 => wire__crate__api__client__options__ClientOptions_gossip_impl(
+        38 => wire__crate__api__client__options__ClientOptions_gossip_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        35 => wire__crate__api__client__options__ClientOptions_min_pow_impl(
+        39 => wire__crate__api__client__options__ClientOptions_min_pow_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        36 => {
+        40 => {
             wire__crate__api__client__options__ClientOptions_new_impl(ptr, rust_vec_len, data_len)
         }
-        37 => wire__crate__api__client__options__Connection_addr_impl(ptr, rust_vec_len, data_len),
-        38 => wire__crate__api__client__options__Connection_embedded_tor_impl(
+        41 => wire__crate__api__client__options__Connection_addr_impl(ptr, rust_vec_len, data_len),
+        42 => wire__crate__api__client__options__Connection_embedded_tor_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        39 => wire__crate__api__client__options__Connection_embedded_tor_with_path_impl(
+        43 => wire__crate__api__client__options__Connection_embedded_tor_with_path_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        40 => wire__crate__api__client__options__Connection_mode_impl(ptr, rust_vec_len, data_len),
-        41 => wire__crate__api__client__options__Connection_new_impl(ptr, rust_vec_len, data_len),
-        42 => {
+        44 => wire__crate__api__client__options__Connection_mode_impl(ptr, rust_vec_len, data_len),
+        45 => wire__crate__api__client__options__Connection_new_impl(ptr, rust_vec_len, data_len),
+        46 => {
             wire__crate__api__client__options__Connection_target_impl(ptr, rust_vec_len, data_len)
         }
-        43 => wire__crate__api__protocol__event__Event_as_json_impl(ptr, rust_vec_len, data_len),
-        44 => wire__crate__api__protocol__event__Event_as_pretty_json_impl(
+        47 => wire__crate__api__protocol__event__Event_as_json_impl(ptr, rust_vec_len, data_len),
+        48 => wire__crate__api__protocol__event__Event_as_pretty_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        45 => wire__crate__api__protocol__event__Event_author_impl(ptr, rust_vec_len, data_len),
-        46 => wire__crate__api__protocol__event__Event_content_impl(ptr, rust_vec_len, data_len),
-        47 => wire__crate__api__protocol__event__Event_created_at_impl(ptr, rust_vec_len, data_len),
-        48 => wire__crate__api__protocol__event__Event_from_json_impl(ptr, rust_vec_len, data_len),
-        49 => wire__crate__api__protocol__event__Event_id_impl(ptr, rust_vec_len, data_len),
-        50 => wire__crate__api__protocol__event__Event_is_expired_impl(ptr, rust_vec_len, data_len),
-        51 => {
+        49 => wire__crate__api__protocol__event__Event_author_impl(ptr, rust_vec_len, data_len),
+        50 => wire__crate__api__protocol__event__Event_content_impl(ptr, rust_vec_len, data_len),
+        51 => wire__crate__api__protocol__event__Event_created_at_impl(ptr, rust_vec_len, data_len),
+        52 => wire__crate__api__protocol__event__Event_from_json_impl(ptr, rust_vec_len, data_len),
+        53 => wire__crate__api__protocol__event__Event_id_impl(ptr, rust_vec_len, data_len),
+        54 => wire__crate__api__protocol__event__Event_is_expired_impl(ptr, rust_vec_len, data_len),
+        55 => {
             wire__crate__api__protocol__event__Event_is_protected_impl(ptr, rust_vec_len, data_len)
         }
-        52 => wire__crate__api__protocol__event__Event_kind_impl(ptr, rust_vec_len, data_len),
-        53 => wire__crate__api__protocol__event__Event_signature_impl(ptr, rust_vec_len, data_len),
-        54 => wire__crate__api__protocol__event__Event_tags_impl(ptr, rust_vec_len, data_len),
-        55 => wire__crate__api__protocol__event__Event_verify_impl(ptr, rust_vec_len, data_len),
-        56 => wire__crate__api__protocol__event__Event_verify_id_impl(ptr, rust_vec_len, data_len),
-        57 => wire__crate__api__protocol__event__Event_verify_signature_impl(
+        56 => wire__crate__api__protocol__event__Event_kind_impl(ptr, rust_vec_len, data_len),
+        57 => wire__crate__api__protocol__event__Event_signature_impl(ptr, rust_vec_len, data_len),
+        58 => wire__crate__api__protocol__event__Event_tags_impl(ptr, rust_vec_len, data_len),
+        59 => wire__crate__api__protocol__event__Event_verify_impl(ptr, rust_vec_len, data_len),
+        60 => wire__crate__api__protocol__event__Event_verify_id_impl(ptr, rust_vec_len, data_len),
+        61 => wire__crate__api__protocol__event__Event_verify_signature_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        58 => wire__crate__api__protocol__event__builder__EventBuilder_build_impl(
+        62 => wire__crate__api__protocol__event__builder__EventBuilder_build_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        59 => wire__crate__api__protocol__event__builder__EventBuilder_custom_created_at_impl(
+        63 => wire__crate__api__protocol__event__builder__EventBuilder_custom_created_at_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        61 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_from_seal_impl(
+        65 => wire__crate__api__protocol__event__builder__EventBuilder_gift_wrap_from_seal_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        62 => wire__crate__api__protocol__event__builder__EventBuilder_new_impl(
+        66 => wire__crate__api__protocol__event__builder__EventBuilder_new_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        63 => wire__crate__api__protocol__event__builder__EventBuilder_pow_impl(
+        67 => wire__crate__api__protocol__event__builder__EventBuilder_pow_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        67 => wire__crate__api__protocol__event__builder__EventBuilder_sign_with_keys_impl(
+        71 => wire__crate__api__protocol__event__builder__EventBuilder_sign_with_keys_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        68 => wire__crate__api__protocol__event__builder__EventBuilder_tag_impl(
+        72 => wire__crate__api__protocol__event__builder__EventBuilder_tag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        69 => wire__crate__api__protocol__event__builder__EventBuilder_tags_impl(
+        73 => wire__crate__api__protocol__event__builder__EventBuilder_tags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        70 => wire__crate__api__protocol__event__builder__EventBuilder_text_note_impl(
+        74 => wire__crate__api__protocol__event__builder__EventBuilder_text_note_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        71 => wire__crate__api__protocol__event__id__EventId_from_slice_impl(
+        75 => wire__crate__api__protocol__event__id__EventId_from_slice_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        72 => wire__crate__api__protocol__event__id__EventId_new_impl(ptr, rust_vec_len, data_len),
-        73 => {
+        76 => wire__crate__api__protocol__event__id__EventId_new_impl(ptr, rust_vec_len, data_len),
+        77 => {
             wire__crate__api__protocol__event__id__EventId_parse_impl(ptr, rust_vec_len, data_len)
         }
-        74 => wire__crate__api__protocol__event__id__EventId_to_bech32_impl(
+        78 => wire__crate__api__protocol__event__id__EventId_to_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        75 => wire__crate__api__protocol__event__id__EventId_to_bytes_impl(
+        79 => wire__crate__api__protocol__event__id__EventId_to_bytes_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        76 => {
+        80 => {
             wire__crate__api__protocol__event__id__EventId_to_hex_impl(ptr, rust_vec_len, data_len)
         }
-        77 => wire__crate__api__protocol__event__id__EventId_to_nostr_uri_impl(
+        81 => wire__crate__api__protocol__event__id__EventId_to_nostr_uri_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        78 => wire__crate__api__protocol__event__tag__Tag_as_vec_impl(ptr, rust_vec_len, data_len),
-        79 => wire__crate__api__protocol__event__tag__Tag_content_impl(ptr, rust_vec_len, data_len),
-        80 => wire__crate__api__protocol__event__tag__Tag_is_protected_impl(
+        82 => wire__crate__api__protocol__event__tag__Tag_as_vec_impl(ptr, rust_vec_len, data_len),
+        83 => wire__crate__api__protocol__event__tag__Tag_content_impl(ptr, rust_vec_len, data_len),
+        84 => wire__crate__api__protocol__event__tag__Tag_is_protected_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        81 => {
+        85 => {
             wire__crate__api__protocol__event__tag__Tag_is_reply_impl(ptr, rust_vec_len, data_len)
         }
-        82 => wire__crate__api__protocol__event__tag__Tag_is_root_impl(ptr, rust_vec_len, data_len),
-        83 => wire__crate__api__protocol__event__tag__Tag_kind_impl(ptr, rust_vec_len, data_len),
-        84 => wire__crate__api__protocol__event__tag__Tag_parse_impl(ptr, rust_vec_len, data_len),
-        85 => wire__crate__api__protocol__event__tag__Tag_to_vec_impl(ptr, rust_vec_len, data_len),
-        86 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_add_signature_impl(
+        86 => wire__crate__api__protocol__event__tag__Tag_is_root_impl(ptr, rust_vec_len, data_len),
+        87 => wire__crate__api__protocol__event__tag__Tag_kind_impl(ptr, rust_vec_len, data_len),
+        88 => wire__crate__api__protocol__event__tag__Tag_parse_impl(ptr, rust_vec_len, data_len),
+        89 => wire__crate__api__protocol__event__tag__Tag_to_vec_impl(ptr, rust_vec_len, data_len),
+        90 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_add_signature_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        87 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_json_impl(
+        91 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        88 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_pretty_json_impl(
+        92 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_as_pretty_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        89 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_author_impl(
+        93 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_author_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        90 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_content_impl(
+        94 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_content_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        91 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_created_at_impl(
+        95 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_created_at_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        92 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_from_json_impl(
+        96 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_from_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        93 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_id_impl(
+        97 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_id_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        94 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_kind_impl(
+        98 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_kind_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        95 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_tags_impl(
+        99 => wire__crate__api__protocol__event__unsigned__UnsignedEvent_tags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        96 => wire__crate__api__protocol__key__Keys_generate_impl(ptr, rust_vec_len, data_len),
-        97 => wire__crate__api__protocol__key__Keys_new_impl(ptr, rust_vec_len, data_len),
-        98 => wire__crate__api__protocol__key__Keys_parse_impl(ptr, rust_vec_len, data_len),
-        99 => wire__crate__api__protocol__key__Keys_public_key_impl(ptr, rust_vec_len, data_len),
-        100 => wire__crate__api__protocol__key__Keys_secret_key_impl(ptr, rust_vec_len, data_len),
-        101 => wire__crate__api__protocol__key__public_key__PublicKey_from_slice_impl(
+        100 => wire__crate__api__protocol__key__Keys_generate_impl(ptr, rust_vec_len, data_len),
+        101 => wire__crate__api__protocol__key__Keys_new_impl(ptr, rust_vec_len, data_len),
+        102 => wire__crate__api__protocol__key__Keys_parse_impl(ptr, rust_vec_len, data_len),
+        103 => wire__crate__api__protocol__key__Keys_public_key_impl(ptr, rust_vec_len, data_len),
+        104 => wire__crate__api__protocol__key__Keys_secret_key_impl(ptr, rust_vec_len, data_len),
+        105 => wire__crate__api__protocol__key__public_key__PublicKey_from_slice_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        102 => wire__crate__api__protocol__key__public_key__PublicKey_parse_impl(
+        106 => wire__crate__api__protocol__key__public_key__PublicKey_parse_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        103 => wire__crate__api__protocol__key__public_key__PublicKey_to_bech32_impl(
+        107 => wire__crate__api__protocol__key__public_key__PublicKey_to_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        104 => wire__crate__api__protocol__key__public_key__PublicKey_to_hex_impl(
+        108 => wire__crate__api__protocol__key__public_key__PublicKey_to_hex_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        105 => wire__crate__api__protocol__key__public_key__PublicKey_to_nostr_uri_impl(
+        109 => wire__crate__api__protocol__key__public_key__PublicKey_to_nostr_uri_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        106 => wire__crate__api__protocol__key__secret_key__SecretKey_from_slice_impl(
+        110 => wire__crate__api__protocol__key__secret_key__SecretKey_from_slice_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        107 => wire__crate__api__protocol__key__secret_key__SecretKey_generate_impl(
+        111 => wire__crate__api__protocol__key__secret_key__SecretKey_generate_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        108 => wire__crate__api__protocol__key__secret_key__SecretKey_parse_impl(
+        112 => wire__crate__api__protocol__key__secret_key__SecretKey_parse_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        109 => wire__crate__api__protocol__key__secret_key__SecretKey_to_bech32_impl(
+        113 => wire__crate__api__protocol__key__secret_key__SecretKey_to_bech32_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        110 => wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
+        114 => wire__crate__api__protocol__key__secret_key__SecretKey_to_secret_hex_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        112 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
+        116 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_rumor_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        113 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
+        117 => wire__crate__api__protocol__nips__nip59__UnwrappedGift_sender_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        114 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
+        118 => wire__crate__api__protocol__signer__NostrSigner_backend_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        116 => {
+        120 => {
             wire__crate__api__protocol__signer__NostrSigner_keys_impl(ptr, rust_vec_len, data_len)
         }
-        122 => wire__crate__api__protocol__types__filter__Filter_as_json_impl(
+        126 => wire__crate__api__protocol__types__filter__Filter_as_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        123 => wire__crate__api__protocol__types__filter__Filter_author_impl(
+        127 => wire__crate__api__protocol__types__filter__Filter_author_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        124 => wire__crate__api__protocol__types__filter__Filter_authors_impl(
+        128 => wire__crate__api__protocol__types__filter__Filter_authors_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        125 => wire__crate__api__protocol__types__filter__Filter_custom_tag_impl(
+        129 => wire__crate__api__protocol__types__filter__Filter_custom_tag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        126 => wire__crate__api__protocol__types__filter__Filter_event_impl(
+        130 => wire__crate__api__protocol__types__filter__Filter_event_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        127 => wire__crate__api__protocol__types__filter__Filter_events_impl(
+        131 => wire__crate__api__protocol__types__filter__Filter_events_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        128 => wire__crate__api__protocol__types__filter__Filter_from_json_impl(
+        132 => wire__crate__api__protocol__types__filter__Filter_from_json_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        129 => wire__crate__api__protocol__types__filter__Filter_hashtag_impl(
+        133 => wire__crate__api__protocol__types__filter__Filter_hashtag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        130 => wire__crate__api__protocol__types__filter__Filter_hashtags_impl(
+        134 => wire__crate__api__protocol__types__filter__Filter_hashtags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        131 => {
+        135 => {
             wire__crate__api__protocol__types__filter__Filter_id_impl(ptr, rust_vec_len, data_len)
         }
-        132 => wire__crate__api__protocol__types__filter__Filter_identifier_impl(
+        136 => wire__crate__api__protocol__types__filter__Filter_identifier_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        133 => wire__crate__api__protocol__types__filter__Filter_identifiers_impl(
+        137 => wire__crate__api__protocol__types__filter__Filter_identifiers_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        134 => {
+        138 => {
             wire__crate__api__protocol__types__filter__Filter_ids_impl(ptr, rust_vec_len, data_len)
         }
-        135 => wire__crate__api__protocol__types__filter__Filter_is_empty_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        136 => {
-            wire__crate__api__protocol__types__filter__Filter_kind_impl(ptr, rust_vec_len, data_len)
-        }
-        137 => wire__crate__api__protocol__types__filter__Filter_kinds_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        138 => wire__crate__api__protocol__types__filter__Filter_limit_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        139 => wire__crate__api__protocol__types__filter__Filter_match_event_impl(
+        139 => wire__crate__api__protocol__types__filter__Filter_is_empty_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
         140 => {
+            wire__crate__api__protocol__types__filter__Filter_kind_impl(ptr, rust_vec_len, data_len)
+        }
+        141 => wire__crate__api__protocol__types__filter__Filter_kinds_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        142 => wire__crate__api__protocol__types__filter__Filter_limit_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        143 => wire__crate__api__protocol__types__filter__Filter_match_event_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        144 => {
             wire__crate__api__protocol__types__filter__Filter_new_impl(ptr, rust_vec_len, data_len)
         }
-        141 => wire__crate__api__protocol__types__filter__Filter_pubkey_impl(
+        145 => wire__crate__api__protocol__types__filter__Filter_pubkey_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        142 => wire__crate__api__protocol__types__filter__Filter_pubkeys_impl(
+        146 => wire__crate__api__protocol__types__filter__Filter_pubkeys_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        143 => wire__crate__api__protocol__types__filter__Filter_reference_impl(
+        147 => wire__crate__api__protocol__types__filter__Filter_reference_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        144 => wire__crate__api__protocol__types__filter__Filter_references_impl(
+        148 => wire__crate__api__protocol__types__filter__Filter_references_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        145 => wire__crate__api__protocol__types__filter__Filter_remove_authors_impl(
+        149 => wire__crate__api__protocol__types__filter__Filter_remove_authors_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        146 => wire__crate__api__protocol__types__filter__Filter_remove_custom_tag_impl(
+        150 => wire__crate__api__protocol__types__filter__Filter_remove_custom_tag_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        147 => wire__crate__api__protocol__types__filter__Filter_remove_events_impl(
+        151 => wire__crate__api__protocol__types__filter__Filter_remove_events_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        148 => wire__crate__api__protocol__types__filter__Filter_remove_hashtags_impl(
+        152 => wire__crate__api__protocol__types__filter__Filter_remove_hashtags_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        149 => wire__crate__api__protocol__types__filter__Filter_remove_identifiers_impl(
+        153 => wire__crate__api__protocol__types__filter__Filter_remove_identifiers_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        150 => wire__crate__api__protocol__types__filter__Filter_remove_ids_impl(
+        154 => wire__crate__api__protocol__types__filter__Filter_remove_ids_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        151 => wire__crate__api__protocol__types__filter__Filter_remove_kinds_impl(
+        155 => wire__crate__api__protocol__types__filter__Filter_remove_kinds_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        152 => wire__crate__api__protocol__types__filter__Filter_remove_limit_impl(
+        156 => wire__crate__api__protocol__types__filter__Filter_remove_limit_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        153 => wire__crate__api__protocol__types__filter__Filter_remove_pubkeys_impl(
+        157 => wire__crate__api__protocol__types__filter__Filter_remove_pubkeys_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        154 => wire__crate__api__protocol__types__filter__Filter_remove_references_impl(
+        158 => wire__crate__api__protocol__types__filter__Filter_remove_references_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        155 => wire__crate__api__protocol__types__filter__Filter_remove_search_impl(
+        159 => wire__crate__api__protocol__types__filter__Filter_remove_search_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        156 => wire__crate__api__protocol__types__filter__Filter_remove_since_impl(
+        160 => wire__crate__api__protocol__types__filter__Filter_remove_since_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        157 => wire__crate__api__protocol__types__filter__Filter_remove_until_impl(
+        161 => wire__crate__api__protocol__types__filter__Filter_remove_until_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        158 => wire__crate__api__protocol__types__filter__Filter_search_impl(
+        162 => wire__crate__api__protocol__types__filter__Filter_search_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        159 => wire__crate__api__protocol__types__filter__Filter_since_impl(
+        163 => wire__crate__api__protocol__types__filter__Filter_since_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        160 => wire__crate__api__protocol__types__filter__Filter_until_impl(
+        164 => wire__crate__api__protocol__types__filter__Filter_until_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        161 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_lowercase_impl(
+        165 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_lowercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        162 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_uppercase_impl(
+        166 => wire__crate__api__protocol__types__filter__SingleLetterTag_is_uppercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        163 => wire__crate__api__protocol__types__filter__SingleLetterTag_lowercase_impl(
+        167 => wire__crate__api__protocol__types__filter__SingleLetterTag_lowercase_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        164 => wire__crate__api__protocol__types__filter__SingleLetterTag_uppercase_impl(
+        168 => wire__crate__api__protocol__types__filter__SingleLetterTag_uppercase_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        169 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_exit_policy_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        170 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_idle_timeout_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        171 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_new_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        172 => wire__crate__api__relay__options__SubscribeAutoCloseOptions_timeout_impl(
             ptr,
             rust_vec_len,
             data_len,
@@ -9872,6 +10428,26 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<_SingleLetterTag>> for _Single
 }
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<_SubscribeAutoCloseOptions> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<_SubscribeAutoCloseOptions>
+{
+}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<_SubscribeAutoCloseOptions>>
+    for _SubscribeAutoCloseOptions
+{
+    fn into_into_dart(self) -> FrbWrapper<_SubscribeAutoCloseOptions> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<_Tag> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
@@ -10055,6 +10631,34 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::client::notification::RelayPo
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::relay::options::ReqExitPolicy {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::relay::options::ReqExitPolicy::ExitOnEOSE => [0.into_dart()].into_dart(),
+            crate::api::relay::options::ReqExitPolicy::WaitForEventsAfterEOSE(field0) => {
+                [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::relay::options::ReqExitPolicy::WaitDurationAfterEOSE(field0) => {
+                [2.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::relay::options::ReqExitPolicy
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::relay::options::ReqExitPolicy>
+    for crate::api::relay::options::ReqExitPolicy
+{
+    fn into_into_dart(self) -> crate::api::relay::options::ReqExitPolicy {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::client::output::SendEventOutput {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -10213,6 +10817,18 @@ impl SseEncode for _SingleLetterTag {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SingleLetterTag>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode for _SubscribeAutoCloseOptions {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>,
+        >>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
+            serializer,
+        );
     }
 }
 
@@ -10384,6 +11000,19 @@ impl SseEncode
 
 impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SingleLetterTag>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<
+        flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>,
+    >
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -10659,6 +11288,26 @@ impl SseEncode for Option<_EventId> {
     }
 }
 
+impl SseEncode for Option<_SubscribeAutoCloseOptions> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <_SubscribeAutoCloseOptions>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<chrono::Duration> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <chrono::Duration>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for (String, String) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -10691,6 +11340,28 @@ impl SseEncode for crate::api::client::notification::RelayPoolNotification {
             }
             crate::api::client::notification::RelayPoolNotification::Shutdown => {
                 <i32>::sse_encode(2, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseEncode for crate::api::relay::options::ReqExitPolicy {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::relay::options::ReqExitPolicy::ExitOnEOSE => {
+                <i32>::sse_encode(0, serializer);
+            }
+            crate::api::relay::options::ReqExitPolicy::WaitForEventsAfterEOSE(field0) => {
+                <i32>::sse_encode(1, serializer);
+                <u16>::sse_encode(field0, serializer);
+            }
+            crate::api::relay::options::ReqExitPolicy::WaitDurationAfterEOSE(field0) => {
+                <i32>::sse_encode(2, serializer);
+                <chrono::Duration>::sse_encode(field0, serializer);
             }
             _ => {
                 unimplemented!("");

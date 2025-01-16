@@ -80,6 +80,10 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
       get rust_arc_decrement_strong_count_SingleLetterTagPtr => wire
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag;
 
+  CrossPlatformFinalizerArg
+      get rust_arc_decrement_strong_count_SubscribeAutoCloseOptionsPtr => wire
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions;
+
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_TagPtr => wire
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag;
 
@@ -165,6 +169,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           dynamic raw);
 
   @protected
+  SubscribeAutoCloseOptions
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          dynamic raw);
+
+  @protected
   Tag dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
       dynamic raw);
 
@@ -241,6 +250,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   SingleLetterTag
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
+          dynamic raw);
+
+  @protected
+  SubscribeAutoCloseOptions
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
           dynamic raw);
 
   @protected
@@ -329,6 +343,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           dynamic raw);
 
   @protected
+  SubscribeAutoCloseOptions
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          dynamic raw);
+
+  @protected
   Tag dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
       dynamic raw);
 
@@ -364,7 +383,18 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           dynamic raw);
 
   @protected
+  SubscribeAutoCloseOptions
+      dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          dynamic raw);
+
+  @protected
+  Duration dco_decode_box_autoadd_Chrono_Duration(dynamic raw);
+
+  @protected
   ConnectionMode dco_decode_box_autoadd_connection_mode(dynamic raw);
+
+  @protected
+  ReqExitPolicy dco_decode_box_autoadd_req_exit_policy(dynamic raw);
 
   @protected
   ConnectionMode dco_decode_connection_mode(dynamic raw);
@@ -430,10 +460,21 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           dynamic raw);
 
   @protected
+  SubscribeAutoCloseOptions?
+      dco_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          dynamic raw);
+
+  @protected
+  Duration? dco_decode_opt_box_autoadd_Chrono_Duration(dynamic raw);
+
+  @protected
   (String, String) dco_decode_record_string_string(dynamic raw);
 
   @protected
   RelayPoolNotification dco_decode_relay_pool_notification(dynamic raw);
+
+  @protected
+  ReqExitPolicy dco_decode_req_exit_policy(dynamic raw);
 
   @protected
   SendEventOutput dco_decode_send_event_output(dynamic raw);
@@ -530,6 +571,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  SubscribeAutoCloseOptions
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SseDeserializer deserializer);
+
+  @protected
   Tag sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
       SseDeserializer deserializer);
 
@@ -606,6 +652,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   @protected
   SingleLetterTag
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
+          SseDeserializer deserializer);
+
+  @protected
+  SubscribeAutoCloseOptions
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
           SseDeserializer deserializer);
 
   @protected
@@ -695,6 +746,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  SubscribeAutoCloseOptions
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SseDeserializer deserializer);
+
+  @protected
   Tag sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
       SseDeserializer deserializer);
 
@@ -731,7 +787,19 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  SubscribeAutoCloseOptions
+      sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SseDeserializer deserializer);
+
+  @protected
+  Duration sse_decode_box_autoadd_Chrono_Duration(SseDeserializer deserializer);
+
+  @protected
   ConnectionMode sse_decode_box_autoadd_connection_mode(
+      SseDeserializer deserializer);
+
+  @protected
+  ReqExitPolicy sse_decode_box_autoadd_req_exit_policy(
       SseDeserializer deserializer);
 
   @protected
@@ -799,12 +867,24 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           SseDeserializer deserializer);
 
   @protected
+  SubscribeAutoCloseOptions?
+      sse_decode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SseDeserializer deserializer);
+
+  @protected
+  Duration? sse_decode_opt_box_autoadd_Chrono_Duration(
+      SseDeserializer deserializer);
+
+  @protected
   (String, String) sse_decode_record_string_string(
       SseDeserializer deserializer);
 
   @protected
   RelayPoolNotification sse_decode_relay_pool_notification(
       SseDeserializer deserializer);
+
+  @protected
+  ReqExitPolicy sse_decode_req_exit_policy(SseDeserializer deserializer);
 
   @protected
   SendEventOutput sse_decode_send_event_output(SseDeserializer deserializer);
@@ -903,6 +983,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SubscribeAutoCloseOptions self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
           Tag self, SseSerializer serializer);
 
@@ -980,6 +1065,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
   void
       sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
           SingleLetterTag self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SubscribeAutoCloseOptions self, SseSerializer serializer);
 
   @protected
   void
@@ -1070,6 +1160,11 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
 
   @protected
   void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SubscribeAutoCloseOptions self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
           Tag self, SseSerializer serializer);
 
@@ -1105,8 +1200,21 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           EventId self, SseSerializer serializer);
 
   @protected
+  void
+      sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SubscribeAutoCloseOptions self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_Chrono_Duration(
+      Duration self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_connection_mode(
       ConnectionMode self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_req_exit_policy(
+      ReqExitPolicy self, SseSerializer serializer);
 
   @protected
   void sse_encode_connection_mode(
@@ -1178,12 +1286,24 @@ abstract class NostrSdkApiImplPlatform extends BaseApiImpl<NostrSdkWire> {
           EventId? self, SseSerializer serializer);
 
   @protected
+  void
+      sse_encode_opt_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          SubscribeAutoCloseOptions? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_Chrono_Duration(
+      Duration? self, SseSerializer serializer);
+
+  @protected
   void sse_encode_record_string_string(
       (String, String) self, SseSerializer serializer);
 
   @protected
   void sse_encode_relay_pool_notification(
       RelayPoolNotification self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_req_exit_policy(ReqExitPolicy self, SseSerializer serializer);
 
   @protected
   void sse_encode_send_event_output(
@@ -1369,6 +1489,18 @@ class NostrSdkWire implements BaseWire {
           .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
               ptr);
 
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          int ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          int ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+              ptr);
+
   void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_Tag(
           int ptr) =>
       wasmModule
@@ -1514,6 +1646,14 @@ extension type NostrSdkWasmModule._(JSObject _) implements JSObject {
 
   external void
       rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SingleLetterTag(
+          int ptr);
+
+  external void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+          int ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
           int ptr);
 
   external void

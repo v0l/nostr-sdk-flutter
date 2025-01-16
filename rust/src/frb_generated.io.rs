@@ -18,6 +18,7 @@ use crate::api::protocol::key::*;
 use crate::api::protocol::nips::nip59::*;
 use crate::api::protocol::signer::*;
 use crate::api::protocol::types::filter::*;
+use crate::api::relay::options::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -206,6 +207,20 @@ pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_fl
     ptr: *const std::ffi::c_void,
 ) {
     MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SingleLetterTag>>::decrement_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>>::increment_strong_count(ptr as _);
+}
+
+#[no_mangle]
+pub extern "C" fn frbgen_nostr_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInner_SubscribeAutoCloseOptions(
+    ptr: *const std::ffi::c_void,
+) {
+    MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<_SubscribeAutoCloseOptions>>::decrement_strong_count(ptr as _);
 }
 
 #[no_mangle]

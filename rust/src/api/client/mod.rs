@@ -19,6 +19,7 @@ use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
 use super::protocol::signer::_NostrSigner;
 use super::protocol::types::filter::_Filter;
+use crate::api::relay::options::_SubscribeAutoCloseOptions;
 use crate::frb_generated::StreamSink;
 
 #[frb(name = "Client")]
@@ -185,6 +186,98 @@ impl _Client {
     #[inline]
     pub async fn disconnect(&self) -> Result<()> {
         Ok(self.inner.disconnect().await?)
+    }
+
+    /// Subscribe to filters
+    ///
+    /// This method creates a new subscription. None of the previous subscriptions will be edited/closed when you call this!
+    /// So remember to unsubscribe when you no longer need it.
+    ///
+    /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
+    /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
+    ///
+    /// # Auto-closing subscription
+    ///
+    /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+    ///
+    /// Note: auto-closing subscriptions aren't saved in subscriptions map!
+    pub async fn subscribe(
+        &self,
+        filters: Vec<_Filter>,
+        opts: Option<_SubscribeAutoCloseOptions>,
+    ) -> Result<String> {
+        let filters = filters.into_iter().map(|f| f.inner).collect();
+        let opts = opts.map(|o| o.inner);
+        let output = self.inner.subscribe(filters, opts).await?;
+        // TODO return output
+        Ok(output.id().to_string())
+    }
+
+    /// Subscribe to filters with custom [SubscriptionId]
+    ///
+    /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
+    /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
+    ///
+    /// # Auto-closing subscription
+    ///
+    /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+    ///
+    /// Note: auto-closing subscriptions aren't saved in subscriptions map!
+    pub async fn subscribe_with_id(
+        &self,
+        id: &str,
+        filters: Vec<_Filter>,
+        opts: Option<_SubscribeAutoCloseOptions>,
+    ) -> Result<()> {
+        let id = SubscriptionId::new(id);
+        let filters = filters.into_iter().map(|f| f.inner).collect();
+        let opts = opts.map(|o| o.inner);
+        self.inner.subscribe_with_id(id, filters, opts).await?;
+        // TODO return output
+        Ok(())
+    }
+
+    /// Subscribe to filters to specific relays
+    ///
+    /// This method creates a new subscription. None of the previous subscriptions will be edited/closed when you call this!
+    /// So remember to unsubscribe when you no longer need it.
+    ///
+    /// ### Auto-closing subscription
+    ///
+    /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+    pub async fn subscribe_to(
+        &self,
+        urls: Vec<String>,
+        filters: Vec<_Filter>,
+        opts: Option<_SubscribeAutoCloseOptions>,
+    ) -> Result<String> {
+        let filters = filters.into_iter().map(|f| f.inner).collect();
+        let opts = opts.map(|o| o.inner);
+        let output = self.inner.subscribe_to(urls, filters, opts).await?;
+        // TODO return output
+        Ok(output.id().to_string())
+    }
+
+    /// Subscribe to filters with custom [SubscriptionId] to specific relays
+    ///
+    /// ### Auto-closing subscription
+    ///
+    /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+    pub async fn subscribe_with_id_to(
+        &self,
+        urls: Vec<String>,
+        id: &str,
+        filters: Vec<_Filter>,
+        opts: Option<_SubscribeAutoCloseOptions>,
+    ) -> Result<()> {
+        let id = SubscriptionId::new(id);
+        let filters = filters.into_iter().map(|f| f.inner).collect();
+        let opts = opts.map(|o| o.inner);
+        self.inner
+            .subscribe_with_id_to(urls, id, filters, opts)
+            .await?;
+        // TODO return output
+        Ok(())
     }
 
     /// Fetch events from relays

@@ -12,6 +12,7 @@ import 'protocol/event.dart';
 import 'protocol/event/builder.dart';
 import 'protocol/signer.dart';
 import 'protocol/types/filter.dart';
+import 'relay/options.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
@@ -135,6 +136,61 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// Rise error if it not set.
   Future<NostrSigner> signer();
+
+  /// Subscribe to filters
+  ///
+  /// This method creates a new subscription. None of the previous subscriptions will be edited/closed when you call this!
+  /// So remember to unsubscribe when you no longer need it.
+  ///
+  /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
+  /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
+  ///
+  /// # Auto-closing subscription
+  ///
+  /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+  ///
+  /// Note: auto-closing subscriptions aren't saved in subscriptions map!
+  Future<String> subscribe(
+      {required List<Filter> filters, SubscribeAutoCloseOptions? opts});
+
+  /// Subscribe to filters to specific relays
+  ///
+  /// This method creates a new subscription. None of the previous subscriptions will be edited/closed when you call this!
+  /// So remember to unsubscribe when you no longer need it.
+  ///
+  /// ### Auto-closing subscription
+  ///
+  /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+  Future<String> subscribeTo(
+      {required List<String> urls,
+      required List<Filter> filters,
+      SubscribeAutoCloseOptions? opts});
+
+  /// Subscribe to filters with custom [SubscriptionId]
+  ///
+  /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
+  /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
+  ///
+  /// # Auto-closing subscription
+  ///
+  /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+  ///
+  /// Note: auto-closing subscriptions aren't saved in subscriptions map!
+  Future<void> subscribeWithId(
+      {required String id,
+      required List<Filter> filters,
+      SubscribeAutoCloseOptions? opts});
+
+  /// Subscribe to filters with custom [SubscriptionId] to specific relays
+  ///
+  /// ### Auto-closing subscription
+  ///
+  /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
+  Future<void> subscribeWithIdTo(
+      {required List<String> urls,
+      required String id,
+      required List<Filter> filters,
+      SubscribeAutoCloseOptions? opts});
 
   /// Unset nostr signer
   Future<void> unsetSigner();
