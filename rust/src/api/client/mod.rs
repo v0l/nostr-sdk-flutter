@@ -15,6 +15,7 @@ pub mod output;
 use self::builder::_ClientBuilder;
 use self::notification::RelayPoolNotification;
 use self::output::SendEventOutput;
+use super::database::_NostrDatabase;
 use super::database::events::_Events;
 use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
@@ -54,6 +55,11 @@ impl _Client {
     #[frb(sync)]
     pub fn automatic_authentication(&self, enable: bool) {
         self.inner.automatic_authentication(enable);
+    }
+
+    /// Get database
+    pub fn database(&self) -> _NostrDatabase {
+        self.inner.database().clone().into()
     }
 
     /// Check if signer is configured

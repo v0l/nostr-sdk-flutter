@@ -7,6 +7,7 @@ import '../frb_generated.dart';
 import 'client/builder.dart';
 import 'client/notification.dart';
 import 'client/output.dart';
+import 'database.dart';
 import 'database/events.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
@@ -64,6 +65,9 @@ abstract class Client implements RustOpaqueInterface {
 
   /// Connect to a previously added relay
   Future<void> connectRelay({required String url});
+
+  /// Get database
+  Future<NostrDatabase> database();
 
   /// Disconnect from all relays
   Future<void> disconnect();
