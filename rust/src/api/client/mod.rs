@@ -294,6 +294,20 @@ impl _Client {
         Ok(events.into())
     }
 
+    /// Fetch events from specific relays.
+    pub async fn fetch_events_from(
+        &self,
+        urls: Vec<String>,
+        filter: &_Filter,
+        timeout: Duration,
+    ) -> Result<_Events> {
+        let events = self
+            .inner
+            .fetch_events_from(urls, filter.inner.clone(), timeout.to_std()?)
+            .await?;
+        Ok(events.into())
+    }
+
     /// Send event
     ///
     /// Send `Event` to all relays with `WRITE` flag.

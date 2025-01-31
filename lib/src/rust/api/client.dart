@@ -78,6 +78,12 @@ abstract class Client implements RustOpaqueInterface {
   Future<Events> fetchEvents(
       {required Filter filter, required Duration timeout});
 
+  /// Fetch events from specific relays.
+  Future<Events> fetchEventsFrom(
+      {required List<String> urls,
+      required Filter filter,
+      required Duration timeout});
+
   /// Disconnect and force remove all relays
   Future<void> forceRemoveAllRelays();
 

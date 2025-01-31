@@ -46,6 +46,7 @@
 * Expose `NostrDatabase` and `Events` structs ([Yuki Kishimoto])
 * Expose `ClientBuilder::database` ([Yuki Kishimoto])
 * Expose `Client::send_event_to` ([Yuki Kishimoto])
+* Expose `Client::fetch_events_from` ([Yuki Kishimoto])
 
 ### Fixed
 
