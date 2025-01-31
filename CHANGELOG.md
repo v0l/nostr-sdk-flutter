@@ -23,9 +23,7 @@
 
 -->
 
-## [Unreleased]
-
-### Breaking changes
+## [v0.39.0]
 
 ### Changed
 
@@ -48,12 +46,6 @@
 * Expose `Client::send_event_to` ([Yuki Kishimoto])
 * Expose `Client::fetch_events_from` ([Yuki Kishimoto])
 * Expose `Client::database` ([Yuki Kishimoto])
-
-### Fixed
-
-### Removed
-
-### Deprecated
 
 ## [v0.38.0]
 
@@ -80,5 +72,6 @@
 [J. Azad EMERY]: https://github.com/ethicnology
 
 <!-- Tags -->
-[Unreleased]: https://github.com/rust-nostr/nostr-sdk-flutter/compare/v0.38.0...HEAD
+[Unreleased]: https://github.com/rust-nostr/nostr-sdk-flutter/compare/v0.39.0...HEAD
+[v0.39.0]: https://github.com/rust-nostr/nostr-sdk-flutter/compare/5030349e7e13a96c00416f40d9aacd318a8dd978v0.38.0...v0.39.0
 [v0.38.0]: https://github.com/rust-nostr/nostr-sdk-flutter/compare/5030349e7e13a96c00416f40d9aacd318a8dd978...v0.38.0
