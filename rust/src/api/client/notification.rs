@@ -47,7 +47,6 @@ impl From<pool::RelayPoolNotification> for RelayPoolNotification {
                 message: message.as_json(),
             },
             pool::RelayPoolNotification::Shutdown => Self::Shutdown,
-            _ => unreachable!(),
         }
     }
 }

@@ -80,14 +80,14 @@ impl _Client {
     /// Reset client
     ///
     /// This method reset the client to simplify the switch to another account.
-    pub async fn reset(&self) -> Result<()> {
-        Ok(self.inner.reset().await?)
+    pub async fn reset(&self) {
+        self.inner.reset().await
     }
 
     /// Completely shutdown client
     #[inline]
-    pub async fn shutdown(&self) -> Result<()> {
-        Ok(self.inner.shutdown().await?)
+    pub async fn shutdown(&self) {
+        self.inner.shutdown().await
     }
 
     /// Add relay
@@ -155,14 +155,14 @@ impl _Client {
     /// (like the ones used for gossip).
     /// Use [`Client::force_remove_all_relays`] to remove every relay.
     #[inline]
-    pub async fn remove_all_relays(&self) -> Result<()> {
-        Ok(self.inner.remove_all_relays().await?)
+    pub async fn remove_all_relays(&self) {
+        self.inner.remove_all_relays().await
     }
 
     /// Disconnect and force remove all relays
     #[inline]
-    pub async fn force_remove_all_relays(&self) -> Result<()> {
-        Ok(self.inner.force_remove_all_relays().await?)
+    pub async fn force_remove_all_relays(&self) {
+        self.inner.force_remove_all_relays().await
     }
 
     /// Connect to a previously added relay
@@ -184,8 +184,8 @@ impl _Client {
 
     /// Disconnect from all relays
     #[inline]
-    pub async fn disconnect(&self) -> Result<()> {
-        Ok(self.inner.disconnect().await?)
+    pub async fn disconnect(&self) {
+        self.inner.disconnect().await
     }
 
     /// Subscribe to filters
@@ -203,12 +203,11 @@ impl _Client {
     /// Note: auto-closing subscriptions aren't saved in subscriptions map!
     pub async fn subscribe(
         &self,
-        filters: Vec<_Filter>,
+        filter: &_Filter,
         opts: Option<_SubscribeAutoCloseOptions>,
     ) -> Result<String> {
-        let filters = filters.into_iter().map(|f| f.inner).collect();
         let opts = opts.map(|o| o.inner);
-        let output = self.inner.subscribe(filters, opts).await?;
+        let output = self.inner.subscribe(filter.inner.clone(), opts).await?;
         // TODO return output
         Ok(output.id().to_string())
     }
@@ -226,13 +225,14 @@ impl _Client {
     pub async fn subscribe_with_id(
         &self,
         id: &str,
-        filters: Vec<_Filter>,
+        filter: &_Filter,
         opts: Option<_SubscribeAutoCloseOptions>,
     ) -> Result<()> {
         let id = SubscriptionId::new(id);
-        let filters = filters.into_iter().map(|f| f.inner).collect();
         let opts = opts.map(|o| o.inner);
-        self.inner.subscribe_with_id(id, filters, opts).await?;
+        self.inner
+            .subscribe_with_id(id, filter.inner.clone(), opts)
+            .await?;
         // TODO return output
         Ok(())
     }
@@ -248,12 +248,14 @@ impl _Client {
     pub async fn subscribe_to(
         &self,
         urls: Vec<String>,
-        filters: Vec<_Filter>,
+        filter: &_Filter,
         opts: Option<_SubscribeAutoCloseOptions>,
     ) -> Result<String> {
-        let filters = filters.into_iter().map(|f| f.inner).collect();
         let opts = opts.map(|o| o.inner);
-        let output = self.inner.subscribe_to(urls, filters, opts).await?;
+        let output = self
+            .inner
+            .subscribe_to(urls, filter.inner.clone(), opts)
+            .await?;
         // TODO return output
         Ok(output.id().to_string())
     }
@@ -267,14 +269,13 @@ impl _Client {
         &self,
         urls: Vec<String>,
         id: &str,
-        filters: Vec<_Filter>,
+        filter: &_Filter,
         opts: Option<_SubscribeAutoCloseOptions>,
     ) -> Result<()> {
         let id = SubscriptionId::new(id);
-        let filters = filters.into_iter().map(|f| f.inner).collect();
         let opts = opts.map(|o| o.inner);
         self.inner
-            .subscribe_with_id_to(urls, id, filters, opts)
+            .subscribe_with_id_to(urls, id, filter.inner.clone(), opts)
             .await?;
         // TODO return output
         Ok(())
@@ -285,13 +286,11 @@ impl _Client {
     /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
     /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
     // TODO: return `Events` struct
-    pub async fn fetch_events(
-        &self,
-        filters: Vec<_Filter>,
-        timeout: Duration,
-    ) -> Result<Vec<_Event>> {
-        let filters = filters.into_iter().map(|f| f.inner).collect();
-        let events = self.inner.fetch_events(filters, timeout.to_std()?).await?;
+    pub async fn fetch_events(&self, filter: &_Filter, timeout: Duration) -> Result<Vec<_Event>> {
+        let events = self
+            .inner
+            .fetch_events(filter.inner.clone(), timeout.to_std()?)
+            .await?;
         Ok(events.into_iter().map(|e| e.into()).collect())
     }
 

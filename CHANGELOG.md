@@ -29,6 +29,8 @@
 
 ### Changed
 
+* Bump `nostr-sdk` to 0.39 ([Yuki Kishimoto])
+
 ### Added
 
 * Expose `EventId` ([Yuki Kishimoto])

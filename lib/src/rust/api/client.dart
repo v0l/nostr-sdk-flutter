@@ -75,7 +75,7 @@ abstract class Client implements RustOpaqueInterface {
   /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
   /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
   Future<List<Event>> fetchEvents(
-      {required List<Filter> filters, required Duration timeout});
+      {required Filter filter, required Duration timeout});
 
   /// Disconnect and force remove all relays
   Future<void> forceRemoveAllRelays();
@@ -151,7 +151,7 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// Note: auto-closing subscriptions aren't saved in subscriptions map!
   Future<String> subscribe(
-      {required List<Filter> filters, SubscribeAutoCloseOptions? opts});
+      {required Filter filter, SubscribeAutoCloseOptions? opts});
 
   /// Subscribe to filters to specific relays
   ///
@@ -163,7 +163,7 @@ abstract class Client implements RustOpaqueInterface {
   /// It's possible to automatically close a subscription by configuring the [SubscribeAutoCloseOptions].
   Future<String> subscribeTo(
       {required List<String> urls,
-      required List<Filter> filters,
+      required Filter filter,
       SubscribeAutoCloseOptions? opts});
 
   /// Subscribe to filters with custom [SubscriptionId]
@@ -178,7 +178,7 @@ abstract class Client implements RustOpaqueInterface {
   /// Note: auto-closing subscriptions aren't saved in subscriptions map!
   Future<void> subscribeWithId(
       {required String id,
-      required List<Filter> filters,
+      required Filter filter,
       SubscribeAutoCloseOptions? opts});
 
   /// Subscribe to filters with custom [SubscriptionId] to specific relays
@@ -189,7 +189,7 @@ abstract class Client implements RustOpaqueInterface {
   Future<void> subscribeWithIdTo(
       {required List<String> urls,
       required String id,
-      required List<Filter> filters,
+      required Filter filter,
       SubscribeAutoCloseOptions? opts});
 
   /// Unset nostr signer

@@ -20,7 +20,9 @@ abstract class Filter implements RustOpaqueInterface {
 
   Filter authors({required List<PublicKey> authors});
 
-  Filter customTag(
+  Filter customTag({required SingleLetterTag tag, required String content});
+
+  Filter customTags(
       {required SingleLetterTag tag, required List<String> content});
 
   /// Add event ID (`e` tag)
@@ -69,7 +71,7 @@ abstract class Filter implements RustOpaqueInterface {
 
   Filter removeAuthors({required List<PublicKey> authors});
 
-  Filter removeCustomTag(
+  Filter removeCustomTags(
       {required SingleLetterTag tag, required List<String> content});
 
   Filter removeEvents({required List<EventId> ids});
