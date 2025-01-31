@@ -303,6 +303,16 @@ impl _Client {
         Ok(output.into())
     }
 
+    /// Send event to specific relays.
+    pub async fn send_event_to(
+        &self,
+        urls: Vec<String>,
+        event: &_Event,
+    ) -> Result<SendEventOutput> {
+        let output = self.inner.send_event_to(urls, event.inner.clone()).await?;
+        Ok(output.into())
+    }
+
     /// Send event
     ///
     /// Take an [`EventBuilder`], sign it by using the [`NostrSigner`] and broadcast to relays (check [`Client::send_event`] from more details).

@@ -127,6 +127,10 @@ abstract class Client implements RustOpaqueInterface {
   /// Return an error if the [`NostrSigner`] is not set.
   Future<SendEventOutput> sendEventBuilder({required EventBuilder builder});
 
+  /// Send event to specific relays.
+  Future<SendEventOutput> sendEventTo(
+      {required List<String> urls, required Event event});
+
   /// Set nostr signer
   Future<void> setSigner({required NostrSigner signer});
 
