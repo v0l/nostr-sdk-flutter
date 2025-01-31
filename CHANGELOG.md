@@ -43,6 +43,7 @@
 * Expose `UnwrappedGift` ([Yuki Kishimoto])
 * Expose `Client::handle_notifications` ([Yuki Kishimoto])
 * Expose subscribe `Client` methods ([Yuki Kishimoto])
+* Expose `NostrDatabase` and `Events` structs ([Yuki Kishimoto])
 
 ### Fixed
 

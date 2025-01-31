@@ -7,6 +7,7 @@ import '../frb_generated.dart';
 import 'client/builder.dart';
 import 'client/notification.dart';
 import 'client/output.dart';
+import 'database/events.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'protocol/event.dart';
 import 'protocol/event/builder.dart';
@@ -74,7 +75,7 @@ abstract class Client implements RustOpaqueInterface {
   ///
   /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
   /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
-  Future<List<Event>> fetchEvents(
+  Future<Events> fetchEvents(
       {required Filter filter, required Duration timeout});
 
   /// Disconnect and force remove all relays

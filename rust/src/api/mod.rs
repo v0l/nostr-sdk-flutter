@@ -5,6 +5,7 @@
 use flutter_rust_bridge::frb;
 
 pub mod client;
+pub mod database;
 pub mod protocol;
 pub mod relay;
 

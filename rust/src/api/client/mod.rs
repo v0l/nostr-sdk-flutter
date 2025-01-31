@@ -15,6 +15,7 @@ pub mod output;
 use self::builder::_ClientBuilder;
 use self::notification::RelayPoolNotification;
 use self::output::SendEventOutput;
+use super::database::events::_Events;
 use super::protocol::event::_Event;
 use super::protocol::event::builder::_EventBuilder;
 use super::protocol::filter::_Filter;
@@ -285,13 +286,12 @@ impl _Client {
     ///
     /// If `gossip` is enabled (see [`Options::gossip`]) the events will be requested also to
     /// NIP65 relays (automatically discovered) of public keys included in filters (if any).
-    // TODO: return `Events` struct
-    pub async fn fetch_events(&self, filter: &_Filter, timeout: Duration) -> Result<Vec<_Event>> {
+    pub async fn fetch_events(&self, filter: &_Filter, timeout: Duration) -> Result<_Events> {
         let events = self
             .inner
             .fetch_events(filter.inner.clone(), timeout.to_std()?)
             .await?;
-        Ok(events.into_iter().map(|e| e.into()).collect())
+        Ok(events.into())
     }
 
     /// Send event

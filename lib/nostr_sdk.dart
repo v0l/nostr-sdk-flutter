@@ -19,3 +19,5 @@ export 'src/rust/api/client/builder.dart';
 export 'src/rust/api/client/notification.dart';
 export 'src/rust/api/client/options.dart';
 export 'src/rust/api/client/output.dart';
+export 'src/rust/api/database.dart';
+export 'src/rust/api/database/events.dart';
