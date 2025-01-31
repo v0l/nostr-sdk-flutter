@@ -5,6 +5,7 @@
 
 import '../../frb_generated.dart';
 import '../client.dart';
+import '../database.dart';
 import '../protocol/signer.dart';
 import 'options.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
@@ -15,6 +16,9 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 abstract class ClientBuilder implements RustOpaqueInterface {
   /// Build client
   Client build();
+
+  /// Set database
+  ClientBuilder database({required NostrDatabase database});
 
   /// New client builder
   factory ClientBuilder() =>

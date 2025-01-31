@@ -44,6 +44,7 @@
 * Expose `Client::handle_notifications` ([Yuki Kishimoto])
 * Expose subscribe `Client` methods ([Yuki Kishimoto])
 * Expose `NostrDatabase` and `Events` structs ([Yuki Kishimoto])
+* Expose `ClientBuilder::database` ([Yuki Kishimoto])
 
 ### Fixed
 
